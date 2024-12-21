@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 
 import { ThemeProvider } from '@/components/theme-provider';
@@ -18,18 +19,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${nunito.className} antialiased`}>
-        <WebVitals />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${nunito.className} antialiased`}>
+          <WebVitals />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
