@@ -4,12 +4,12 @@ import type { Metadata } from 'next';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import { WebVitals } from '@/components/web-vitals';
-import { inter } from '@/lib/fonts';
+import { nunito } from '@/lib/fonts';
 
 export const metadata: Metadata = {
-  title: 'TechRivive',
+  title: 'Lingo',
   description:
-    'TechRevive brings your devices back to life with expert repair services for smartphones, laptops, tablets, and more. From cracked screens to battery replacements, we deliver quick, affordable, and hassle-free solutions. Trust us for quality repairs you can count on!',
+    'Lingo is a language learning platform that helps you learn languages with fun and interactive lessons.',
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${nunito.className} antialiased`}>
         <WebVitals />
         <ThemeProvider
           attribute="class"
