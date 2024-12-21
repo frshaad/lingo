@@ -7,8 +7,9 @@ import { WebVitals } from '@/components/web-vitals';
 import { inter } from '@/lib/fonts';
 
 export const metadata: Metadata = {
-  title: 'Next Template',
-  description: 'Next.js 15 template created by Farshad Hatami',
+  title: 'TechRivive',
+  description:
+    'TechRevive brings your devices back to life with expert repair services for smartphones, laptops, tablets, and more. From cracked screens to battery replacements, we deliver quick, affordable, and hassle-free solutions. Trust us for quality repairs you can count on!',
 };
 
 export default function RootLayout({
