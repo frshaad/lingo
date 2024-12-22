@@ -3,7 +3,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 import ClerkAuthProvider from '@/components/clerk-provider';
-import { ThemeProvider } from '@/components/theme-provider';
 import { WebVitals } from '@/components/web-vitals';
 import { nunito } from '@/lib/fonts';
 
@@ -23,14 +22,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={`${nunito.className} antialiased`}>
           <WebVitals />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          {children}
         </body>
       </html>
     </ClerkAuthProvider>
