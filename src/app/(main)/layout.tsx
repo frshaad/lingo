@@ -10,7 +10,7 @@ export default function MainLayout({
     <>
       <MobileHeader />
       <Sidebar className="hidden lg:flex" />
-      <main className="h-full max-lg:pt-12 lg:pl-64">
+      <main className="h-full max-lg:pt-12 lg:pl-72">
         <div className="h-full bg-red-300">{children}</div>
       </main>
     </>
