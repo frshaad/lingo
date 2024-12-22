@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 export default function MarketingFooter() {
   return (
-    <footer className="hidden h-20 w-full border-t-2 border-slate-200 p-2 lg:block">
+    <footer className="hidden h-20 w-full border-t-2 border-slate-200 p-2 dark:border-slate-800 lg:block">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
         {COUNTRIES.map((country) => (
           <CountryFlag key={country.id} {...country} />
@@ -30,7 +30,7 @@ function CountryFlag({ lang, src }: { lang: string; src: string }) {
 }
 
 const COUNTRIES = [
-  { id: 1, src: '/hr.svg', lang: 'croatian' },
+  { id: 1, src: '/de.svg', lang: 'german' },
   { id: 2, src: '/es.svg', lang: 'spanish' },
   { id: 3, src: '/fr.svg', lang: 'french' },
   { id: 4, src: '/it.svg', lang: 'italian' },
