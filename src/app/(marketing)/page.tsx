@@ -21,7 +21,7 @@ export default function Home() {
         <h1 className="max-w-lg text-center text-xl font-bold text-neutral-600 lg:text-3xl">
           Learn, practice and master new languages with Lingo.
         </h1>
-        <div>
+        <div className="flex w-full max-w-[330px] flex-col items-center gap-y-3">
           <ClerkLoadingSpinner />
           <ClerkLoaded>
             <SignedOut>
