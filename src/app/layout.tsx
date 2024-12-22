@@ -25,7 +25,7 @@ export default function RootLayout({
           <WebVitals />
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
