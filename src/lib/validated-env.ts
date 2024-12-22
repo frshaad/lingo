@@ -36,6 +36,7 @@ const envSchema = z.object({
       required_error: 'Clerk after sign out url is required',
     })
     .startsWith('/', { message: 'Clerk after sign out url must start with /' }),
+  DATABASE_URL: z.string({ required_error: 'Database url is required' }),
 });
 
 const env = envSchema.parse(process.env);
