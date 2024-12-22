@@ -1,14 +1,13 @@
 import {
   ClerkLoaded,
-  ClerkLoading,
   SignedIn,
   SignedOut,
   SignInButton,
   UserButton,
 } from '@clerk/nextjs';
-import { Loader } from 'lucide-react';
 import Image from 'next/image';
 
+import ClerkLoadingSpinner from '@/components/clerk/clerk-loading';
 import { Button } from '@/components/ui/button';
 
 export default function MarketingHeader() {
@@ -36,19 +35,13 @@ function Logo() {
 function ClerkAuthButtons() {
   return (
     <>
-      <ClerkLoading>
-        <Loader size={20} className="animate-spin text-muted-foreground" />
-      </ClerkLoading>
+      <ClerkLoadingSpinner />
       <ClerkLoaded>
         <SignedIn>
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <SignInButton
-            mode="modal"
-            // fallbackRedirectUrl="/learn"
-            // signUpFallbackRedirectUrl="/learn"
-          >
+          <SignInButton mode="modal">
             <Button size="lg" variant="ghost">
               Login
             </Button>
