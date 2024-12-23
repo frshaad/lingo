@@ -1,17 +1,21 @@
-import { getCourses } from '@/db/queries';
+import { getCourses, getUserProgress } from '@/db/queries';
 
 import CourseCard from './course-card';
 
 export default async function CoursesGrid() {
-  const activeCourse = 2;
-  const courses = await getCourses();
+  const coursesPromise = getCourses();
+  const userProgressPromise = getUserProgress();
+  const [courses, userProgress] = await Promise.all([
+    coursesPromise,
+    userProgressPromise,
+  ]);
 
   return (
     <div className="grid grid-cols-2 gap-4 pt-6 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))]">
       {courses.map((course) => (
         <CourseCard
           key={course.id}
-          active={activeCourse === course.id}
+          active={userProgress?.activeCourseId === course.id}
           disabled={false}
           // onClick={(id) => id}
           {...course}

@@ -26,7 +26,7 @@ export const userProgressTable = pgTable('user_progress', {
 export const userProgressRelations = relations(
   userProgressTable,
   ({ one }) => ({
-    activeCourses: one(coursesTable, {
+    activeCourse: one(coursesTable, {
       fields: [userProgressTable.activeCourseId],
       references: [coursesTable.id],
     }),
