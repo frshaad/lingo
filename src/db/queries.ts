@@ -1,10 +1,10 @@
 import { cache } from 'react';
 
-import db from '.';
+import db from './index';
 import { coursesTable } from './schema';
 
 export const getCourses = cache(async () => {
-  const data = await db.select().from(coursesTable);
+  const data = await db.query.coursesTable.findMany();
   return data;
 });
 
