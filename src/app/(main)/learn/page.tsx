@@ -9,8 +9,9 @@ import StickyWrapper from './_components/sticky-wrapper';
 
 export default async function LearnPage() {
   const userProgress = await getUserProgress();
-  if (!userProgress || userProgress.activeCourse) {
-    redirect('/courses');
+
+  if (!userProgress || !userProgress?.activeCourse) {
+    return redirect('/courses');
   }
 
   return (

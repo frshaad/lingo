@@ -16,8 +16,6 @@ export default async function CoursesGrid() {
         <CourseCard
           key={course.id}
           active={userProgress?.activeCourseId === course.id}
-          disabled={false}
-          // onClick={(id) => id}
           {...course}
         />
       ))}
