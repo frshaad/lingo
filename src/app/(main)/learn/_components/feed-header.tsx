@@ -15,7 +15,7 @@ export default function FeedHeader({ title }: FeedHeaderProps) {
           <ArrowLeft size={20} className="stroke-2 text-neutral-400" />
         </Link>
       </Button>
-      <h1 className="text-lg font-bold">{title}</h1>
+      <h1 className="text-lg font-bold capitalize">{title}</h1>
       <div className="w-6" />
     </div>
   );

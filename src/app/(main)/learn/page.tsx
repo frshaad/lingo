@@ -10,20 +10,20 @@ import StickyWrapper from './_components/sticky-wrapper';
 export default async function LearnPage() {
   const userProgress = await getUserProgress();
 
-  if (!userProgress || !userProgress.activeCourse) {
+  if (!userProgress || !userProgress?.activeCourse) {
     redirect('/courses');
   }
 
   return (
     <div className="flex gap-12 px-6">
       <FeedWrapper>
-        <FeedHeader title="Spanish" />
+        <FeedHeader title={userProgress.activeCourse.title} />
       </FeedWrapper>
       <StickyWrapper>
         <UserProgress
-          activeCourse={{ title: 'spanish', imageSrc: '/es.svg' }}
-          hearts={5}
-          points={100}
+          activeCourse={userProgress.activeCourse}
+          hearts={userProgress.hearts}
+          points={userProgress.points}
           hasActiveSubscription={false}
         />
       </StickyWrapper>
