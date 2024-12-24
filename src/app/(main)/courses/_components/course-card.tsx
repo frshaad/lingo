@@ -27,9 +27,13 @@ export default function CourseCard({ id, imageSrc, title, active }: Props) {
     }
 
     startTransition(async () => {
-      upsertUserProgress(courseId).catch(() =>
-        toast.error('Something went wrong!'),
-      );
+      try {
+        await upsertUserProgress(courseId);
+      } catch (error) {
+        if (error instanceof Error && error.message !== 'NEXT_REDIRECT') {
+          toast.error('Something went wrong!');
+        }
+      }
     });
   };
 
