@@ -1,8 +1,15 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": ["simple-import-sort"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:drizzle/recommended",
+    "next/typescript",
+    "prettier"
+  ],
+  "plugins": ["drizzle", "simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "drizzle/enforce-delete-with-where": "off",
+    "drizzle/enforce-update-with-where": "off"
   }
 }

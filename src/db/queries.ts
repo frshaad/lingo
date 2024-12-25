@@ -3,10 +3,15 @@ import { eq } from 'drizzle-orm';
 import { cache } from 'react';
 
 import db from '.';
-import { coursesTable, userProgressTable } from './schema';
+import { course, userProgress } from './schema';
+
+// Add type for the query result
+type UserProgressWithCourse = typeof userProgress.$inferSelect & {
+  activeCourse: typeof course.$inferSelect | null;
+};
 
 export const getCourses = cache(async () => {
-  const courses = await db.query.coursesTable.findMany();
+  const courses = await db.query.course.findMany();
   return courses;
 });
 
@@ -16,19 +21,19 @@ export const getUserProgress = cache(async () => {
     return null;
   }
 
-  const userProgress = await db.query.userProgressTable.findFirst({
-    where: eq(userProgressTable.userId, userId),
+  const userProgressData = (await db.query.userProgress.findFirst({
+    where: eq(userProgress.userId, userId),
     with: { activeCourse: true },
-  });
+  })) as UserProgressWithCourse | null;
 
-  return userProgress;
+  return userProgressData;
 });
 
 export const getCourseById = cache(async (courseId: number) => {
-  const course = await db.query.coursesTable.findFirst({
-    where: eq(coursesTable.id, courseId),
+  const courseData = await db.query.course.findFirst({
+    where: eq(course.id, courseId),
     // TODO: Populate units and lessons
   });
 
-  return course;
+  return courseData;
 });

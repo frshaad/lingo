@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
-import { userProgressTable } from '@/db/schema';
+import { userProgress } from '@/db/schema';
 
 export async function upsertUserProgress(courseId: number) {
   const { userId } = await auth();
@@ -27,7 +27,7 @@ export async function upsertUserProgress(courseId: number) {
 
   const existingUserProgress = await getUserProgress();
   if (existingUserProgress) {
-    await db.update(userProgressTable).set({
+    await db.update(userProgress).set({
       activeCourseId: courseId,
       userName: user.firstName || 'User',
       userImageSrc: user.imageUrl || '/mascot.svg',
@@ -38,7 +38,7 @@ export async function upsertUserProgress(courseId: number) {
     redirect('/learn');
   }
 
-  await db.insert(userProgressTable).values({
+  await db.insert(userProgress).values({
     userId,
     activeCourseId: courseId,
     userName: user.firstName || 'User',

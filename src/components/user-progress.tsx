@@ -3,10 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { coursesTable } from '@/db/schema';
+import { course } from '@/db/schema';
 
 type Props = {
-  activeCourse: typeof coursesTable.$inferSelect;
+  activeCourse: typeof course.$inferSelect;
   hearts: number;
   points: number;
   hasActiveSubscription: boolean;

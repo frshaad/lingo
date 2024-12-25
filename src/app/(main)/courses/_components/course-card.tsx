@@ -7,13 +7,13 @@ import { useTransition } from 'react';
 import { toast } from 'sonner';
 
 import { upsertUserProgress } from '@/actions/user-progress';
-import { coursesTable } from '@/db/schema';
+import { course } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 type Props = {
   disabled?: boolean;
   active?: boolean;
-} & typeof coursesTable.$inferSelect;
+} & typeof course.$inferSelect;
 
 export default function CourseCard({ id, imageSrc, title, active }: Props) {
   const router = useRouter();

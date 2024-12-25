@@ -4,13 +4,13 @@ import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { course } from '@/db/schema';
 
 export const unit = pgTable('unit', {
-  id: serial('id').primaryKey(),
-  title: text('title').notNull(),
-  description: text('description').notNull(),
-  courseId: integer('course_id')
+  id: serial().primaryKey(),
+  title: text().notNull(),
+  description: text().notNull(),
+  courseId: integer()
     .references(() => course.id, { onDelete: 'cascade' })
     .notNull(),
-  order: integer('order').notNull(),
+  order: integer().notNull(),
 });
 
 export const unitsRelations = relations(unit, ({ one }) => ({
