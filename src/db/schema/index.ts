@@ -6,6 +6,12 @@ export {
   challengeRelations,
 } from './challenge';
 export {
+  challengeOption,
+  type ChallengeOptionInsertSchema,
+  challengeOptionInsertSchema,
+  challengeOptionRelations,
+} from './challenge-option';
+export {
   course,
   type CourseInsertSchema,
   courseInsertSchema,
