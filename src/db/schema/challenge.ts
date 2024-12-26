@@ -3,7 +3,7 @@ import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-import { challengeOption, lesson } from '@/db/schema';
+import { challengeOption, challengeProgress, lesson } from '@/db/schema';
 
 export const challengeEnum = pgEnum('type', ['SELECT', 'ASSIST']);
 
@@ -23,6 +23,7 @@ export const challengeRelations = relations(challenge, ({ one, many }) => ({
     references: [lesson.id],
   }),
   challengeOptions: many(challengeOption),
+  challengeProgresses: many(challengeProgress),
 }));
 
 export const challengeInsertSchema = createInsertSchema(challenge);

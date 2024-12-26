@@ -12,6 +12,11 @@ export {
   challengeOptionRelations,
 } from './challenge-option';
 export {
+  challengeProgress,
+  challengeProgressInserSchema,
+  type ChallengeProgressInsertSchema,
+} from './challenge-progress';
+export {
   course,
   type CourseInsertSchema,
   courseInsertSchema,

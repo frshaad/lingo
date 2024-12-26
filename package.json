@@ -10,7 +10,7 @@
     "format": "prettier . --write",
     "db:studio": "npx drizzle-kit studio",
     "db:push": "npx drizzle-kit push",
-    "db:seed": "tsx ./src/db"
+    "db:seed": "tsx ./src/db/seed.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.9.6",
