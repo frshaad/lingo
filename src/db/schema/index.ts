@@ -1,3 +1,4 @@
+export {} from './challenge';
 export {
   course,
   type CourseInsertSchema,

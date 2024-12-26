@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -7,7 +7,7 @@ import { course, lesson } from '@/db/schema';
 
 export const unit = pgTable('unit', {
   id: serial().primaryKey(),
-  title: text().notNull(),
+  title: varchar({ length: 255 }).notNull(),
   description: text().notNull(),
   courseId: integer()
     .references(() => course.id, { onDelete: 'cascade' })
