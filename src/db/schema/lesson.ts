@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { unit } from '@/db/schema';
 
-export const lesson = pgTable('lessons', {
+export const lesson = pgTable('lesson', {
   id: serial().primaryKey(),
   title: text().notNull(),
   unitId: integer()
