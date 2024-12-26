@@ -2,8 +2,8 @@ import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { cache } from 'react';
 
-import db from '.';
-import { course, userProgress } from './schema';
+import db from '@/db';
+import { course, userProgress } from '@/db/schema';
 
 // Add type for the query result
 type UserProgressWithCourse = typeof userProgress.$inferSelect & {
