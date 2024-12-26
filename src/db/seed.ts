@@ -1,31 +1,45 @@
-import db from '.';
-import * as schema from './schema';
+import db from '@/db';
+import * as schema from '@/db/schema';
+import {
+  CHALLENGE_OPTIONS,
+  CHALLENGES,
+  COURSES,
+  LESSONS,
+  TABLES_TO_CLEAR,
+  UNITS,
+} from '@/db/seed.constant';
 
-async function seed() {
-  try {
-    console.log('Seeding Database...');
-
-    // Add a condition that will always evaluate to true to satisfy the linter
-    await db.delete(schema.course);
-    await db.delete(schema.lesson);
-    await db.delete(schema.unit);
-    await db.delete(schema.userProgress);
-    await db.delete(schema.challenge);
-    await db.delete(schema.challengeOption);
-    await db.delete(schema.challengeProgress);
-
-    await db.insert(schema.course).values([
-      { id: 1, title: 'spanish', imageSrc: '/es.svg' },
-      { id: 2, title: 'german', imageSrc: '/de.svg' },
-      { id: 3, title: 'french', imageSrc: '/fr.svg' },
-      { id: 4, title: 'italian', imageSrc: '/it.svg' },
-    ]);
-
-    console.log('Seeding Finished!');
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to seed the database');
+async function clearTables() {
+  for (const table of TABLES_TO_CLEAR) {
+    await db.delete(table);
   }
 }
 
-seed();
+async function seedTables() {
+  await db.insert(schema.course).values(COURSES);
+  await db.insert(schema.unit).values(UNITS);
+  await db.insert(schema.lesson).values(LESSONS);
+  await db.insert(schema.challenge).values(CHALLENGES);
+  await db.insert(schema.challengeOption).values(CHALLENGE_OPTIONS);
+}
+
+export async function seed() {
+  try {
+    console.log('🌱 Starting database seed...');
+
+    console.log('Clearing existing data...');
+    await clearTables();
+
+    console.log('Seeding tables...');
+    await seedTables();
+
+    console.log('✅ Seeding completed successfully!');
+  } catch (error) {
+    console.error('❌ Seeding failed:', error);
+    process.exit(1);
+  }
+}
+
+if (require.main === module) {
+  seed();
+}
