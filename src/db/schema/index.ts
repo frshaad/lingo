@@ -1,4 +1,24 @@
-export { course, courseRelations } from './course';
-export { lesson, lessonsRelations } from './lesson';
-export { unit, unitsRelations } from './unit';
-export { userProgress, userProgressRelations } from './user-progress';
+export {
+  course,
+  type CourseInsertSchema,
+  courseInsertSchema,
+  courseRelations,
+} from './course';
+export {
+  lesson,
+  type LessonInsertSchema,
+  lessonInsertSchema,
+  lessonRelations,
+} from './lesson';
+export {
+  unit,
+  type UnitInsertSchema,
+  unitInsertSchema,
+  unitRelations,
+} from './unit';
+export {
+  userProgress,
+  type UserProgressInsertSchema,
+  userProgressInsertSchema,
+  userProgressRelations,
+} from './user-progress';

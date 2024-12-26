@@ -1,5 +1,7 @@
 import { relations } from 'drizzle-orm';
 import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
 import { course } from '@/db/schema';
 
@@ -13,9 +15,12 @@ export const unit = pgTable('unit', {
   order: integer().notNull(),
 });
 
-export const unitsRelations = relations(unit, ({ one }) => ({
+export const unitRelations = relations(unit, ({ one }) => ({
   course: one(course, {
     fields: [unit.courseId],
     references: [course.id],
   }),
 }));
+
+export const unitInsertSchema = createInsertSchema(unit);
+export type UnitInsertSchema = z.infer<typeof unitInsertSchema>;
