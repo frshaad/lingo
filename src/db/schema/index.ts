@@ -1,42 +1,7 @@
-export {
-  challenge,
-  challengeEnum,
-  type ChallengeInsertSchema,
-  challengeInsertSchema,
-  challengeRelations,
-} from './challenge';
-export {
-  challengeOption,
-  type ChallengeOptionInsertSchema,
-  challengeOptionInsertSchema,
-  challengeOptionRelations,
-} from './challenge-option';
-export {
-  challengeProgress,
-  challengeProgressInserSchema,
-  type ChallengeProgressInsertSchema,
-} from './challenge-progress';
-export {
-  course,
-  type CourseInsertSchema,
-  courseInsertSchema,
-  courseRelations,
-} from './course';
-export {
-  lesson,
-  type LessonInsertSchema,
-  lessonInsertSchema,
-  lessonRelations,
-} from './lesson';
-export {
-  unit,
-  type UnitInsertSchema,
-  unitInsertSchema,
-  unitRelations,
-} from './unit';
-export {
-  userProgress,
-  type UserProgressInsertSchema,
-  userProgressInsertSchema,
-  userProgressRelations,
-} from './user-progress';
+export { challenge } from './challenge';
+export { challengeOption } from './challenge-option';
+export { challengeProgress } from './challenge-progress';
+export { course } from './course';
+export { lesson } from './lesson';
+export { unit } from './unit';
+export { userProgress } from './user-progress';

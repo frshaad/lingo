@@ -15,10 +15,10 @@ async function seed() {
     await db.delete(schema.challengeProgress);
 
     await db.insert(schema.course).values([
-      { title: 'spanish', imageSrc: '/es.svg' },
-      { title: 'german', imageSrc: '/de.svg' },
-      { title: 'french', imageSrc: '/fr.svg' },
-      { title: 'italian', imageSrc: '/it.svg' },
+      { id: 1, title: 'spanish', imageSrc: '/es.svg' },
+      { id: 2, title: 'german', imageSrc: '/de.svg' },
+      { id: 3, title: 'french', imageSrc: '/fr.svg' },
+      { id: 4, title: 'italian', imageSrc: '/it.svg' },
     ]);
 
     console.log('Seeding Finished!');
