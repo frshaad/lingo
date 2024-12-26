@@ -1,4 +1,10 @@
-export {} from './challenge';
+export {
+  challenge,
+  challengeEnum,
+  type ChallengeInsertSchema,
+  challengeInsertSchema,
+  challengeRelations,
+} from './challenge';
 export {
   course,
   type CourseInsertSchema,

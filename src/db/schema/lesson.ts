@@ -3,7 +3,7 @@ import { integer, pgTable, serial, varchar } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-import { unit } from '@/db/schema';
+import { challenge, unit } from '@/db/schema';
 
 export const lesson = pgTable('lesson', {
   id: serial().primaryKey(),
@@ -16,11 +16,12 @@ export const lesson = pgTable('lesson', {
   order: integer().notNull(),
 });
 
-export const lessonRelations = relations(lesson, ({ one }) => ({
+export const lessonRelations = relations(lesson, ({ one, many }) => ({
   unit: one(unit, {
     fields: [lesson.unitId],
     references: [unit.id],
   }),
+  challenges: many(challenge),
 }));
 
 export const lessonInsertSchema = createInsertSchema(lesson);
