@@ -61,6 +61,7 @@ export default function CourseCard({ id, imageSrc, title, active }: Props) {
         height={70}
         width={93.33}
         className="rounded-lg border object-cover drop-shadow-md"
+        priority
       />
       <p className="mt-3 text-center font-bold capitalize text-neutral-700">
         {title}
