@@ -1,6 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
-import { createInsertSchema } from 'drizzle-zod';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
 import { challengeOption, challengeProgress, lesson } from '@/db/schema';
@@ -27,4 +27,6 @@ export const challengeRelations = relations(challenge, ({ one, many }) => ({
 }));
 
 export const challengeInsertSchema = createInsertSchema(challenge);
+export const challengeSelectSchema = createSelectSchema(challenge);
 export type ChallengeInsertSchema = z.infer<typeof challengeInsertSchema>;
+export type ChallengeSelectSchema = z.infer<typeof challengeSelectSchema>;

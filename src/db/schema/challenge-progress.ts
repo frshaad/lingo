@@ -24,8 +24,13 @@ export const challengeProgressRelations = relations(
   }),
 );
 
-export const challengeProgressInserSchema =
+export const challengeProgressInsertSchema =
+  createInsertSchema(challengeProgress);
+export const challengeProgressSelectSchema =
   createInsertSchema(challengeProgress);
 export type ChallengeProgressInsertSchema = z.infer<
-  typeof challengeProgressInserSchema
+  typeof challengeProgressInsertSchema
+>;
+export type ChallengeProgressSelectSchema = z.infer<
+  typeof challengeProgressSelectSchema
 >;

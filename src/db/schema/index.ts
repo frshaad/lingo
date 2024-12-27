@@ -3,6 +3,8 @@ export {
   type ChallengeInsertSchema,
   challengeInsertSchema,
   challengeRelations,
+  type ChallengeSelectSchema,
+  challengeSelectSchema,
 } from './challenge';
 export {
   challengeOption,
@@ -12,9 +14,9 @@ export {
 } from './challenge-option';
 export {
   challengeProgress,
-  challengeProgressInserSchema,
   type ChallengeProgressInsertSchema,
   challengeProgressRelations,
+  type ChallengeProgressSelectSchema,
 } from './challenge-progress';
 export {
   course,

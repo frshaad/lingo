@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { cache } from 'react';
 
 import db from '@/db';
+import { isChallengeCompleted } from '@/db/queries-helpers';
 import { course, unit, userProgress } from '@/db/schema';
 
 export const getCourses = cache(async () => {
@@ -35,11 +36,12 @@ export const getUserProgress = cache(async () => {
 
 export const getUnits = cache(async () => {
   const userProgress = await getUserProgress();
+
   if (!userProgress?.activeCourseId) {
     return [];
   }
 
-  const unitsData = await db.query.unit.findMany({
+  const units = await db.query.unit.findMany({
     where: eq(unit.courseId, userProgress.activeCourseId),
     with: {
       lessons: {
@@ -54,22 +56,11 @@ export const getUnits = cache(async () => {
     },
   });
 
-  const normalizedUnitsData = unitsData.map((unit) => {
-    const lessonsWithCompletedStatus = unit.lessons.map((lesson) => {
-      const areAllChallengesCompleted = lesson.challenges.every(
-        (challenge) =>
-          challenge.challengeProgresses &&
-          challenge.challengeProgresses.length > 0 &&
-          challenge.challengeProgresses.every(
-            (progress) => progress.isCompleted,
-          ),
-      );
-
-      return { ...lesson, isCompleted: areAllChallengesCompleted };
-    });
-
-    return { ...unit, lessons: lessonsWithCompletedStatus };
-  });
-
-  return normalizedUnitsData;
+  return units.map((unit) => ({
+    ...unit,
+    lessons: unit.lessons.map((lesson) => ({
+      ...lesson,
+      isCompleted: lesson.challenges.every(isChallengeCompleted),
+    })),
+  }));
 });
