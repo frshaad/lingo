@@ -1,11 +1,9 @@
 import { relations } from 'drizzle-orm';
 import { integer, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import { z } from 'zod';
 
 import { challengeOption, challengeProgress, lesson } from '@/db/schema';
 
-export const challengeEnum = pgEnum('type', ['SELECT', 'ASSIST']);
+const challengeEnum = pgEnum('type', ['SELECT', 'ASSIST']);
 
 export const challenge = pgTable('challenge', {
   id: serial().primaryKey(),
@@ -26,7 +24,4 @@ export const challengeRelations = relations(challenge, ({ one, many }) => ({
   challengeProgresses: many(challengeProgress),
 }));
 
-export const challengeInsertSchema = createInsertSchema(challenge);
-export const challengeSelectSchema = createSelectSchema(challenge);
-export type ChallengeInsertSchema = z.infer<typeof challengeInsertSchema>;
-export type ChallengeSelectSchema = z.infer<typeof challengeSelectSchema>;
+export type Challenge = typeof challenge.$inferSelect;

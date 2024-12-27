@@ -1,48 +1,19 @@
+export { type Challenge, challenge, challengeRelations } from './challenge';
 export {
-  challenge,
-  type ChallengeInsertSchema,
-  challengeInsertSchema,
-  challengeRelations,
-  type ChallengeSelectSchema,
-  challengeSelectSchema,
-} from './challenge';
-export {
+  type ChallengeOption,
   challengeOption,
-  type ChallengeOptionInsertSchema,
-  challengeOptionInsertSchema,
   challengeOptionRelations,
 } from './challenge-option';
 export {
+  type ChallengeProgress,
   challengeProgress,
-  type ChallengeProgressInsertSchema,
   challengeProgressRelations,
-  type ChallengeProgressSelectSchema,
 } from './challenge-progress';
+export { type Course, course, courseRelations } from './course';
+export { type Lesson, lesson, lessonRelations } from './lesson';
+export { type Unit, unit, unitRelations } from './unit';
 export {
-  course,
-  type CourseInsertSchema,
-  courseInsertSchema,
-  courseRelations,
-  type CourseSelectSchema,
-  courseSelectSchema,
-} from './course';
-export {
-  lesson,
-  type LessonInsertSchema,
-  lessonInsertSchema,
-  lessonRelations,
-} from './lesson';
-export {
-  unit,
-  type UnitInsertSchema,
-  unitInsertSchema,
-  unitRelations,
-} from './unit';
-export {
+  type UserProgress,
   userProgress,
-  type UserProgressInsertSchema,
-  userProgressInsertSchema,
   userProgressRelations,
-  type UserProgressSelectSchema,
-  userProgressSelectSchema,
 } from './user-progress';

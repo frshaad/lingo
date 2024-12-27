@@ -10,14 +10,14 @@ export const TABLES_TO_CLEAR = [
   schema.challengeProgress,
 ];
 
-export const COURSES: schema.CourseInsertSchema[] = [
+export const COURSES: schema.Course[] = [
   { id: 1, title: 'spanish', imageSrc: '/es.svg' },
   { id: 2, title: 'german', imageSrc: '/de.svg' },
   { id: 3, title: 'french', imageSrc: '/fr.svg' },
   { id: 4, title: 'italian', imageSrc: '/it.svg' },
 ];
 
-export const UNITS: schema.UnitInsertSchema[] = [
+export const UNITS: schema.Unit[] = [
   {
     id: 1,
     courseId: 1,
@@ -27,11 +27,11 @@ export const UNITS: schema.UnitInsertSchema[] = [
   },
 ];
 
-export const LESSONS: schema.LessonInsertSchema[] = [
+export const LESSONS: schema.Lesson[] = [
   { id: 1, unitId: 1, order: 1, title: 'Nouns' },
 ];
 
-export const CHALLENGES: schema.ChallengeInsertSchema[] = [
+export const CHALLENGES: schema.Challenge[] = [
   {
     id: 1,
     lessonId: 1,
@@ -41,7 +41,7 @@ export const CHALLENGES: schema.ChallengeInsertSchema[] = [
   },
 ];
 
-export const CHALLENGE_OPTIONS: schema.ChallengeOptionInsertSchema[] = [
+export const CHALLENGE_OPTIONS: schema.ChallengeOption[] = [
   {
     id: 1,
     challengeId: 1,

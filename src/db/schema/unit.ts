@@ -1,7 +1,5 @@
 import { relations } from 'drizzle-orm';
 import { integer, pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
-import { createInsertSchema } from 'drizzle-zod';
-import { z } from 'zod';
 
 import { course, lesson } from '@/db/schema';
 
@@ -23,5 +21,4 @@ export const unitRelations = relations(unit, ({ one, many }) => ({
   lessons: many(lesson),
 }));
 
-export const unitInsertSchema = createInsertSchema(unit);
-export type UnitInsertSchema = z.infer<typeof unitInsertSchema>;
+export type Unit = typeof unit.$inferSelect;

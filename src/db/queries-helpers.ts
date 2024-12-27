@@ -1,11 +1,8 @@
-import {
-  type ChallengeProgressSelectSchema,
-  type ChallengeSelectSchema,
-} from '@/db/schema';
+import type { Challenge, ChallengeProgress } from '@/db/schema';
 
 export function isChallengeCompleted(
-  challenge: ChallengeSelectSchema & {
-    challengeProgresses: ChallengeProgressSelectSchema[];
+  challenge: Challenge & {
+    challengeProgresses: ChallengeProgress[];
   },
 ) {
   return (
