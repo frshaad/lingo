@@ -5,11 +5,6 @@ import { cache } from 'react';
 import db from '@/db';
 import { course, userProgress } from '@/db/schema';
 
-// Add type for the query result
-type UserProgressWithCourse = typeof userProgress.$inferSelect & {
-  activeCourse: typeof course.$inferSelect | null;
-};
-
 export const getCourses = cache(async () => {
   const courses = await db.query.course.findMany();
   return courses;
@@ -21,10 +16,10 @@ export const getUserProgress = cache(async () => {
     return null;
   }
 
-  const userProgressData = (await db.query.userProgress.findFirst({
+  const userProgressData = await db.query.userProgress.findFirst({
     where: eq(userProgress.userId, userId),
     with: { activeCourse: true },
-  })) as UserProgressWithCourse | null;
+  });
 
   return userProgressData;
 });

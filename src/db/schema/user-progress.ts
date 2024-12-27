@@ -1,6 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { integer, pgTable, text, varchar } from 'drizzle-orm/pg-core';
-import { createInsertSchema } from 'drizzle-zod';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
 import { course } from '@/db/schema';
@@ -24,4 +24,6 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
 }));
 
 export const userProgressInsertSchema = createInsertSchema(userProgress);
+export const userProgressSelectSchema = createSelectSchema(userProgress);
 export type UserProgressInsertSchema = z.infer<typeof userProgressInsertSchema>;
+export type UserProgressSelectSchema = z.infer<typeof userProgressSelectSchema>;
