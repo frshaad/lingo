@@ -4,7 +4,7 @@ import { cache } from 'react';
 
 import db from '@/db';
 import { isChallengeCompleted } from '@/db/queries-helpers';
-import { course, unit, userProgress } from '@/db/schema';
+import { challengeProgress, course, unit, userProgress } from '@/db/schema';
 
 export const getCourses = cache(async () => {
   const courses = await db.query.course.findMany();
@@ -35,9 +35,10 @@ export const getUserProgress = cache(async () => {
 });
 
 export const getUnits = cache(async () => {
+  const { userId } = await auth();
   const userProgress = await getUserProgress();
 
-  if (!userProgress?.activeCourseId) {
+  if (!userId || !userProgress?.activeCourseId) {
     return [];
   }
 
@@ -48,7 +49,9 @@ export const getUnits = cache(async () => {
         with: {
           challenges: {
             with: {
-              challengeProgresses: true,
+              challengeProgresses: {
+                where: eq(challengeProgress.userId, userId),
+              },
             },
           },
         },
