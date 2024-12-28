@@ -14,7 +14,7 @@ export default async function LearnPage() {
     getUnits(),
   ]);
 
-  if (!userProgress || !userProgress.activeCourse) {
+  if (!userProgress?.activeCourse) {
     redirect('/courses');
   }
 

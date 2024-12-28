@@ -1,21 +1,15 @@
-'use client';
-
-import 'react-circular-progressbar/dist/styles.css';
-
-import { Check, Crown, Star } from 'lucide-react';
 import Link from 'next/link';
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
-import { Button } from '@/components/ui/button';
-import type { PopulatedLesson } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
-const INDENTATION_PATTERN = [0, 1, 2, 1, 0, -1, -2, -1];
-const CYCLE_LENGTH = 8;
-const LESSON_SPACING = 40;
+import { LESSON_CONSTANTS } from './lesson.constant';
+import LessonIcon from './lesson-icon';
+import LessonProgress from './lesson-progress';
 
-type Props = PopulatedLesson & {
+type LessonButtonProps = {
+  id: number;
   activeLessonId?: number;
+  isCompleted: boolean;
   totalLessonsCount: number;
   percentage: number;
   index: number;
@@ -28,17 +22,18 @@ export default function LessonButton({
   totalLessonsCount,
   percentage,
   index,
-}: Props) {
+}: LessonButtonProps) {
+  const { INDENTATION_PATTERN, CYCLE_LENGTH, LESSON_SPACING } =
+    LESSON_CONSTANTS;
   const cycleIndex = index % CYCLE_LENGTH;
   const indentationLevel = INDENTATION_PATTERN[cycleIndex];
   const lessonIconPosition = indentationLevel * LESSON_SPACING;
 
   const isFirst = index === 0;
   const isLast = index === totalLessonsCount;
-  const Icon = isCompleted ? Check : isLast ? Crown : Star;
-  const href = isCompleted ? `/lesson/${id}` : '/lesson';
   const isActiveLesson = id === activeLessonId;
   const isLockedLesson = !isCompleted && !isActiveLesson;
+  const href = isCompleted ? `/lesson/${id}` : '/lesson';
 
   return (
     <Link
@@ -58,46 +53,20 @@ export default function LessonButton({
               Start
               <div className="absolute -bottom-2 left-1/2 size-0 -translate-x-1/2 transform border-x-8 border-t-8 border-x-transparent" />
             </div>
-            <CircularProgressbarWithChildren
-              value={Number.isNaN(percentage) ? 0 : 42}
-              styles={{
-                path: { stroke: '#4ade80' },
-                trail: { stroke: '#e5e7eb' },
-              }}
-            >
-              <Button
-                size="rounded"
-                variant={isLockedLesson ? 'locked' : 'secondary'}
-                className="size-16 border-b-8"
-              >
-                <Icon
-                  size={10}
-                  className={cn(
-                    isLockedLesson
-                      ? 'fill-neutral-400 stroke-neutral-400 text-neutral-400'
-                      : 'fill-primary-foreground text-primary-foreground',
-                    isCompleted && 'fill-none stroke-[4]',
-                  )}
-                />
-              </Button>
-            </CircularProgressbarWithChildren>
+            <LessonProgress percentage={percentage}>
+              <LessonIcon
+                isCompleted={isCompleted}
+                isLast={isLast}
+                isLockedLesson={isLockedLesson}
+              />
+            </LessonProgress>
           </div>
         ) : (
-          <Button
-            size="rounded"
-            variant={isLockedLesson ? 'locked' : 'secondary'}
-            className="size-16 border-b-8"
-          >
-            <Icon
-              size={10}
-              className={cn(
-                isLockedLesson
-                  ? 'fill-neutral-400 stroke-neutral-400 text-neutral-400'
-                  : 'fill-primary-foreground text-primary-foreground',
-                isCompleted && 'fill-none stroke-[4]',
-              )}
-            />
-          </Button>
+          <LessonIcon
+            isCompleted={isCompleted}
+            isLast={isLast}
+            isLockedLesson={isLockedLesson}
+          />
         )}
       </div>
     </Link>
