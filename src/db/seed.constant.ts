@@ -11,10 +11,10 @@ export const TABLES_TO_CLEAR = [
 ];
 
 export const COURSES: schema.Course[] = [
-  { id: 1, title: 'spanish', imageSrc: '/es.svg' },
-  { id: 2, title: 'german', imageSrc: '/de.svg' },
-  { id: 3, title: 'french', imageSrc: '/fr.svg' },
-  { id: 4, title: 'italian', imageSrc: '/it.svg' },
+  { id: 1, title: 'Spanish', imageSrc: '/es.svg' },
+  { id: 2, title: 'German', imageSrc: '/de.svg' },
+  { id: 3, title: 'French', imageSrc: '/fr.svg' },
+  { id: 4, title: 'Italian', imageSrc: '/it.svg' },
 ];
 
 export const UNITS: schema.Unit[] = [
