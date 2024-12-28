@@ -6,6 +6,7 @@ import { getUnits, getUserProgress } from '@/db/queries';
 import FeedHeader from './_components/feed-header';
 import FeedWrapper from './_components/feed-wrapper';
 import StickyWrapper from './_components/sticky-wrapper';
+import Unit from './_components/unit';
 
 export default async function LearnPage() {
   const [userProgress, units] = await Promise.all([
@@ -22,9 +23,12 @@ export default async function LearnPage() {
       <FeedWrapper>
         <FeedHeader title={userProgress.activeCourse.title} />
         {units.map((unit) => (
-          <div key={unit.id} className="mb-10">
-            {JSON.stringify(unit)}
-          </div>
+          <Unit
+            key={unit.id}
+            activeLesson={undefined}
+            activeLessonPercentage={0}
+            {...unit}
+          />
         ))}
       </FeedWrapper>
       <StickyWrapper>
