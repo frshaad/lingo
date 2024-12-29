@@ -182,9 +182,32 @@ export const getLesson = cache(async (id?: number) => {
 
   return {
     ...lessonData,
-    challenges: {
-      ...lessonData.challenges,
-      isCompleted: lessonData.challenges.every(isChallengeCompleted),
-    },
+    challenges: lessonData.challenges.map((challenge) => ({
+      ...challenge,
+      isCompleted: challenge.challengeProgresses.every(
+        (challengeProgress) => challengeProgress.isCompleted,
+      ),
+    })),
   };
+});
+
+export const getLessonPercentage = cache(async () => {
+  const courseProgress = await getCourseProgress();
+  if (!courseProgress?.activeLessonId) {
+    return 0;
+  }
+
+  const lesson = await getLesson();
+  if (!lesson) {
+    return 0;
+  }
+
+  const completedChallenges = lesson.challenges.filter(
+    (challenge) => challenge.isCompleted,
+  );
+  const percentage = Math.round(
+    (completedChallenges.length / lesson.challenges.length) * 100,
+  );
+
+  return percentage;
 });
