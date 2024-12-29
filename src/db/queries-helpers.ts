@@ -1,10 +1,6 @@
-import type { Challenge, ChallengeProgress } from '@/db/schema';
+import type { PopulatedChallenge } from '@/lib/types';
 
-export function isChallengeCompleted(
-  challenge: Challenge & {
-    challengeProgresses: ChallengeProgress[];
-  },
-) {
+export function isChallengeCompleted(challenge: PopulatedChallenge) {
   return (
     challenge.challengeProgresses &&
     challenge.challengeProgresses.length > 0 &&
