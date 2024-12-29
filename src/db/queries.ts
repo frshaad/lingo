@@ -144,9 +144,11 @@ export const getCourseProgress = cache(async () => {
 });
 
 /**
- * Retrieves a specific lesson with all its challenges and user progress
- * @param id - Optional lesson ID. If not provided, uses the active lesson from course progress
- * @returns Lesson data with its challenges or null if lesson not found or user not authenticated
+ * Retrieves a lesson with all its challenges and user progress information.
+ * If no specific lesson ID is provided, it will use the active lesson from the course progress.
+ *
+ * @param id - Optional lesson ID to retrieve a specific lesson
+ * @returns The lesson data with challenges and completion status, or null if not found/unauthorized
  */
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth();
@@ -191,6 +193,13 @@ export const getLesson = cache(async (id?: number) => {
   };
 });
 
+/**
+ * Calculates the completion percentage of the current active lesson.
+ * The percentage is based on the number of completed challenges divided by the total number of challenges.
+ *
+ * @returns A number between 0 and 100 representing the completion percentage.
+ * Returns 0 if there's no active lesson or if the lesson cannot be retrieved.
+ */
 export const getLessonPercentage = cache(async () => {
   const courseProgress = await getCourseProgress();
   if (!courseProgress?.activeLessonId) {
