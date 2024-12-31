@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { type ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/lib/types';
 
+import QuestionBubble from './question-bubble';
 import QuizHeader from './quiz-header';
 
 type Props = {
@@ -29,6 +30,21 @@ export default function Quiz({
 }: Props) {
   const [hearts, setHearts] = useState(initialHearts);
   const [percentage, setPercentage] = useState(initialPercentage);
+  const [challenges, setChallenges] = useState(initialLessonChallenges);
+  const [activeChallengeIndex, setActiveChallengeIndex] = useState(() => {
+    const firstUncompletedChallengeIndex = challenges.findIndex(
+      (challenge) => !challenge.isCompleted,
+    );
+    return firstUncompletedChallengeIndex === -1
+      ? 0
+      : firstUncompletedChallengeIndex;
+  });
+
+  const challenge = challenges[activeChallengeIndex];
+  const title =
+    challenge.type === 'ASSIST'
+      ? 'Select the correct meaning'
+      : challenge.question;
 
   return (
     <>
@@ -37,6 +53,17 @@ export default function Quiz({
         percentage={percentage}
         hasActiveSubscription={!!userSubscription?.isActive}
       />
+
+      <article className="flex size-full flex-col items-center justify-center gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
+        <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
+          {title}
+        </h1>
+        <div>
+          {challenge.type === 'ASSIST' && (
+            <QuestionBubble question={challenge.question} />
+          )}
+        </div>
+      </article>
     </>
   );
 }

@@ -41,7 +41,7 @@ export const CHALLENGES: schema.Challenge[] = [
     lessonId: 1,
     order: 1,
     type: 'SELECT',
-    question: 'Which of these is "the man"',
+    question: 'Which one of these is "the man"?',
   },
 ];
 
