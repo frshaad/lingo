@@ -48,7 +48,10 @@ export const getUnits = cache(async () => {
     ...unit,
     lessons: unit.lessons.map((lesson) => ({
       ...lesson,
-      isCompleted: lesson.challenges.every(isChallengeCompleted),
+      isCompleted:
+        lesson.challenges.length === 0
+          ? false
+          : lesson.challenges.every(isChallengeCompleted),
     })),
   }));
 });
