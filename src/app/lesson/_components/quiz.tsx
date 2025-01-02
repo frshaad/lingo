@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { type ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/lib/types';
 
+import ChallengeOptions from './challenge-options';
 import QuestionBubble from './question-bubble';
 import QuizHeader from './quiz-header';
 
@@ -40,11 +41,12 @@ export default function Quiz({
       : firstUncompletedChallengeIndex;
   });
 
-  const challenge = challenges[activeChallengeIndex];
+  const currentChallenge = challenges[activeChallengeIndex];
+  const currentChallengeOptions = currentChallenge.challengeOptions ?? [];
   const title =
-    challenge.type === 'ASSIST'
+    currentChallenge.type === 'ASSIST'
       ? 'Select the correct meaning'
-      : challenge.question;
+      : currentChallenge.question;
 
   return (
     <>
@@ -54,14 +56,21 @@ export default function Quiz({
         hasActiveSubscription={!!userSubscription?.isActive}
       />
 
-      <article className="flex size-full flex-col items-center justify-center gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
+      <article className="mx-auto flex size-full flex-col items-center justify-center gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
         <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
           {title}
         </h1>
         <div>
-          {challenge.type === 'ASSIST' && (
-            <QuestionBubble question={challenge.question} />
+          {currentChallenge.type === 'ASSIST' && (
+            <QuestionBubble question={currentChallenge.question} />
           )}
+          <ChallengeOptions
+            options={currentChallengeOptions}
+            onSelect={() => {}}
+            status="none"
+            isDisabled={false}
+            type={currentChallenge.type}
+          />
         </div>
       </article>
     </>
