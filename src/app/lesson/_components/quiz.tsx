@@ -60,7 +60,7 @@ export default function Quiz({
         <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
           {title}
         </h1>
-        <div>
+        <div className="w-full">
           {currentChallenge.type === 'ASSIST' && (
             <QuestionBubble question={currentChallenge.question} />
           )}
