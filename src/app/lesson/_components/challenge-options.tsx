@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Challenge, ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
@@ -20,7 +19,6 @@ export default function ChallengeOptions({
   status = 'none',
   isDisabled = false,
   options,
-  onSelect,
   selectedOption,
   type,
 }: Props) {
@@ -33,13 +31,13 @@ export default function ChallengeOptions({
           'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]',
       )}
     >
-      {options.map((option) => (
+      {options.map((option, i) => (
         <OptionCard
           isDisabled={isDisabled}
           onClick={() => {}}
           key={option.id}
-          shortcut={''}
-          isSelected={false}
+          shortcut={`${i + 1}`}
+          isSelected={selectedOption === option.id}
           status={status}
           type={type}
           {...option}
