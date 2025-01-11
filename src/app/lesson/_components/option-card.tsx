@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from 'next/image';
 
 import { type ChallengeOption } from '@/db/schema';
@@ -22,8 +21,8 @@ export default function OptionCard({
   isDisabled,
   type,
   imageSrc,
-  audioSrc,
   text,
+  shortcut,
 }: Props) {
   return (
     <button
@@ -46,6 +45,36 @@ export default function OptionCard({
           <Image src={imageSrc} alt={text} fill />
         </div>
       )}
+      <div
+        className={cn(
+          'flex items-center justify-between',
+          type === 'ASSIST' && 'flex-row-reverse',
+        )}
+      >
+        {type === 'ASSIST' && <div />}
+        <p
+          className={cn(
+            'text-neutral-600 max-lg:text-sm',
+            isSelected && 'text-sky-500',
+            isSelected && status === 'correct' && 'text-green-500',
+            isSelected && status === 'wrong' && 'text-rose-500',
+          )}
+        >
+          {text}
+        </p>
+        <span
+          className={cn(
+            'flex size-5 items-center justify-center rounded-lg border-2 font-semibold text-neutral-400 max-lg:text-xs lg:size-7',
+            isSelected && 'border-sky-300 text-sky-500',
+            isSelected &&
+              status === 'correct' &&
+              'border-green-500 text-green-500',
+            isSelected && status === 'wrong' && 'border-rose-500 text-rose-500',
+          )}
+        >
+          {shortcut}
+        </span>
+      </div>
     </button>
   );
 }
