@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useAudio, useKey } from 'react-use';
 
 import { type ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
@@ -23,10 +24,22 @@ export default function OptionCard({
   imageSrc,
   text,
   shortcut,
+  audioSrc,
 }: Props) {
+  const [audio, , controls] = useAudio({ src: audioSrc || '' });
+
+  const handleClick = () => {
+    if (isDisabled) return;
+
+    controls.play();
+    onClick();
+  };
+
+  useKey(shortcut, handleClick, {}, [handleClick]);
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       className={cn(
         'h-full rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6',
         isSelected && 'border-sky-300 bg-sky-100 hover:bg-sky-100',
@@ -40,6 +53,7 @@ export default function OptionCard({
         type === 'ASSIST' && 'w-full lg:p-3',
       )}
     >
+      {audio}
       {imageSrc && (
         <div className="relative mb-4 aspect-square max-h-20 w-full lg:max-h-36">
           <Image src={imageSrc} alt={text} fill />
