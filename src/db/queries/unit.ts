@@ -5,7 +5,7 @@ import { cache } from 'react';
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { challengeProgress, unit } from '@/db/schema';
-import type { PopulatedChallenge } from '@/lib/types';
+import type { PopulatedChallenge } from '@/types/db';
 
 function isChallengeCompleted(challenge: PopulatedChallenge) {
   return (

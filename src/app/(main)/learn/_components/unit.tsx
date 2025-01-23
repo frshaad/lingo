@@ -1,5 +1,5 @@
 import type { Lesson, Unit } from '@/db/schema';
-import type { PopulatedUnit } from '@/lib/types';
+import type { PopulatedUnit } from '@/types/db';
 
 import LessonButton from './lesson-button';
 import UnitBanner from './unit-banner';

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import type { ChallengeOption } from '@/db/schema';
-import type { PopulatedChallenge } from '@/lib/types';
+import type { PopulatedChallenge } from '@/types/db';
 
 type Args = {
   initialHearts: number;

@@ -3,16 +3,15 @@ import { useAudio, useKey } from 'react-use';
 
 import type { ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
-
-import type { ChallengeOptionType, Status } from './challenge-options';
+import type { ChallengeType, QuizStatus } from '@/types/quiz';
 
 type Props = ChallengeOption & {
   isDisabled: boolean;
   onClick: () => void;
   shortcut: string;
   isSelected?: boolean;
-  status?: Status;
-  type: ChallengeOptionType;
+  status?: QuizStatus;
+  type: ChallengeType;
 };
 
 export default function OptionCard({

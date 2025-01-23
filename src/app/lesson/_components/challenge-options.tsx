@@ -1,34 +1,39 @@
-import type { Challenge, ChallengeOption } from '@/db/schema';
+import type { ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
+import type { ChallengeType } from '@/types/quiz';
 
 import OptionCard from './option-card';
 
-export type Status = 'correct' | 'wrong' | 'none';
-export type ChallengeOptionType = Challenge['type'];
-
-type Props = {
-  options: ChallengeOption[];
-  type: ChallengeOptionType;
+const getGridClassName = (type: ChallengeType): string => {
+  const baseClass = 'grid gap-4';
+  if (type === 'ASSIST') {
+    return cn(baseClass, 'grid-cols-1');
+  }
+  return cn(
+    baseClass,
+    'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]'
+  );
 };
 
-export default function ChallengeOptions({ options, type }: Props) {
+type ChallengeOptionsProps = {
+  options: ChallengeOption[];
+  type: ChallengeType;
+};
+
+export default function ChallengeOptions({
+  options,
+  type,
+}: ChallengeOptionsProps) {
   return (
-    <div
-      className={cn(
-        'grid gap-4',
-        type === 'ASSIST' && 'grid-cols-1',
-        type === 'SELECT' &&
-          'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]'
-      )}
-    >
-      {options.map((option, i) => (
+    <div className={getGridClassName(type)}>
+      {options.map((option, index) => (
         <OptionCard
+          key={option.id}
           isDisabled={false}
           onClick={() => {
-            /* */
+            /** */
           }}
-          key={option.id}
-          shortcut={`${i + 1}`}
+          shortcut={`${index + 1}`}
           type={type}
           {...option}
         />
