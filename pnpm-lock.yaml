@@ -100,8 +100,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       ultracite:
-        specifier: ^4.1.15
-        version: 4.1.15
+        specifier: ^4.1.16
+        version: 4.1.16
 
 packages:
 
@@ -2034,8 +2034,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@4.1.15:
-    resolution: {integrity: sha512-sIFmJ91rSF3nSMux83V8g9355JIJ40AJq82ymdYriv8/opbTizjlTgDNuXKhgyFP3/YmmyhqCYK6ACVHZXMk6Q==}
+  ultracite@4.1.16:
+    resolution: {integrity: sha512-UKnlDmW8YbPftlqTG1rLi4c0JhCf3l+OeXt1NJEqp/kSJ0cEaWQro3zzsmdjMyBinzYEXlgDUcnKdpgSeGO/Nw==}
     hasBin: true
 
   undici-types@6.20.0:
@@ -3704,7 +3704,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  ultracite@4.1.15:
+  ultracite@4.1.16:
     dependencies:
       commander: 12.1.0
 
