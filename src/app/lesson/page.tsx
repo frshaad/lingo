@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
 import { getLesson, getUserProgress } from '@/db/queries';
-
 import Quiz from './_components/quiz';
+import { QuizProvider } from './_context/quiz-context';
 
 export default async function LessonPage() {
   const [lesson, userProgress] = await Promise.all([
@@ -22,12 +22,13 @@ export default async function LessonPage() {
     (completedChallengesCount / allChallengesCount) * 100;
 
   return (
-    <Quiz
-      initialLessonId={lesson.id}
+    <QuizProvider
       initialLessonChallenges={lesson.challenges}
       initialHearts={userProgress.hearts}
       initialPercentage={initialPercentage}
       userSubscription={null}
-    />
+    >
+      <Quiz />
+    </QuizProvider>
   );
 }

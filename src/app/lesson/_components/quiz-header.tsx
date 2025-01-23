@@ -3,18 +3,15 @@ import Image from 'next/image';
 
 import ExitModal from '@/components/modal/exit-modal';
 import { Progress } from '@/components/ui/progress';
+import { useQuizContext } from '../_context/quiz-context';
 
 type Props = {
-  hearts: number;
-  percentage: number;
   hasActiveSubscription: boolean;
 };
 
-export default function QuizHeader({
-  hearts,
-  percentage,
-  hasActiveSubscription,
-}: Props) {
+export default function QuizHeader({ hasActiveSubscription }: Props) {
+  const { hearts, percentage } = useQuizContext();
+
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-x-7 px-10 pt-5 lg:pt-12">
       <ExitModal />

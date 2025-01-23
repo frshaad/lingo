@@ -8,20 +8,10 @@ export type ChallengeOptionType = Challenge['type'];
 
 type Props = {
   options: ChallengeOption[];
-  onSelect: (id: number) => void;
-  status?: Status;
-  selectedOption?: number;
-  isDisabled?: boolean;
   type: ChallengeOptionType;
 };
 
-export default function ChallengeOptions({
-  status = 'none',
-  isDisabled = false,
-  options,
-  selectedOption,
-  type,
-}: Props) {
+export default function ChallengeOptions({ options, type }: Props) {
   return (
     <div
       className={cn(
@@ -33,14 +23,12 @@ export default function ChallengeOptions({
     >
       {options.map((option, i) => (
         <OptionCard
-          isDisabled={isDisabled}
+          isDisabled={false}
           onClick={() => {
             /* */
           }}
           key={option.id}
           shortcut={`${i + 1}`}
-          isSelected={selectedOption === option.id}
-          status={status}
           type={type}
           {...option}
         />
