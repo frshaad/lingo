@@ -1,7 +1,7 @@
 import type { Challenge, ChallengeProgress, Lesson, Unit } from '@/db/schema';
 
-export type PopulatedUnit = Unit & {
-  lessons: PopulatedLesson[];
+export type PopulatedChallenge = Challenge & {
+  challengeProgresses: ChallengeProgress[];
 };
 
 export type PopulatedLesson = Lesson & {
@@ -9,6 +9,6 @@ export type PopulatedLesson = Lesson & {
   isCompleted: boolean;
 };
 
-export type PopulatedChallenge = Challenge & {
-  challengeProgresses: ChallengeProgress[];
+export type PopulatedUnit = Unit & {
+  lessons: PopulatedLesson[];
 };

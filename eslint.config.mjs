@@ -17,6 +17,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends(
+    'standard',
     'next/core-web-vitals',
     'next/typescript',
     'plugin:drizzle/recommended',
