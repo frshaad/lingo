@@ -11,7 +11,8 @@
     "check": "next lint --fix && prettier . --write",
     "db:studio": "npx drizzle-kit studio",
     "db:push": "npx drizzle-kit push",
-    "db:seed": "tsx ./src/db/seed.ts"
+    "db:seed": "tsx ./src/db/seed.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.10.0",
@@ -49,6 +50,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-drizzle": "^0.2.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.7",
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
