@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-
-import { useState } from 'react';
 
 import { type ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/lib/types';
 
+import { useQuiz } from '../_hooks/use-quiz';
 import ChallengeOptions from './challenge-options';
 import QuestionBubble from './question-bubble';
 import QuizHeader from './quiz-header';
@@ -25,28 +23,20 @@ type Props = {
 export default function Quiz({
   initialHearts,
   initialLessonChallenges,
-  initialLessonId,
   initialPercentage,
   userSubscription,
 }: Props) {
-  const [hearts, setHearts] = useState(initialHearts);
-  const [percentage, setPercentage] = useState(initialPercentage);
-  const [challenges, setChallenges] = useState(initialLessonChallenges);
-  const [activeChallengeIndex, setActiveChallengeIndex] = useState(() => {
-    const firstUncompletedChallengeIndex = challenges.findIndex(
-      (challenge) => !challenge.isCompleted,
-    );
-    return firstUncompletedChallengeIndex === -1
-      ? 0
-      : firstUncompletedChallengeIndex;
+  const {
+    hearts,
+    percentage,
+    currentChallengeOptions,
+    title,
+    currentChallenge,
+  } = useQuiz({
+    initialHearts,
+    initialLessonChallenges,
+    initialPercentage,
   });
-
-  const currentChallenge = challenges[activeChallengeIndex];
-  const currentChallengeOptions = currentChallenge.challengeOptions ?? [];
-  const title =
-    currentChallenge.type === 'ASSIST'
-      ? 'Select the correct meaning'
-      : currentChallenge.question;
 
   return (
     <>
