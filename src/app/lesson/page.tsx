@@ -14,12 +14,12 @@ export default async function LessonPage() {
     redirect('/learn');
   }
 
-  const completedChellengesCount = lesson.challenges.filter(
-    (chellenge) => chellenge.isCompleted
+  const completedChallengesCount = lesson.challenges.filter(
+    (challenge) => challenge.isCompleted
   ).length;
   const allChallengesCount = lesson.challenges.length;
   const initialPercentage =
-    (completedChellengesCount / allChallengesCount) * 100;
+    (completedChallengesCount / allChallengesCount) * 100;
 
   return (
     <Quiz

@@ -6,7 +6,7 @@ import { course } from '@/db/schema';
 export const userProgress = pgTable('user_progress', {
   userId: text().primaryKey(),
   userName: varchar({ length: 255 }).notNull().default('user'),
-  userImageSrc: text().notNull().default('/macot.svg'),
+  userImageSrc: text().notNull().default('/mascot.svg'),
   activeCourseId: integer().references(() => course.id, {
     onDelete: 'cascade',
   }),
