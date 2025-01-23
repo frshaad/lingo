@@ -13,8 +13,8 @@ export default function Sidebar({ className }: Props) {
   return (
     <aside
       className={cn(
-        'left-0 top-0 flex h-full flex-col border-r-2 px-4 lg:fixed lg:w-72',
-        className,
+        'top-0 left-0 flex h-full flex-col border-r-2 px-4 lg:fixed lg:w-72',
+        className
       )}
     >
       <Link href="/learn">

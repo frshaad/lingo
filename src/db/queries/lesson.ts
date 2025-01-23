@@ -50,7 +50,7 @@ export const getLesson = cache(async (id?: number) => {
     challenges: lessonData.challenges.map((challenge) => ({
       ...challenge,
       isCompleted: challenge.challengeProgresses.every(
-        (challengeProgress) => challengeProgress.isCompleted,
+        (challengeProgress) => challengeProgress.isCompleted
       ),
     })),
   };
@@ -75,10 +75,10 @@ export const getLessonPercentage = cache(async () => {
   }
 
   const completedChallenges = lesson.challenges.filter(
-    (challenge) => challenge.isCompleted,
+    (challenge) => challenge.isCompleted
   );
   const percentage = Math.round(
-    (completedChallenges.length / lesson.challenges.length) * 100,
+    (completedChallenges.length / lesson.challenges.length) * 100
   );
 
   return percentage;

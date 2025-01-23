@@ -34,7 +34,7 @@ export default function ExitModal() {
               height={80}
             />
           </div>
-          <DialogTitle className="text-center text-2xl font-bold">
+          <DialogTitle className="text-center font-bold text-2xl">
             Wait, Don&apos;t go!
           </DialogTitle>
           <DialogDescription className="text-center text-base">

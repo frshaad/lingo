@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
-import { LESSON_CONSTANTS } from './lesson.constant';
 import LessonIcon from './lesson-icon';
 import LessonProgress from './lesson-progress';
+import { LESSON_CONSTANTS } from './lesson.constant';
 
 type LessonButtonProps = {
   id: number;
@@ -49,9 +49,9 @@ export default function LessonButton({
       >
         {isActiveLesson ? (
           <div className="relative size-24">
-            <div className="absolute -top-6 left-2.5 z-10 animate-bounce rounded-xl border-2 bg-white px-3 py-2.5 font-bold uppercase tracking-wide text-green-500">
+            <div className="-top-6 absolute left-2.5 z-10 animate-bounce rounded-xl border-2 bg-white px-3 py-2.5 font-bold text-green-500 uppercase tracking-wide">
               Start
-              <div className="absolute -bottom-2 left-1/2 size-0 -translate-x-1/2 transform border-x-8 border-t-8 border-x-transparent" />
+              <div className="-bottom-2 -translate-x-1/2 absolute left-1/2 size-0 transform border-x-8 border-x-transparent border-t-8" />
             </div>
             <LessonProgress percentage={percentage}>
               <LessonIcon

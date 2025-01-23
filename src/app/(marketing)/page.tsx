@@ -1,9 +1,9 @@
 import {
   ClerkLoaded,
-  SignedIn,
-  SignedOut,
   SignInButton,
   SignUpButton,
+  SignedIn,
+  SignedOut,
 } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ export default function Home() {
         <Image src="/hero.svg" alt="hero" fill priority />
       </div>
       <div className="flex flex-col items-center gap-y-8">
-        <h1 className="max-w-lg text-center text-xl font-bold text-neutral-600 dark:text-neutral-200 lg:text-3xl">
+        <h1 className="max-w-lg text-center font-bold text-neutral-600 text-xl lg:text-3xl dark:text-neutral-200">
           Learn, practice and master new languages with Lingo.
         </h1>
         <div className="flex w-full max-w-[330px] flex-col items-center gap-y-3">

@@ -15,7 +15,7 @@ export default async function LessonPage() {
   }
 
   const completedChellengesCount = lesson.challenges.filter(
-    (chellenge) => chellenge.isCompleted,
+    (chellenge) => chellenge.isCompleted
   ).length;
   const allChallengesCount = lesson.challenges.length;
   const initialPercentage =

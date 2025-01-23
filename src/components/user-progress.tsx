@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { course } from '@/db/schema';
+import type { course } from '@/db/schema';
 
 type Props = {
   activeCourse: typeof course.$inferSelect;

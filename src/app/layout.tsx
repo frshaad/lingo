@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 
 import ClerkAuthProvider from '@/components/clerk-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { WebVitals } from '@/components/web-vitals';
 import { nunito } from '@/lib/fonts';
 
 export const metadata: Metadata = {
@@ -22,7 +21,6 @@ export default function RootLayout({
     <ClerkAuthProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={`${nunito.className} antialiased`}>
-          <WebVitals />
           {children}
           <Toaster />
         </body>

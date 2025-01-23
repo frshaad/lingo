@@ -1,4 +1,4 @@
-import { Check, Crown, Star } from 'lucide-react';
+import { Check, Crown, type LucideIcon, Star } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,14 @@ export default function LessonIcon({
   isLast,
   isLockedLesson,
 }: Props) {
-  const Icon = isCompleted ? Check : isLast ? Crown : Star;
+  let Icon: LucideIcon;
+  if (isCompleted) {
+    Icon = Check;
+  } else if (isLast) {
+    Icon = Crown;
+  } else {
+    Icon = Star;
+  }
 
   return (
     <Button
@@ -28,7 +35,7 @@ export default function LessonIcon({
           isLockedLesson
             ? 'fill-neutral-400 stroke-neutral-400 text-neutral-400'
             : 'fill-primary-foreground text-primary-foreground',
-          isCompleted && 'fill-none stroke-[4]',
+          isCompleted && 'fill-none stroke-[4]'
         )}
       />
     </Button>

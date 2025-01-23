@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useAudio, useKey } from 'react-use';
 
-import { type ChallengeOption } from '@/db/schema';
+import type { ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 import type { ChallengeOptionType, Status } from './challenge-options';
@@ -29,7 +29,9 @@ export default function OptionCard({
   const [audio, , controls] = useAudio({ src: audioSrc || '' });
 
   const handleClick = () => {
-    if (isDisabled) return;
+    if (isDisabled) {
+      return;
+    }
 
     controls.play();
     onClick();
@@ -39,6 +41,7 @@ export default function OptionCard({
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       className={cn(
         'h-full rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6',
@@ -50,7 +53,7 @@ export default function OptionCard({
           status === 'wrong' &&
           'border-rose-300 bg-rose-100 hover:bg-rose-100',
         isDisabled && 'pointer-events-none hover:bg-white',
-        type === 'ASSIST' && 'w-full lg:p-3',
+        type === 'ASSIST' && 'w-full lg:p-3'
       )}
     >
       {audio}
@@ -62,7 +65,7 @@ export default function OptionCard({
       <div
         className={cn(
           'flex items-center justify-between',
-          type === 'ASSIST' && 'flex-row-reverse',
+          type === 'ASSIST' && 'flex-row-reverse'
         )}
       >
         {type === 'ASSIST' && <div />}
@@ -71,7 +74,7 @@ export default function OptionCard({
             'text-neutral-600 max-lg:text-sm',
             isSelected && 'text-sky-500',
             isSelected && status === 'correct' && 'text-green-500',
-            isSelected && status === 'wrong' && 'text-rose-500',
+            isSelected && status === 'wrong' && 'text-rose-500'
           )}
         >
           {text}
@@ -83,7 +86,7 @@ export default function OptionCard({
             isSelected &&
               status === 'correct' &&
               'border-green-500 text-green-500',
-            isSelected && status === 'wrong' && 'border-rose-500 text-rose-500',
+            isSelected && status === 'wrong' && 'border-rose-500 text-rose-500'
           )}
         >
           {shortcut}

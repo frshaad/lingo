@@ -28,13 +28,15 @@ export default function ChallengeOptions({
         'grid gap-4',
         type === 'ASSIST' && 'grid-cols-1',
         type === 'SELECT' &&
-          'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]',
+          'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]'
       )}
     >
       {options.map((option, i) => (
         <OptionCard
           isDisabled={isDisabled}
-          onClick={() => {}}
+          onClick={() => {
+            /* */
+          }}
           key={option.id}
           shortcut={`${i + 1}`}
           isSelected={selectedOption === option.id}

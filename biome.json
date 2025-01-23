@@ -8,11 +8,11 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules",".next"]
+    "ignore": ["node_modules", ".next"]
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "tab"
+    "indentStyle": "space"
   },
   "organizeImports": {
     "enabled": true
@@ -20,12 +20,17 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {
+        "noConsole": "off"
+      }
     }
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "double"
-    }
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double"
+    },
+    "globals": ["React"]
   }
 }

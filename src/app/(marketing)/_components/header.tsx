@@ -1,8 +1,8 @@
 import {
   ClerkLoaded,
+  SignInButton,
   SignedIn,
   SignedOut,
-  SignInButton,
   UserButton,
 } from '@clerk/nextjs';
 
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 
 export default function MarketingHeader() {
   return (
-    <header className="h-20 w-full border-b-2 border-slate-200 px-4 dark:border-slate-800">
+    <header className="h-20 w-full border-slate-200 border-b-2 px-4 dark:border-slate-800">
       <div className="mx-auto flex h-full items-center justify-between lg:max-w-screen-lg">
         <Logo />
         <ClerkAuthButtons />

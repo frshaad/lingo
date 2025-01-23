@@ -21,7 +21,7 @@ export const challengeOptionRelations = relations(
       fields: [challengeOption.challengeId],
       references: [challenge.id],
     }),
-  }),
+  })
 );
 
 export type ChallengeOption = typeof challengeOption.$inferSelect;

@@ -19,7 +19,7 @@ export const challengeProgressRelations = relations(
       fields: [challengeProgress.challengeId],
       references: [challenge.id],
     }),
-  }),
+  })
 );
 
 export type ChallengeProgress = typeof challengeProgress.$inferSelect;

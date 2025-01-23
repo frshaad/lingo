@@ -9,7 +9,7 @@ type Props = PopulatedUnit & {
   activeLessonPercentage: number;
 };
 
-export default function Unit({
+export default function UnitComponent({
   title,
   description,
   lessons,

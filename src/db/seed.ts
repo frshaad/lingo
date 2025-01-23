@@ -1,8 +1,8 @@
 import db from '@/db';
 import * as schema from '@/db/schema';
 import {
-  CHALLENGE_OPTIONS,
   CHALLENGES,
+  CHALLENGE_OPTIONS,
   COURSES,
   LESSONS,
   TABLES_TO_CLEAR,
@@ -25,15 +25,15 @@ async function seedTables() {
 
 export async function seed() {
   try {
-    console.log('🌱 Starting database seed...');
+    console.info('🌱 Starting database seed...');
 
-    console.log('Clearing existing data...');
+    console.info('Clearing existing data...');
     await clearTables();
 
-    console.log('Seeding tables...');
+    console.info('Seeding tables...');
     await seedTables();
 
-    console.log('✅ Seeding completed successfully!');
+    console.info('✅ Seeding completed successfully!');
   } catch (error) {
     console.error('❌ Seeding failed:', error);
     process.exit(1);

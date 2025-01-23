@@ -7,7 +7,7 @@ import { useTransition } from 'react';
 import { toast } from 'sonner';
 
 import { upsertUserProgress } from '@/actions/user-progress';
-import { course } from '@/db/schema';
+import type { course } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -20,7 +20,9 @@ export default function CourseCard({ id, imageSrc, title, active }: Props) {
   const [isPending, startTransition] = useTransition();
 
   const handleActiveCourse = (courseId: number) => {
-    if (isPending) return;
+    if (isPending) {
+      return;
+    }
 
     if (active) {
       return router.push('/learn');
@@ -38,12 +40,14 @@ export default function CourseCard({ id, imageSrc, title, active }: Props) {
   };
 
   return (
-    <div
+    <button
+      type="button"
       className={cn(
         'flex h-full min-h-52 min-w-48 cursor-pointer flex-col items-center justify-between rounded-xl border-2 border-b-4 p-3 pb-6 hover:bg-black/5 active:border-b-2',
-        isPending && 'pointer-events-none opacity-50',
+        isPending && 'pointer-events-none opacity-50'
       )}
       onClick={() => handleActiveCourse(id)}
+      onKeyUp={() => handleActiveCourse(id)}
     >
       <div className="flex min-h-6 w-full items-center justify-end">
         {active && (
@@ -63,9 +67,9 @@ export default function CourseCard({ id, imageSrc, title, active }: Props) {
         className="rounded-lg border object-cover drop-shadow-md"
         priority
       />
-      <p className="mt-3 text-center font-bold capitalize text-neutral-700">
+      <p className="mt-3 text-center font-bold text-neutral-700 capitalize">
         {title}
       </p>
-    </div>
+    </button>
   );
 }

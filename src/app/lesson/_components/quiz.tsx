@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { type ChallengeOption } from '@/db/schema';
+import type { ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/lib/types';
 
 import { useQuiz } from '../_hooks/use-quiz';
@@ -17,6 +16,7 @@ type Props = {
     isCompleted: boolean;
     challengeOptions: ChallengeOption[];
   })[];
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   userSubscription: any;
 };
 
@@ -47,7 +47,7 @@ export default function Quiz({
       />
 
       <article className="mx-auto flex size-full flex-col items-center justify-center gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
-        <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
+        <h1 className="text-center font-bold text-lg text-neutral-700 lg:text-start lg:text-3xl">
           {title}
         </h1>
         <div className="w-full">
@@ -56,7 +56,9 @@ export default function Quiz({
           )}
           <ChallengeOptions
             options={currentChallengeOptions}
-            onSelect={() => {}}
+            onSelect={() => {
+              /* */
+            }}
             status="none"
             isDisabled={false}
             type={currentChallenge.type}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { type ChallengeOption } from '@/db/schema';
+import type { ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/lib/types';
 
 type Args = {
@@ -22,7 +22,7 @@ export function useQuiz({
   const [challenges, setChallenges] = useState(initialLessonChallenges);
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(() => {
     const firstUncompletedChallengeIndex = challenges.findIndex(
-      (challenge) => !challenge.isCompleted,
+      (challenge) => !challenge.isCompleted
     );
     return firstUncompletedChallengeIndex === -1
       ? 0
