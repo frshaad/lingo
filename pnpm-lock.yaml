@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@clerk/nextjs':
-        specifier: ^6.10.1
-        version: 6.10.1(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^6.10.2
+        version: 6.10.2(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
@@ -32,9 +32,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.4.7
       drizzle-orm:
         specifier: ^0.38.4
         version: 0.38.4(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@types/react@19.0.8)(react@19.0.0)
@@ -166,27 +163,27 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@clerk/backend@1.23.6':
-    resolution: {integrity: sha512-zi1tlHRlXvSOS2FqzGsdTunKtGFSGWYnjVmY6CpblJCDoP5aPI1X8+VFCrmiS4L3GIQ++9qqSQAD1Ve98GspeA==}
+  '@clerk/backend@1.23.7':
+    resolution: {integrity: sha512-AczS1l4PEbDYKJtaufzAQBOLA/NzeeTo423Dig1AtfABOXh2i1ZPldIjP2d+109HcCHAfr71Dx8r+2r9BNP+lA==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-react@5.22.5':
-    resolution: {integrity: sha512-5LrVQRUE33RsELWiio8hf4+VwO0jt4IZsxiQN7P10p5oLJ+jpE5eE2fHPKu0bLZFc2gczP2WUlL/8xBb66zY+g==}
+  '@clerk/clerk-react@5.22.6':
+    resolution: {integrity: sha512-5e1bMAxpXC9Br8e0Srf4TTc+yDrur1VU6sUAnGliluT85FzbJDLgHG35sUqD/6htkHBnx7zwe38EoDsh8WakUg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
 
-  '@clerk/nextjs@6.10.1':
-    resolution: {integrity: sha512-uqOPYBId35QqjZ8ENKsnTf3kHB3ooUFlGM0dd2KJgaKS5bhPXsz2oqwoXaDaQUruFrt8T1WRu/PBaH7n/yJ4Cw==}
+  '@clerk/nextjs@6.10.2':
+    resolution: {integrity: sha512-T1ibCsvD9NADO8uo5X+QgtCbkMNSGGqrMvZcFkY5waoHu055Tu1B6LabIGwGB0LS8HSoaadT61Y+fZC757R8sQ==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       next: ^13.5.4 || ^14.0.3 || ^15.0.0
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
 
-  '@clerk/shared@2.20.13':
-    resolution: {integrity: sha512-yO72L884i+In35+zAd2jZMnkuWlMD8vyzmmpigKTs5NNB5GZuMa6KTDrHT7DX/EL7sMoipbbgEkL3yxe2Hwlyg==}
+  '@clerk/shared@2.20.14':
+    resolution: {integrity: sha512-cQ5cRYHHLmYYSFg6OLuNUHxM6W4r5rabKOupP2jlGLns8WMHfbxNiLf/9nPUbLKDjWKG2Ott/nRN9iZQwcyfew==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
@@ -197,8 +194,8 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/types@4.43.0':
-    resolution: {integrity: sha512-1xjZykuGnOAI1mlj+qI9g8BiadakXbi9pSWLN2xDD1WpXmZjwGcP7ZR4ShUE/ps/cV0vH16lUF1z2rn84rMKrA==}
+  '@clerk/types@4.44.0':
+    resolution: {integrity: sha512-L9UNS21sQ7OAgXKUWSMaZWayI/qmVM4DGvGCAlL0tpzbzdFU1nkxRaMOT3FkmWKSahIq4BI+vJHfMC1ki9uuGg==}
     engines: {node: '>=18.17.0'}
 
   '@drizzle-team/brocli@0.10.2':
@@ -1305,10 +1302,6 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dotenv@16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
-    engines: {node: '>=12'}
-
   drizzle-kit@0.30.2:
     resolution: {integrity: sha512-vhdLrxWA32WNVF77NabpSnX7pQBornx64VDQDmKddRonOB2Xe/yY4glQ7rECoa+ogqcQNo7VblLUbeBK6Zn9Ow==}
     hasBin: true
@@ -2133,10 +2126,10 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@clerk/backend@1.23.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/backend@1.23.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/shared': 2.20.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/types': 4.43.0
+      '@clerk/shared': 2.20.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/types': 4.44.0
       cookie: 1.0.2
       snakecase-keys: 8.0.1
       tslib: 2.4.1
@@ -2144,20 +2137,20 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-react@5.22.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/clerk-react@5.22.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/shared': 2.20.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/types': 4.43.0
+      '@clerk/shared': 2.20.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/types': 4.44.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tslib: 2.4.1
 
-  '@clerk/nextjs@6.10.1(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/nextjs@6.10.2(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/backend': 1.23.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/clerk-react': 5.22.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/shared': 2.20.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/types': 4.43.0
+      '@clerk/backend': 1.23.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/clerk-react': 5.22.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/shared': 2.20.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/types': 4.44.0
       crypto-js: 4.2.0
       next: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
@@ -2165,9 +2158,9 @@ snapshots:
       server-only: 0.0.1
       tslib: 2.4.1
 
-  '@clerk/shared@2.20.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/shared@2.20.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/types': 4.43.0
+      '@clerk/types': 4.44.0
       dequal: 2.0.3
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.5
@@ -2177,7 +2170,7 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@clerk/types@4.43.0':
+  '@clerk/types@4.44.0':
     dependencies:
       csstype: 3.1.1
 
@@ -2995,8 +2988,6 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.4.1
-
-  dotenv@16.4.7: {}
 
   drizzle-kit@0.30.2:
     dependencies:

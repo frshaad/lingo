@@ -1,6 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs';
 
-import env from '@/lib/validated-env';
+import env from '@/lib/env';
 
 export default function ClerkAuthProvider({
   children,
