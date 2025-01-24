@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "clean:build": "rm -rf .next",
+    "clean:node": "rm -rf node_modules",
     "start": "next start",
     "lint": "ultracite lint",
     "format": "ultracite format",
