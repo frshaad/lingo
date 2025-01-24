@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@/lib/utils';
 import type { ChallengeType } from '@/types/quiz';
 import { useQuizContext } from '../_context/quiz-context';
