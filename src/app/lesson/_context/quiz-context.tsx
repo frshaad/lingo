@@ -16,11 +16,10 @@ export function QuizProvider({
   ...props
 }: QuizProviderProps & { children: ReactNode }) {
   const quizState = useQuiz(props);
+  const { userSubscription } = props;
 
   return (
-    <QuizContext.Provider
-      value={{ ...quizState, userSubscription: props.userSubscription }}
-    >
+    <QuizContext.Provider value={{ ...quizState, userSubscription }}>
       {children}
     </QuizContext.Provider>
   );

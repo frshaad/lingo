@@ -1,7 +1,8 @@
-import type { ChallengeOption } from '@/db/schema';
+'use client';
+
 import { cn } from '@/lib/utils';
 import type { ChallengeType } from '@/types/quiz';
-
+import { useQuizContext } from '../_context/quiz-context';
 import OptionCard from './option-card';
 
 const getGridClassName = (type: ChallengeType): string => {
@@ -15,18 +16,12 @@ const getGridClassName = (type: ChallengeType): string => {
   );
 };
 
-type ChallengeOptionsProps = {
-  options: ChallengeOption[];
-  type: ChallengeType;
-};
+export default function ChallengeOptions() {
+  const { currentChallengeOptions, currentChallenge } = useQuizContext();
 
-export default function ChallengeOptions({
-  options,
-  type,
-}: ChallengeOptionsProps) {
   return (
-    <div className={getGridClassName(type)}>
-      {options.map((option, index) => (
+    <div className={getGridClassName(currentChallenge.type)}>
+      {currentChallengeOptions.map((option, index) => (
         <OptionCard
           key={option.id}
           isDisabled={false}
@@ -34,7 +29,7 @@ export default function ChallengeOptions({
             /** */
           }}
           shortcut={`${index + 1}`}
-          type={type}
+          type={currentChallenge.type}
           {...option}
         />
       ))}
