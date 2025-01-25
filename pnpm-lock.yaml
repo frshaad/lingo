@@ -97,8 +97,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       ultracite:
-        specifier: ^4.1.16
-        version: 4.1.16
+        specifier: ^4.1.17
+        version: 4.1.17
 
 packages:
 
@@ -106,8 +106,8 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@babel/runtime@7.26.0':
-    resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
+  '@babel/runtime@7.26.7':
+    resolution: {integrity: sha512-AOPI3D+a8dXnja+iwsUqGRjr1BbZIe771sXdapOtYI531gSqpi92vXivKcq2asu/DFpdl1ceFAKZyRzK2PCVcQ==}
     engines: {node: '>=6.9.0'}
 
   '@biomejs/biome@1.9.4':
@@ -2027,8 +2027,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@4.1.16:
-    resolution: {integrity: sha512-UKnlDmW8YbPftlqTG1rLi4c0JhCf3l+OeXt1NJEqp/kSJ0cEaWQro3zzsmdjMyBinzYEXlgDUcnKdpgSeGO/Nw==}
+  ultracite@4.1.17:
+    resolution: {integrity: sha512-CdugkIPgpaQle6Yzn4foEV4t+ocLmos2y/64hr+I9ZJ0XVDrO52AeTioc+n7wTxwUxuEF/VxBkcxXhyQYu9hzg==}
     hasBin: true
 
   undici-types@6.20.0:
@@ -2087,7 +2087,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@babel/runtime@7.26.0':
+  '@babel/runtime@7.26.7':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -3477,7 +3477,7 @@ snapshots:
 
   rtl-css-js@1.16.1:
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.26.7
 
   run-parallel@1.2.0:
     dependencies:
@@ -3695,7 +3695,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  ultracite@4.1.16:
+  ultracite@4.1.17:
     dependencies:
       commander: 12.1.0
 
