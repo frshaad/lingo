@@ -14,15 +14,14 @@ export default async function LessonPage() {
     redirect('/learn');
   }
 
-  const completedChallengesCount = lesson.challenges.filter(
-    (challenge) => challenge.isCompleted
-  ).length;
-  const allChallengesCount = lesson.challenges.length;
   const initialPercentage =
-    (completedChallengesCount / allChallengesCount) * 100;
+    (lesson.challenges.filter((challenge) => challenge.isCompleted).length /
+      lesson.challenges.length) *
+    100;
 
   return (
     <QuizProvider
+      initialLessonId={lesson.id}
       initialLessonChallenges={lesson.challenges}
       initialHearts={userProgress.hearts}
       initialPercentage={initialPercentage}

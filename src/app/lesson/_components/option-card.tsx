@@ -3,28 +3,28 @@ import { useAudio, useKey } from 'react-use';
 
 import type { ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
-import type { ChallengeType, QuizStatus } from '@/types/quiz';
+import { useQuizContext } from '../_context/quiz-context';
 
 type Props = ChallengeOption & {
-  isDisabled: boolean;
-  onClick: () => void;
   shortcut: string;
-  isSelected?: boolean;
-  status?: QuizStatus;
-  type: ChallengeType;
 };
 
 export default function OptionCard({
-  onClick,
-  isSelected,
-  status,
-  isDisabled,
-  type,
   imageSrc,
   text,
   shortcut,
   audioSrc,
+  id,
 }: Props) {
+  const {
+    pending: isDisabled,
+    handleOptionSelect,
+    selectedOption,
+    currentChallenge,
+    status,
+  } = useQuizContext();
+  const isSelected = selectedOption === id;
+  const { type } = currentChallenge;
   const [audio, , controls] = useAudio({ src: audioSrc || '' });
 
   const handleClick = () => {
@@ -33,7 +33,7 @@ export default function OptionCard({
     }
 
     controls.play();
-    onClick();
+    handleOptionSelect(id);
   };
 
   useKey(shortcut, handleClick, {}, [handleClick]);

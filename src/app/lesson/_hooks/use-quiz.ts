@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import type { ChallengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/types/db';
+import type { QuizStatus } from '@/types/quiz';
 
 type Args = {
+  initialLessonId: number;
   initialHearts: number;
   initialPercentage: number;
   initialLessonChallenges: (PopulatedChallenge & {
@@ -22,16 +24,22 @@ function getInitialChallengeIndex(challenges: Args['initialLessonChallenges']) {
 }
 
 export function useQuiz({
+  initialLessonId,
   initialHearts,
   initialLessonChallenges,
   initialPercentage,
 }: Args) {
+  const [pending, _startTransition] = useTransition();
+
+  const [lessonId] = useState(initialLessonId);
   const [hearts, setHearts] = useState(initialHearts);
   const [percentage, setPercentage] = useState(initialPercentage);
-  const [challenges, setChallenges] = useState(initialLessonChallenges);
+  const [challenges] = useState(initialLessonChallenges);
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(() =>
     getInitialChallengeIndex(challenges)
   );
+  const [status, _setStatus] = useState<QuizStatus>('none');
+  const [selectedOption, setSelectedOption] = useState<number>();
 
   const currentChallenge = challenges[activeChallengeIndex];
   const currentChallengeOptions = currentChallenge.challengeOptions ?? [];
@@ -40,7 +48,16 @@ export function useQuiz({
       ? 'Select the correct meaning'
       : currentChallenge.question;
 
+  const handleOptionSelect = (id: number) => {
+    if (status !== 'none') {
+      return;
+    }
+
+    setSelectedOption(id);
+  };
+
   return {
+    lessonId,
     title,
     currentChallengeOptions,
     hearts,
@@ -48,7 +65,10 @@ export function useQuiz({
     percentage,
     setHearts,
     setPercentage,
-    setChallenges,
     setActiveChallengeIndex,
+    selectedOption,
+    handleOptionSelect,
+    status,
+    pending,
   };
 }

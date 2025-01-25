@@ -19,17 +19,8 @@ export default function ChallengeOptions() {
 
   return (
     <div className={getGridClassName(currentChallenge.type)}>
-      {currentChallengeOptions.map((option, index) => (
-        <OptionCard
-          key={option.id}
-          isDisabled={false}
-          onClick={() => {
-            /** */
-          }}
-          shortcut={`${index + 1}`}
-          type={currentChallenge.type}
-          {...option}
-        />
+      {currentChallengeOptions.map((opt, i) => (
+        <OptionCard key={opt.id} shortcut={`${i + 1}`} {...opt} />
       ))}
     </div>
   );
