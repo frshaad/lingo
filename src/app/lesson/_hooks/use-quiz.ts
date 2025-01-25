@@ -12,6 +12,15 @@ type Args = {
   })[];
 };
 
+function getInitialChallengeIndex(challenges: Args['initialLessonChallenges']) {
+  const firstUncompletedChallengeIndex = challenges.findIndex(
+    (challenge) => !challenge.isCompleted
+  );
+  return firstUncompletedChallengeIndex === -1
+    ? 0
+    : firstUncompletedChallengeIndex;
+}
+
 export function useQuiz({
   initialHearts,
   initialLessonChallenges,
@@ -20,14 +29,9 @@ export function useQuiz({
   const [hearts, setHearts] = useState(initialHearts);
   const [percentage, setPercentage] = useState(initialPercentage);
   const [challenges, setChallenges] = useState(initialLessonChallenges);
-  const [activeChallengeIndex, setActiveChallengeIndex] = useState(() => {
-    const firstUncompletedChallengeIndex = challenges.findIndex(
-      (challenge) => !challenge.isCompleted
-    );
-    return firstUncompletedChallengeIndex === -1
-      ? 0
-      : firstUncompletedChallengeIndex;
-  });
+  const [activeChallengeIndex, setActiveChallengeIndex] = useState(() =>
+    getInitialChallengeIndex(challenges)
+  );
 
   const currentChallenge = challenges[activeChallengeIndex];
   const currentChallengeOptions = currentChallenge.challengeOptions ?? [];
