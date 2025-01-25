@@ -1,4 +1,5 @@
 import QuizContent from './quiz-content';
+import QuizFooter from './quiz-footer';
 import QuizHeader from './quiz-header';
 
 export default function Quiz() {
@@ -6,6 +7,7 @@ export default function Quiz() {
     <>
       <QuizHeader />
       <QuizContent />
+      <QuizFooter />
     </>
   );
 }

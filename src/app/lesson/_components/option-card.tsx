@@ -23,9 +23,10 @@ export default function OptionCard({
     currentChallenge,
     status,
   } = useQuizContext();
+  const [audio, , controls] = useAudio({ src: audioSrc || '' });
+
   const isSelected = selectedOption === id;
   const { type } = currentChallenge;
-  const [audio, , controls] = useAudio({ src: audioSrc || '' });
 
   const handleClick = () => {
     if (isDisabled) {
