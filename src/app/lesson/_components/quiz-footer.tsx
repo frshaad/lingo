@@ -56,17 +56,10 @@ function FooterStatusMessage({
 
 export default function QuizFooter() {
   const isMobile = useMedia('(max-width: 1024px)');
-  const { selectedOption, status, lessonId } = useQuizContext();
+  const { selectedOption, status, lessonId, handleContinue } = useQuizContext();
   const localStatus = status as LocalStatus;
 
-  const onCheck = () => {
-    /** */
-  };
-  const handleClick = () => {
-    /** */
-  };
-
-  useKey('Enter', onCheck, {}, [onCheck]);
+  useKey('Enter', handleContinue, {}, [handleContinue]);
 
   return (
     <footer
@@ -85,7 +78,7 @@ export default function QuizFooter() {
         <Button
           size={isMobile ? 'sm' : 'lg'}
           variant={status === 'wrong' ? 'danger' : 'secondary'}
-          onClick={handleClick}
+          onClick={handleContinue}
           disabled={!selectedOption}
           className="ml-auto capitalize"
         >

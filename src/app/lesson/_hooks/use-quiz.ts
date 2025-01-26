@@ -38,7 +38,7 @@ export function useQuiz({
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(() =>
     getInitialChallengeIndex(challenges)
   );
-  const [status, _setStatus] = useState<QuizStatus>('none');
+  const [status, setStatus] = useState<QuizStatus>('none');
   const [selectedOption, setSelectedOption] = useState<number>();
 
   const currentChallenge = challenges[activeChallengeIndex];
@@ -48,12 +48,46 @@ export function useQuiz({
       ? 'Select the correct meaning'
       : currentChallenge.question;
 
+  const goToNextChallenge = () => {
+    setActiveChallengeIndex((c) => c + 1);
+  };
+
   const handleOptionSelect = (id: number) => {
     if (status !== 'none') {
       return;
     }
 
     setSelectedOption(id);
+  };
+
+  const handleContinue = () => {
+    if (!selectedOption) {
+      return;
+    }
+
+    if (status === 'wrong') {
+      setStatus('none');
+      setSelectedOption(undefined);
+      return;
+    }
+
+    if (status === 'correct') {
+      goToNextChallenge();
+      setStatus('none');
+      setSelectedOption(undefined);
+      return;
+    }
+
+    const correctAnswer = currentChallengeOptions.find((opt) => opt.isCorrect);
+    if (!correctAnswer) {
+      return;
+    }
+
+    if (correctAnswer.id === selectedOption) {
+      //
+    } else {
+      //
+    }
   };
 
   return {
@@ -70,5 +104,6 @@ export function useQuiz({
     handleOptionSelect,
     status,
     pending,
+    handleContinue,
   };
 }
