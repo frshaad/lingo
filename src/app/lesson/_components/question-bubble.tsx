@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import { useQuizContext } from '../_context/quiz-context';
 
 export default function QuestionBubble() {

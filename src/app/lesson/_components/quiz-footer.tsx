@@ -1,11 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import type { QuizStatus } from '@/types/quiz';
 import { CheckCircle, type LucideIcon, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useKey, useMedia } from 'react-use';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import type { QuizStatus } from '@/types/quiz';
 import { useQuizContext } from '../_context/quiz-context';
 
 type LocalStatus = QuizStatus | 'completed';
