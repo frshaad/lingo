@@ -8,10 +8,10 @@ export type QuizChallenge = PopulatedChallenge & {
 };
 
 export type QuizHookArgs = {
-  initialLessonId: number;
-  initialHearts: number;
-  initialPercentage: number;
-  initialLessonChallenges: QuizChallenge[];
+  lessonId: number;
+  startingHearts: number;
+  completionProgress: number;
+  challenges: QuizChallenge[];
 };
 
 export type QuizState = {

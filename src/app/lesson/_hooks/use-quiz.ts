@@ -15,26 +15,23 @@ const formatChallengeQuestion = (challenge: QuizChallenge): string => {
 };
 
 export function useQuiz({
-  initialLessonId,
-  initialHearts,
-  initialPercentage,
-  initialLessonChallenges,
+  lessonId,
+  startingHearts,
+  completionProgress,
+  challenges,
 }: QuizHookArgs) {
   const [pending, startTransition] = useTransition();
 
   const [quizData, setQuizData] = useState<QuizState>({
-    lessonId: initialLessonId,
-    hearts: initialHearts,
-    percentage: initialPercentage,
-    activeChallengeIndex: findFirstIncompleteChallengeIndex(
-      initialLessonChallenges
-    ),
+    lessonId,
+    hearts: startingHearts,
+    percentage: completionProgress,
+    activeChallengeIndex: findFirstIncompleteChallengeIndex(challenges),
     status: 'none',
     selectedOption: undefined,
   });
 
-  const activeChallenge =
-    initialLessonChallenges[quizData.activeChallengeIndex];
+  const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = activeChallenge.challengeOptions ?? [];
 
   const updateQuizData = useCallback((updates: Partial<QuizState>) => {

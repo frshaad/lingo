@@ -14,17 +14,17 @@ export default async function LessonPage() {
     redirect('/learn');
   }
 
-  const initialPercentage =
+  const completionProgress =
     (lesson.challenges.filter((challenge) => challenge.isCompleted).length /
       lesson.challenges.length) *
     100;
 
   return (
     <QuizProvider
-      initialLessonId={lesson.id}
-      initialLessonChallenges={lesson.challenges}
-      initialHearts={userProgress.hearts}
-      initialPercentage={initialPercentage}
+      lessonId={lesson.id}
+      challenges={lesson.challenges}
+      startingHearts={userProgress.hearts}
+      completionProgress={completionProgress}
       userSubscription={null}
     >
       <Quiz />

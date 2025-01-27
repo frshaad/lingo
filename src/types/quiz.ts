@@ -8,10 +8,10 @@ export type ChallengeType = 'ASSIST' | 'SELECT';
 export type QuizState = ReturnType<typeof useQuiz>;
 
 export type QuizProviderProps = {
-  initialLessonId: number;
-  initialHearts: number;
-  initialPercentage: number;
-  initialLessonChallenges: (PopulatedChallenge & {
+  lessonId: number;
+  startingHearts: number;
+  completionProgress: number;
+  challenges: (PopulatedChallenge & {
     isCompleted: boolean;
     challengeOptions: ChallengeOption[];
   })[];

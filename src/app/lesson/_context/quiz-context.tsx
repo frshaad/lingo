@@ -13,10 +13,18 @@ const QuizContext = createContext<QuizContextType | null>(null);
 
 export function QuizProvider({
   children,
-  ...props
+  lessonId,
+  startingHearts,
+  completionProgress,
+  challenges,
+  userSubscription,
 }: QuizProviderProps & { children: ReactNode }) {
-  const quizState = useQuiz(props);
-  const { userSubscription } = props;
+  const quizState = useQuiz({
+    lessonId,
+    startingHearts,
+    completionProgress,
+    challenges,
+  });
 
   return (
     <QuizContext.Provider value={{ ...quizState, userSubscription }}>
