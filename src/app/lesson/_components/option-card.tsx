@@ -3,10 +3,60 @@ import { useAudio, useKey } from 'react-use';
 
 import type { ChallengeOption } from '@/db/schema';
 import { cn } from '@/lib/utils';
+import type { QuizStatus } from '@/types/quiz';
 import { useQuizContext } from '../_context/quiz-context';
 
-type Props = ChallengeOption & {
+type OptionCardProps = ChallengeOption & {
   shortcut: string;
+};
+
+type CardStatus = QuizStatus;
+
+const KeyShortcut = ({
+  shortcut,
+  isSelected,
+  status,
+}: {
+  shortcut: string;
+  isSelected: boolean;
+  status: CardStatus;
+}) => (
+  <span
+    className={cn(
+      'flex size-5 items-center justify-center rounded-lg border-2 font-semibold text-neutral-400 max-lg:text-xs lg:size-7',
+      isSelected && 'border-sky-300 text-sky-500',
+      status === 'correct' && 'border-green-500 text-green-500',
+      status === 'wrong' && 'border-rose-500 text-rose-500'
+    )}
+  >
+    {shortcut}
+  </span>
+);
+
+const OptionImage = ({ src, alt }: { src: string; alt: string }) => (
+  <div className="relative mb-4 aspect-square max-h-20 w-full lg:max-h-36">
+    <Image src={src} alt={alt} fill />
+  </div>
+);
+
+const getButtonStyles = (
+  isSelected: boolean,
+  status: CardStatus,
+  isDisabled: boolean,
+  isAssistType: boolean
+) => {
+  return cn(
+    'h-full rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6',
+    isSelected && 'border-sky-300 bg-sky-100 hover:bg-sky-100',
+    isSelected &&
+      status === 'correct' &&
+      'border-green-300 bg-green-100 hover:bg-green-100',
+    isSelected &&
+      status === 'wrong' &&
+      'border-rose-300 bg-rose-100 hover:bg-rose-100',
+    isDisabled && 'pointer-events-none hover:bg-white',
+    isAssistType && 'w-full lg:p-3'
+  );
 };
 
 export default function OptionCard({
@@ -15,7 +65,7 @@ export default function OptionCard({
   shortcut,
   audioSrc,
   id,
-}: Props) {
+}: OptionCardProps) {
   const {
     pending: isDisabled,
     selectChoice,
@@ -26,7 +76,8 @@ export default function OptionCard({
   const [audio, , controls] = useAudio({ src: audioSrc || '' });
 
   const isSelected = selectedOption === id;
-  const { type } = activeChallenge;
+  const isAssistType = activeChallenge.type === 'ASSIST';
+  const cardStatus = status as CardStatus;
 
   const handleClick = () => {
     if (isDisabled) {
@@ -43,32 +94,22 @@ export default function OptionCard({
     <button
       type="button"
       onClick={handleClick}
-      className={cn(
-        'h-full rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6',
-        isSelected && 'border-sky-300 bg-sky-100 hover:bg-sky-100',
-        isSelected &&
-          status === 'correct' &&
-          'border-green-300 bg-green-100 hover:bg-green-100',
-        isSelected &&
-          status === 'wrong' &&
-          'border-rose-300 bg-rose-100 hover:bg-rose-100',
-        isDisabled && 'pointer-events-none hover:bg-white',
-        type === 'ASSIST' && 'w-full lg:p-3'
+      className={getButtonStyles(
+        isSelected,
+        cardStatus,
+        isDisabled,
+        isAssistType
       )}
     >
       {audio}
-      {imageSrc && (
-        <div className="relative mb-4 aspect-square max-h-20 w-full lg:max-h-36">
-          <Image src={imageSrc} alt={text} fill />
-        </div>
-      )}
+      {imageSrc && <OptionImage src={imageSrc} alt={text} />}
       <div
         className={cn(
           'flex items-center justify-between',
-          type === 'ASSIST' && 'flex-row-reverse'
+          isAssistType && 'flex-row-reverse'
         )}
       >
-        {type === 'ASSIST' && <div />}
+        {isAssistType && <div />}
         <p
           className={cn(
             'text-neutral-600 max-lg:text-sm',
@@ -79,18 +120,11 @@ export default function OptionCard({
         >
           {text}
         </p>
-        <span
-          className={cn(
-            'flex size-5 items-center justify-center rounded-lg border-2 font-semibold text-neutral-400 max-lg:text-xs lg:size-7',
-            isSelected && 'border-sky-300 text-sky-500',
-            isSelected &&
-              status === 'correct' &&
-              'border-green-500 text-green-500',
-            isSelected && status === 'wrong' && 'border-rose-500 text-rose-500'
-          )}
-        >
-          {shortcut}
-        </span>
+        <KeyShortcut
+          shortcut={shortcut}
+          isSelected={isSelected}
+          status={cardStatus}
+        />
       </div>
     </button>
   );
