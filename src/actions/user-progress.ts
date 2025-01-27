@@ -1,6 +1,6 @@
 'use server';
 
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { currentUser } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -19,10 +19,9 @@ type UserProgressData = {
 async function validateAndGetUserData(
   courseId: number
 ): Promise<UserProgressData> {
-  const { userId } = await auth();
   const user = await currentUser();
 
-  if (!userId || !user) {
+  if (!user) {
     throw new AuthorizationError();
   }
 
@@ -32,7 +31,7 @@ async function validateAndGetUserData(
   }
 
   return {
-    userId,
+    userId: user.id,
     courseId,
     userName: user.firstName || 'User',
     userImageSrc: user.imageUrl || '/mascot.svg',
