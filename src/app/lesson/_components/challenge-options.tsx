@@ -15,11 +15,11 @@ const getGridClassName = (type: ChallengeType): string => {
 };
 
 export default function ChallengeOptions() {
-  const { currentChallengeOptions, currentChallenge } = useQuizContext();
+  const { activeChallengeChoices, activeChallenge } = useQuizContext();
 
   return (
-    <div className={getGridClassName(currentChallenge.type)}>
-      {currentChallengeOptions.map((opt, i) => (
+    <div className={getGridClassName(activeChallenge.type)}>
+      {activeChallengeChoices.map((opt, i) => (
         <OptionCard key={opt.id} shortcut={`${i + 1}`} {...opt} />
       ))}
     </div>

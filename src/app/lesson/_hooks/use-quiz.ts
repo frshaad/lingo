@@ -1,109 +1,100 @@
-import { useState, useTransition } from 'react';
+import { useCallback, useState, useTransition } from 'react';
+import type { QuizChallenge, QuizHookArgs, QuizState } from '../types/quiz';
 
-import type { ChallengeOption } from '@/db/schema';
-import type { PopulatedChallenge } from '@/types/db';
-import type { QuizStatus } from '@/types/quiz';
-
-type Args = {
-  initialLessonId: number;
-  initialHearts: number;
-  initialPercentage: number;
-  initialLessonChallenges: (PopulatedChallenge & {
-    isCompleted: boolean;
-    challengeOptions: ChallengeOption[];
-  })[];
+const findFirstIncompleteChallengeIndex = (
+  challenges: QuizChallenge[]
+): number => {
+  const index = challenges.findIndex((challenge) => !challenge.isCompleted);
+  return index === -1 ? 0 : index;
 };
 
-function getInitialChallengeIndex(challenges: Args['initialLessonChallenges']) {
-  const firstUncompletedChallengeIndex = challenges.findIndex(
-    (challenge) => !challenge.isCompleted
-  );
-  return firstUncompletedChallengeIndex === -1
-    ? 0
-    : firstUncompletedChallengeIndex;
-}
+const formatChallengeQuestion = (challenge: QuizChallenge): string => {
+  return challenge.type === 'ASSIST'
+    ? 'Select the correct meaning'
+    : challenge.question;
+};
 
 export function useQuiz({
   initialLessonId,
   initialHearts,
-  initialLessonChallenges,
   initialPercentage,
-}: Args) {
-  const [pending, _startTransition] = useTransition();
-
-  const [lessonId] = useState(initialLessonId);
-  const [hearts, setHearts] = useState(initialHearts);
-  const [percentage, setPercentage] = useState(initialPercentage);
+  initialLessonChallenges,
+}: QuizHookArgs) {
+  const [pending, startTransition] = useTransition();
   const [challenges] = useState(initialLessonChallenges);
-  const [activeChallengeIndex, setActiveChallengeIndex] = useState(() =>
-    getInitialChallengeIndex(challenges)
+
+  const [quizData, setQuizData] = useState<QuizState>({
+    lessonId: initialLessonId,
+    hearts: initialHearts,
+    percentage: initialPercentage,
+    activeChallengeIndex: findFirstIncompleteChallengeIndex(challenges),
+    status: 'none',
+    selectedOption: undefined,
+  });
+
+  const activeChallenge = challenges[quizData.activeChallengeIndex];
+  const activeChallengeChoices = activeChallenge.challengeOptions ?? [];
+
+  const updateQuizData = useCallback((updates: Partial<QuizState>) => {
+    setQuizData((prev) => ({ ...prev, ...updates }));
+  }, []);
+
+  const selectChoice = useCallback(
+    (choiceId: number) => {
+      if (quizData.status !== 'none') {
+        return;
+      }
+      updateQuizData({ selectedOption: choiceId });
+    },
+    [quizData.status, updateQuizData]
   );
-  const [status, setStatus] = useState<QuizStatus>('none');
-  const [selectedOption, setSelectedOption] = useState<number>();
 
-  const currentChallenge = challenges[activeChallengeIndex];
-  const currentChallengeOptions = currentChallenge.challengeOptions ?? [];
-  const title =
-    currentChallenge.type === 'ASSIST'
-      ? 'Select the correct meaning'
-      : currentChallenge.question;
+  const goToNextChallenge = useCallback(() => {
+    updateQuizData({
+      activeChallengeIndex: quizData.activeChallengeIndex + 1,
+      status: 'none',
+      selectedOption: undefined,
+    });
+  }, [quizData.activeChallengeIndex, updateQuizData]);
 
-  const goToNextChallenge = () => {
-    setActiveChallengeIndex((c) => c + 1);
-  };
-
-  const handleOptionSelect = (id: number) => {
-    if (status !== 'none') {
+  const proceedToNextStep = useCallback(() => {
+    if (!quizData.selectedOption) {
       return;
     }
 
-    setSelectedOption(id);
-  };
-
-  const handleContinue = () => {
-    if (!selectedOption) {
+    if (quizData.status === 'wrong') {
+      updateQuizData({ status: 'none', selectedOption: undefined });
       return;
     }
 
-    if (status === 'wrong') {
-      setStatus('none');
-      setSelectedOption(undefined);
-      return;
-    }
-
-    if (status === 'correct') {
+    if (quizData.status === 'correct') {
       goToNextChallenge();
-      setStatus('none');
-      setSelectedOption(undefined);
       return;
     }
 
-    const correctAnswer = currentChallengeOptions.find((opt) => opt.isCorrect);
-    if (!correctAnswer) {
+    const correctChoice = activeChallengeChoices.find(
+      (choice) => choice.isCorrect
+    );
+    if (!correctChoice) {
       return;
     }
 
-    if (correctAnswer.id === selectedOption) {
-      //
-    } else {
-      //
-    }
-  };
+    startTransition(() => {
+      const isCorrect = correctChoice.id === quizData.selectedOption;
+      updateQuizData({
+        status: isCorrect ? 'correct' : 'wrong',
+        hearts: isCorrect ? quizData.hearts : quizData.hearts - 1,
+      });
+    });
+  }, [quizData, activeChallengeChoices, goToNextChallenge, updateQuizData]);
 
   return {
-    lessonId,
-    title,
-    currentChallengeOptions,
-    hearts,
-    currentChallenge,
-    percentage,
-    setHearts,
-    setPercentage,
-    setActiveChallengeIndex,
-    selectedOption,
-    handleOptionSelect,
-    status,
+    ...quizData,
+    title: formatChallengeQuestion(activeChallenge),
+    activeChallenge,
+    activeChallengeChoices,
+    selectChoice,
+    proceedToNextStep,
     pending,
-    handleContinue,
   };
 }

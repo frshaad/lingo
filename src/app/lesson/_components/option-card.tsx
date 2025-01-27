@@ -18,15 +18,15 @@ export default function OptionCard({
 }: Props) {
   const {
     pending: isDisabled,
-    handleOptionSelect,
+    selectChoice,
     selectedOption,
-    currentChallenge,
+    activeChallenge,
     status,
   } = useQuizContext();
   const [audio, , controls] = useAudio({ src: audioSrc || '' });
 
   const isSelected = selectedOption === id;
-  const { type } = currentChallenge;
+  const { type } = activeChallenge;
 
   const handleClick = () => {
     if (isDisabled) {
@@ -34,7 +34,7 @@ export default function OptionCard({
     }
 
     controls.play();
-    handleOptionSelect(id);
+    selectChoice(id);
   };
 
   useKey(shortcut, handleClick, {}, [handleClick]);
