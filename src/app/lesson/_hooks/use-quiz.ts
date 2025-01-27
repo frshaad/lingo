@@ -21,18 +21,20 @@ export function useQuiz({
   initialLessonChallenges,
 }: QuizHookArgs) {
   const [pending, startTransition] = useTransition();
-  const [challenges] = useState(initialLessonChallenges);
 
   const [quizData, setQuizData] = useState<QuizState>({
     lessonId: initialLessonId,
     hearts: initialHearts,
     percentage: initialPercentage,
-    activeChallengeIndex: findFirstIncompleteChallengeIndex(challenges),
+    activeChallengeIndex: findFirstIncompleteChallengeIndex(
+      initialLessonChallenges
+    ),
     status: 'none',
     selectedOption: undefined,
   });
 
-  const activeChallenge = challenges[quizData.activeChallengeIndex];
+  const activeChallenge =
+    initialLessonChallenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = activeChallenge.challengeOptions ?? [];
 
   const updateQuizData = useCallback((updates: Partial<QuizState>) => {
