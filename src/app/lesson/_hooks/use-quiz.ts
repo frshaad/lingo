@@ -1,4 +1,5 @@
 import { useCallback, useState, useTransition } from 'react';
+
 import type { QuizChallenge, QuizHookArgs, QuizState } from '../types/quiz';
 
 const findFirstIncompleteChallengeIndex = (

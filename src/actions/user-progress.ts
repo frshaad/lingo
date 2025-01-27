@@ -7,45 +7,65 @@ import { redirect } from 'next/navigation';
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
 import { userProgress } from '@/db/schema';
+import { AuthorizationError, ResourceNotFoundError } from './errors';
 
-export async function upsertUserProgress(courseId: number) {
+type UserProgressData = {
+  userId: string;
+  courseId: number;
+  userName: string;
+  userImageSrc: string;
+};
+
+async function validateAndGetUserData(
+  courseId: number
+): Promise<UserProgressData> {
   const { userId } = await auth();
   const user = await currentUser();
+
   if (!userId || !user) {
-    throw new Error('Unauthorized');
+    throw new AuthorizationError();
   }
 
   const course = await getCourseById(courseId);
   if (!course) {
-    throw new Error('Course not found');
+    throw new ResourceNotFoundError('Course');
   }
 
-  // TODO
-  // if (!course.units.length || !course.units[0].lessons.length) {
-  //   throw new Error('Course is empty');
-  // }
+  return {
+    userId,
+    courseId,
+    userName: user.firstName || 'User',
+    userImageSrc: user.imageUrl || '/mascot.svg',
+  };
+}
 
-  const existingUserProgress = await getUserProgress();
-  if (existingUserProgress) {
-    await db.update(userProgress).set({
-      activeCourseId: courseId,
-      userName: user.firstName || 'User',
-      userImageSrc: user.imageUrl || '/mascot.svg',
-    });
+export async function upsertUserProgress(courseId: number) {
+  try {
+    const userData = await validateAndGetUserData(courseId);
+    const existingProgress = await getUserProgress();
+
+    if (existingProgress) {
+      await db.update(userProgress).set({
+        activeCourseId: userData.courseId,
+        userName: userData.userName,
+        userImageSrc: userData.userImageSrc,
+      });
+    } else {
+      await db.insert(userProgress).values({
+        userId: userData.userId,
+        activeCourseId: userData.courseId,
+        userName: userData.userName,
+        userImageSrc: userData.userImageSrc,
+      });
+    }
 
     revalidatePath('/courses');
     revalidatePath('/learn');
     redirect('/learn');
+  } catch (error) {
+    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+      throw error;
+    }
+    throw new Error('Failed to update progress');
   }
-
-  await db.insert(userProgress).values({
-    userId,
-    activeCourseId: courseId,
-    userName: user.firstName || 'User',
-    userImageSrc: user.imageUrl || '/mascot.svg',
-  });
-
-  revalidatePath('/courses');
-  revalidatePath('/learn');
-  redirect('/learn');
 }
