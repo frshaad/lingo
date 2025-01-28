@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Lingo - Language Learning Platform
 
-## Getting Started
+A modern web application for language learning, built with cutting-edge technologies including React 19 and Next.js 15.
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
+[![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)](https://orm.drizzle.team/)
+[![Clerk](https://img.shields.io/badge/Clerk-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)](https://clerk.com/)
 
+## ✨ Features
+
+- 🎯 Interactive language learning exercises
+- 🎨 Modern, responsive UI design
+- 🔐 Secure authentication with Clerk
+- ⚡ Optimized performance with Next.js
+- 📱 Mobile-first approach
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 15 with App Router and Server Actions
+- **Frontend:** React 19, TypeScript
+- **Authentication:** Clerk
+- **Styling:** Tailwind CSS, shadcn/ui components
+- **Database:** Neon (Serverless Postgres)
+- **ORM:** Drizzle ORM
+- **Validation:** Zod
+- **Package Manager:** pnpm
+- **Deployment:** Vercel
+
+## 🛠️ Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/frshaad/lingo.git
+cd lingo
+```
+
+2. Install dependencies
+```bash
+pnpm install
+```
+
+3. Set up environment variables
+```bash
+cp .env.example .env
+# Add your Clerk credentials to .env:
+# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+# CLERK_SECRET_KEY=
+```
+
+4. Run the development server
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+├── components/
+│   └── ui/          # shadcn/ui components
+├── lib/
+│   └── db/         # Drizzle schema and config
+```
 
-## Learn More
+## 🖼️ Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+[Coming soon]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Future Improvements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [x] Add user authentication
+- [x] Implement progress tracking
+- [ ] Add more language options
+- [ ] Integrate with a backend API
+- [ ] Add social features
 
-## Deploy on Vercel
+## 👨‍💻 About Me
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I'm a junior developer passionate about creating user-friendly web applications. This project showcases my abilities with modern web technologies and my commitment to writing clean, maintainable code.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📫 Contact
+
+- [LinkedIn](https://www.linkedin.com/in/farshad-hatami/)
+- [Email](mailto:farshad.hatami95@gmail.com)
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+Built with ❤️ by Farshad
