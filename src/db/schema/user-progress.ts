@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm';
 import { integer, pgTable, text, varchar } from 'drizzle-orm/pg-core';
 
 import { course } from '@/db/schema';
+import { DEFAULT_HEARTS } from '@/lib/constants';
 
 export const userProgress = pgTable('user_progress', {
   userId: text().primaryKey(),
@@ -10,7 +11,7 @@ export const userProgress = pgTable('user_progress', {
   activeCourseId: integer().references(() => course.id, {
     onDelete: 'cascade',
   }),
-  hearts: integer().notNull().default(5),
+  hearts: integer().notNull().default(DEFAULT_HEARTS),
   points: integer().notNull().default(0),
 });
 
