@@ -1,5 +1,9 @@
 import { useCallback, useState, useTransition } from 'react';
 
+import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
+import { useAudioEffects } from '@/hooks/use-audio-effects';
+import { DEFAULT_HEARTS } from '@/lib/constants';
+import { toast } from 'sonner';
 import type { QuizChallenge, QuizHookArgs, QuizState } from '../types/quiz';
 
 const findFirstIncompleteChallengeIndex = (
@@ -22,6 +26,7 @@ export function useQuiz({
   challenges,
 }: QuizHookArgs) {
   const [pending, startTransition] = useTransition();
+  const { correctControls } = useAudioEffects();
 
   const [quizData, setQuizData] = useState<QuizState>({
     lessonId,
@@ -81,12 +86,41 @@ export function useQuiz({
 
     startTransition(() => {
       const isCorrect = correctChoice.id === quizData.selectedOption;
-      updateQuizData({
-        status: isCorrect ? 'correct' : 'wrong',
-        hearts: isCorrect ? quizData.hearts : quizData.hearts - 1,
-      });
+
+      if (isCorrect) {
+        upsertChallengeProgress(activeChallenge.id)
+          .then((response) => {
+            if (response?.error === 'hearts') {
+              // Call openHeartsModal()
+              return;
+            }
+
+            correctControls.play();
+            updateQuizData({
+              status: 'correct',
+              percentage: quizData.percentage + 100 / challenges.length,
+            });
+
+            // This is a practice
+            if (completionProgress === 100) {
+              updateQuizData({
+                hearts: Math.min(quizData.hearts + 1, DEFAULT_HEARTS),
+              });
+            }
+          })
+          .catch(() => toast.error('Something went wrong. Please try again.'));
+      }
     });
-  }, [quizData, activeChallengeChoices, goToNextChallenge, updateQuizData]);
+  }, [
+    quizData,
+    activeChallengeChoices,
+    goToNextChallenge,
+    updateQuizData,
+    activeChallenge.id,
+    challenges.length,
+    completionProgress,
+    correctControls.play,
+  ]);
 
   return {
     ...quizData,
