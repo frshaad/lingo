@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 
-import { upsertUserProgress } from '@/actions/user-progress';
+import { upsertUserProgress } from '@/actions/user-progress.action';
 import type { course } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
