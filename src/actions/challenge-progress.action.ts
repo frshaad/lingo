@@ -25,18 +25,19 @@ async function updateExistingProgress(
   currentHearts: number,
   currentPoints: number
 ) {
-  await db
-    .update(challengeProgress)
-    .set({ isCompleted: true })
-    .where(eq(challengeProgress.id, progressId));
-
-  await db
-    .update(userProgress)
-    .set({
-      hearts: Math.min(currentHearts + 1, DEFAULT_HEARTS),
-      points: currentPoints + POINT_INCREMENT_STEP,
-    })
-    .where(eq(userProgress.userId, userId));
+  await Promise.all([
+    db
+      .update(challengeProgress)
+      .set({ isCompleted: true })
+      .where(eq(challengeProgress.id, progressId)),
+    db
+      .update(userProgress)
+      .set({
+        hearts: Math.min(currentHearts + 1, DEFAULT_HEARTS),
+        points: currentPoints + POINT_INCREMENT_STEP,
+      })
+      .where(eq(userProgress.userId, userId)),
+  ]);
 }
 
 async function createNewProgress(
@@ -44,18 +45,19 @@ async function createNewProgress(
   challengeId: number,
   currentPoints: number
 ) {
-  await db.insert(challengeProgress).values({
-    challengeId,
-    userId,
-    isCompleted: true,
-  });
-
-  await db
-    .update(userProgress)
-    .set({
-      points: currentPoints + POINT_INCREMENT_STEP,
-    })
-    .where(eq(userProgress.userId, userId));
+  await Promise.all([
+    db.insert(challengeProgress).values({
+      challengeId,
+      userId,
+      isCompleted: true,
+    }),
+    db
+      .update(userProgress)
+      .set({
+        points: currentPoints + POINT_INCREMENT_STEP,
+      })
+      .where(eq(userProgress.userId, userId)),
+  ]);
 }
 
 function revalidatePages(lessonId: number) {
