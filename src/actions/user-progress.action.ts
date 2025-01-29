@@ -40,8 +40,10 @@ async function validateAndGetUserData(
 
 export async function upsertUserProgress(courseId: number) {
   try {
-    const userData = await validateAndGetUserData(courseId);
-    const existingProgress = await getUserProgress();
+    const [userData, existingProgress] = await Promise.all([
+      validateAndGetUserData(courseId),
+      getUserProgress(),
+    ]);
 
     if (existingProgress) {
       await db.update(userProgress).set({

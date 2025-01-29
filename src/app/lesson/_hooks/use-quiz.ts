@@ -1,10 +1,10 @@
 import { useCallback, useState, useTransition } from 'react';
+import { toast } from 'sonner';
 
 import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
 import { DEFAULT_HEARTS } from '@/lib/constants';
-import { toast } from 'sonner';
-import type { QuizChallenge, QuizHookArgs, QuizState } from '../types/quiz';
+import type { QuizChallenge, QuizHookArgs, QuizState } from '../_types/quiz';
 
 const findFirstIncompleteChallengeIndex = (
   challenges: QuizChallenge[]
