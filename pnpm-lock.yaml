@@ -33,11 +33,11 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       drizzle-orm:
-        specifier: ^0.38.4
-        version: 0.38.4(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@types/react@19.0.8)(react@19.0.0)
+        specifier: ^0.39.1
+        version: 0.39.1(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@types/react@19.0.8)(react@19.0.0)
       lucide-react:
-        specifier: 0.473.0
-        version: 0.473.0(react@19.0.0)
+        specifier: 0.474.0
+        version: 0.474.0(react@19.0.0)
       next:
         specifier: ^15.1.6
         version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -57,8 +57,8 @@ importers:
         specifier: ^17.6.0
         version: 17.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       sonner:
-        specifier: ^1.7.2
-        version: 1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^1.7.3
+        version: 1.7.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -82,8 +82,8 @@ importers:
         specifier: ^19.0.3
         version: 19.0.3(@types/react@19.0.8)
       drizzle-kit:
-        specifier: ^0.30.3
-        version: 0.30.3
+        specifier: ^0.30.4
+        version: 0.30.4
       postcss:
         specifier: ^8.5.1
         version: 8.5.1
@@ -1302,12 +1302,12 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  drizzle-kit@0.30.3:
-    resolution: {integrity: sha512-kT8sgyC2hZrtOh5okhEBiwgx8jx+EjLUFoANFVVkBbxIjcb8XjaUorZ0rwCEUEd7THclI3ZARR64pmxloMW3Aw==}
+  drizzle-kit@0.30.4:
+    resolution: {integrity: sha512-B2oJN5UkvwwNHscPWXDG5KqAixu7AUzZ3qbe++KU9SsQ+cZWR4DXEPYcvWplyFAno0dhRJECNEhNxiDmFaPGyQ==}
     hasBin: true
 
-  drizzle-orm@0.38.4:
-    resolution: {integrity: sha512-s7/5BpLKO+WJRHspvpqTydxFob8i1vo2rEx4pY6TGY7QSMuUfWUuzaY0DIpXCkgHOo37BaFC+SJQb99dDUXT3Q==}
+  drizzle-orm@0.39.1:
+    resolution: {integrity: sha512-2bDHlzTY31IDmrYn8i+ZZrxK8IyBD4mPZ7JmZdVDQj2tpBZXs/gxB/1kK5pSvkjxPUMNOVsTnoGkSltgjuJwcA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=4'
@@ -1551,8 +1551,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lucide-react@0.473.0:
-    resolution: {integrity: sha512-KW6u5AKeIjkvrxXZ6WuCu9zHE/gEYSXCay+Gre2ZoInD0Je/e3RBtP4OHpJVJ40nDklSvjVKjgH7VU8/e2dzRw==}
+  lucide-react@0.474.0:
+    resolution: {integrity: sha512-CmghgHkh0OJNmxGKWc0qfPJCYHASPMVSyGY8fj3xgk4v84ItqDg64JNKFZn5hC6E0vHi6gxnbCgwhyVB09wQtA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -1846,8 +1846,8 @@ packages:
     resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==}
     engines: {node: '>=0.10.0'}
 
-  semver@7.6.3:
-    resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
+  semver@7.7.0:
+    resolution: {integrity: sha512-DrfFnPzblFmNrIZzg5RzHegbiRWg7KMR7btwi2yjHwx06zsUbO5g613sVwEV7FTwmzJu+Io0lJe2GJ3LxqpvBQ==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1884,8 +1884,8 @@ packages:
     resolution: {integrity: sha512-Sj51kE1zC7zh6TDlNNz0/Jn1n5HiHdoQErxO8jLtnyrkJW/M5PrI7x05uDgY3BO7OUQYKCvmeMurW6BPUdwEOw==}
     engines: {node: '>=18'}
 
-  sonner@1.7.2:
-    resolution: {integrity: sha512-zMbseqjrOzQD1a93lxahm+qMGxWovdMxBlkTbbnZdNqVLt4j+amF9PQxUCL32WfztOFt9t9ADYkejAL3jF9iNA==}
+  sonner@1.7.3:
+    resolution: {integrity: sha512-KXLWQfyR6AHpYZuQk8eO8fCbZSJY3JOpgsu/tbGc++jgPjj8JsR1ZpO8vFhqR/OxvWMQCSAmnSShY0gr4FPqHg==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
@@ -2989,7 +2989,7 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.4.1
 
-  drizzle-kit@0.30.3:
+  drizzle-kit@0.30.4:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
@@ -2998,7 +2998,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.38.4(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@types/react@19.0.8)(react@19.0.0):
+  drizzle-orm@0.39.1(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@types/react@19.0.8)(react@19.0.0):
     optionalDependencies:
       '@neondatabase/serverless': 0.10.4
       '@types/pg': 8.11.6
@@ -3212,7 +3212,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lucide-react@0.473.0(react@19.0.0):
+  lucide-react@0.474.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
@@ -3487,7 +3487,7 @@ snapshots:
 
   screenfull@5.2.0: {}
 
-  semver@7.6.3:
+  semver@7.7.0:
     optional: true
 
   server-only@0.0.1: {}
@@ -3498,7 +3498,7 @@ snapshots:
     dependencies:
       color: 4.2.3
       detect-libc: 2.0.3
-      semver: 7.6.3
+      semver: 7.7.0
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.33.5
       '@img/sharp-darwin-x64': 0.33.5
@@ -3545,7 +3545,7 @@ snapshots:
       snake-case: 3.0.4
       type-fest: 4.33.0
 
-  sonner@1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  sonner@1.7.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
