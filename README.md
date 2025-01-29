@@ -46,9 +46,35 @@ pnpm install
 3. Set up environment variables
 ```bash
 cp .env.example .env
-# Add your Clerk credentials to .env:
-# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-# CLERK_SECRET_KEY=
+```
+
+Add the following required environment variables to your `.env` file:
+
+```bash
+# Clerk Authentication (Required)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=   # Your Clerk public key
+CLERK_SECRET_KEY=                    # Your Clerk secret key
+
+# Clerk Authentication URLs (Required)
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=              # Default: "/"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=              # Default: "/"
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=  # Default: "/learn"
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=  # Default: "/learn"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL=       # Default: "/"
+
+# Database (Required)
+DATABASE_URL=                        # Your PostgreSQL connection string from Neon.tech
+```
+
+> **Important**: Always use the validated `env` object from `@/lib/env.ts` instead of accessing `process.env` directly. This ensures type safety and runtime validation of environment variables.
+
+```typescript
+// ❌ Don't use process.env directly
+const dbUrl = process.env.DATABASE_URL
+
+// ✅ Do use the validated env object
+import env from '@/lib/env'
+const dbUrl = env.DATABASE_URL
 ```
 
 4. Run the development server
