@@ -20,7 +20,6 @@ async function validateAndGetUserData(
   courseId: number
 ): Promise<UserProgressData> {
   const user = await currentUser();
-
   if (!user) {
     throw new AuthorizationError();
   }
@@ -45,19 +44,21 @@ export async function upsertUserProgress(courseId: number) {
       getUserProgress(),
     ]);
 
+    const {
+      courseId: activeCourseId,
+      userName,
+      userImageSrc,
+      userId,
+    } = userData;
+
     if (existingProgress) {
-      await db.update(userProgress).set({
-        activeCourseId: userData.courseId,
-        userName: userData.userName,
-        userImageSrc: userData.userImageSrc,
-      });
+      await db
+        .update(userProgress)
+        .set({ activeCourseId, userName, userImageSrc });
     } else {
-      await db.insert(userProgress).values({
-        userId: userData.userId,
-        activeCourseId: userData.courseId,
-        userName: userData.userName,
-        userImageSrc: userData.userImageSrc,
-      });
+      await db
+        .insert(userProgress)
+        .values({ userId, activeCourseId, userName, userImageSrc });
     }
 
     revalidatePath('/courses');
