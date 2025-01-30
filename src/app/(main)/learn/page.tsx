@@ -26,7 +26,6 @@ export default async function LearnPage() {
     redirect('/courses');
   }
 
-  // Since we've checked for null above, we can safely assert the type
   const userProgressWithActiveCourse = {
     ...userProgress,
     activeCourse: userProgress.activeCourse,

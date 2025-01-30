@@ -46,7 +46,8 @@ export const getCourseProgress = cache(async () => {
       lesson.challenges.some(
         (challenge) =>
           !challenge.challengeProgresses ||
-          challenge.challengeProgresses.length === 0
+          challenge.challengeProgresses.length === 0 ||
+          !challenge.challengeProgresses[0].isCompleted
       )
     );
 

@@ -49,9 +49,11 @@ export const getLesson = cache(async (id?: number) => {
     ...lessonData,
     challenges: lessonData.challenges.map((challenge) => ({
       ...challenge,
-      isCompleted: challenge.challengeProgresses.every(
-        (challengeProgress) => challengeProgress.isCompleted
-      ),
+      isCompleted:
+        challenge.challengeProgresses.length > 0 &&
+        challenge.challengeProgresses.every(
+          (challengeProgress) => challengeProgress.isCompleted
+        ),
     })),
   };
 });
