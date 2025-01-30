@@ -22,7 +22,7 @@ export const UNITS: schema.Unit[] = [
     id: 1,
     courseId: 1,
     title: 'Unit 1',
-    description: 'Learn the basics of the spanish',
+    description: 'Learn the basics of the Spanish',
     order: 1,
   },
 ];

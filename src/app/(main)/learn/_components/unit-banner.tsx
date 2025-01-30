@@ -15,6 +15,7 @@ export default function UnitBanner({ title, description }: Props) {
         <h3 className="font-bold text-2xl">{title}</h3>
         <p className="text-lg">{description}</p>
       </div>
+      {/* TODO: if challenge is completed, don't show the Continue button. */}
       <Link href="/lesson">
         <Button
           size="lg"
