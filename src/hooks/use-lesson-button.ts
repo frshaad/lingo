@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { LESSON_CONSTANTS } from '@/app/(main)/learn/_components/lesson.constant';
+import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import type {
   LessonButtonState,
   UseLessonButtonProps,
@@ -9,10 +10,12 @@ import type {
 export const useLessonButton = ({
   index,
   id,
-  activeLessonId,
   isCompleted,
   totalLessonsCount,
 }: UseLessonButtonProps): LessonButtonState => {
+  const { courseProgress } = useLearnContext();
+  const activeLessonId = courseProgress?.activeLesson?.id;
+
   return useMemo(() => {
     const { INDENTATION_PATTERN, LESSON_SPACING } = LESSON_CONSTANTS;
     const cycleIndex = index % INDENTATION_PATTERN.CYCLE_LENGTH;

@@ -1,20 +1,22 @@
+'use client';
+
 import Link from 'next/link';
 
 import { useLessonButton } from '@/hooks/use-lesson-button';
 import { cn } from '@/lib/utils';
 import type { LessonButtonProps } from '@/types/lesson';
+import { useLearnContext } from '../_context/learn-context';
 import LessonIcon from './lesson-icon';
 import LessonProgress from './lesson-progress';
 import { StartTooltip } from './start-tooltip';
 
 export default function LessonButton({
   id,
-  activeLessonId,
   isCompleted,
   totalLessonsCount,
-  percentage,
   index,
 }: LessonButtonProps) {
+  const { lessonPercentage } = useLearnContext();
   const {
     lessonIconPosition,
     isFirst,
@@ -25,7 +27,6 @@ export default function LessonButton({
   } = useLessonButton({
     index,
     id,
-    activeLessonId,
     isCompleted,
     totalLessonsCount,
   });
@@ -48,9 +49,9 @@ export default function LessonButton({
         style={{ right: `${lessonIconPosition}px` }}
       >
         {isActiveLesson ? (
-          <div className="relative size-24" aria-valuenow={percentage}>
+          <div className="relative size-24" aria-valuenow={lessonPercentage}>
             <StartTooltip />
-            <LessonProgress percentage={percentage}>
+            <LessonProgress>
               <LessonIcon
                 isCompleted={isCompleted}
                 isLast={isLast}

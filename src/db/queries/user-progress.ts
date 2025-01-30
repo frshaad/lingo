@@ -22,3 +22,5 @@ export const getUserProgress = cache(async () => {
 
   return userProgressData;
 });
+
+export type UserProgressType = Awaited<ReturnType<typeof getUserProgress>>;

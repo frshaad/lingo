@@ -1,22 +1,14 @@
-import type { lesson, unit } from '@/db/schema';
+'use client';
+
 import type { PopulatedUnit } from '@/types/db';
 import LessonButton from './lesson-button';
 import UnitBanner from './unit-banner';
-
-type Props = PopulatedUnit & {
-  activeLesson?: typeof lesson.$inferSelect & {
-    unit: typeof unit.$inferSelect;
-  };
-  activeLessonPercentage: number;
-};
 
 export default function UnitComponent({
   title,
   description,
   lessons,
-  activeLesson,
-  activeLessonPercentage,
-}: Props) {
+}: PopulatedUnit) {
   return (
     <>
       <UnitBanner title={title} description={description} />
@@ -24,9 +16,7 @@ export default function UnitComponent({
         {lessons.map((lesson, index) => (
           <LessonButton
             key={lesson.id}
-            activeLessonId={activeLesson?.id}
             totalLessonsCount={lessons.length - 1}
-            percentage={activeLessonPercentage}
             index={index}
             {...lesson}
           />

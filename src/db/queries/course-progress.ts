@@ -55,3 +55,5 @@ export const getCourseProgress = cache(async () => {
     activeLessonId: firstUncompletedLesson?.id,
   };
 });
+
+export type CourseProgressType = Awaited<ReturnType<typeof getCourseProgress>>;

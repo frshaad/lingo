@@ -7,11 +7,11 @@ import {
   getUnits,
   getUserProgress,
 } from '@/db/queries';
-
 import FeedHeader from './_components/feed-header';
 import FeedWrapper from './_components/feed-wrapper';
 import StickyWrapper from './_components/sticky-wrapper';
 import Unit from './_components/unit';
+import { LearnContextProvider } from './_context/learn-context';
 
 export default async function LearnPage() {
   const [userProgress, units, courseProgress, lessonPercentage] =
@@ -27,26 +27,24 @@ export default async function LearnPage() {
   }
 
   return (
-    <div className="flex gap-12 px-6">
-      <FeedWrapper>
-        <FeedHeader title={userProgress.activeCourse.title} />
-        {units.map((unit) => (
-          <Unit
-            key={unit.id}
-            activeLesson={courseProgress.activeLesson}
-            activeLessonPercentage={lessonPercentage}
-            {...unit}
-          />
-        ))}
-      </FeedWrapper>
-      <StickyWrapper>
-        <UserProgress
-          activeCourse={userProgress.activeCourse}
-          hearts={userProgress.hearts}
-          points={userProgress.points}
-          hasActiveSubscription={false}
-        />
-      </StickyWrapper>
-    </div>
+    <LearnContextProvider
+      userProgress={userProgress}
+      units={units}
+      courseProgress={courseProgress}
+      lessonPercentage={lessonPercentage}
+      activeCourse={userProgress.activeCourse}
+    >
+      <div className="flex gap-12 px-6">
+        <FeedWrapper>
+          <FeedHeader />
+          {units.map((unit) => (
+            <Unit key={unit.id} {...unit} />
+          ))}
+        </FeedWrapper>
+        <StickyWrapper>
+          <UserProgress hasActiveSubscription={false} />
+        </StickyWrapper>
+      </div>
+    </LearnContextProvider>
   );
 }

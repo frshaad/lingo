@@ -6,9 +6,7 @@ export type LessonType = typeof lesson.$inferSelect & {
 
 export interface LessonButtonProps {
   id: number;
-  activeLessonId?: number;
   isCompleted: boolean;
   totalLessonsCount: number;
-  percentage: number;
   index: number;
 }

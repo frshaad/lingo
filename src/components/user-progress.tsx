@@ -2,22 +2,17 @@ import { InfinityIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import { Button } from '@/components/ui/button';
-import type { course } from '@/db/schema';
 
 type Props = {
-  activeCourse: typeof course.$inferSelect;
-  hearts: number;
-  points: number;
   hasActiveSubscription: boolean;
 };
 
-export default function UserProgress({
-  activeCourse,
-  hasActiveSubscription,
-  hearts,
-  points,
-}: Props) {
+export default function UserProgress({ hasActiveSubscription }: Props) {
+  const { activeCourse, userProgress } = useLearnContext();
+  const { hearts, points } = userProgress;
+
   return (
     <div className="flex w-full items-center justify-between gap-x-2">
       <Button variant="ghost" asChild>
