@@ -1,11 +1,12 @@
-import type { Lesson, Unit } from '@/db/schema';
+import type { lesson, unit } from '@/db/schema';
 import type { PopulatedUnit } from '@/types/db';
-
 import LessonButton from './lesson-button';
 import UnitBanner from './unit-banner';
 
 type Props = PopulatedUnit & {
-  activeLesson?: Lesson & { unit: Unit };
+  activeLesson?: typeof lesson.$inferSelect & {
+    unit: typeof unit.$inferSelect;
+  };
   activeLessonPercentage: number;
 };
 

@@ -13,5 +13,3 @@ export const courseRelations = relations(course, ({ many }) => ({
   userProgresses: many(userProgress),
   units: many(unit),
 }));
-
-export type Course = typeof course.$inferSelect;

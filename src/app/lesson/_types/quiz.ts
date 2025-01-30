@@ -1,10 +1,10 @@
-import type { ChallengeOption } from '@/db/schema';
+import type { challengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/types/db';
 import type { QuizStatus } from '@/types/quiz';
 
 export type QuizChallenge = PopulatedChallenge & {
   isCompleted: boolean;
-  challengeOptions: ChallengeOption[];
+  challengeOptions: (typeof challengeOption.$inferSelect)[];
 };
 
 export type QuizHookArgs = {

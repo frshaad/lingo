@@ -23,5 +23,3 @@ export const challengeOptionRelations = relations(
     }),
   })
 );
-
-export type ChallengeOption = typeof challengeOption.$inferSelect;

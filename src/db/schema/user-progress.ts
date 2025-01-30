@@ -21,5 +21,3 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
     references: [course.id],
   }),
 }));
-
-export type UserProgress = typeof userProgress.$inferSelect;

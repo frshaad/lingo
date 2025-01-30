@@ -1,5 +1,5 @@
 import type { useQuiz } from '@/app/lesson/_hooks/use-quiz';
-import type { ChallengeOption } from '@/db/schema';
+import type { challengeOption } from '@/db/schema';
 import type { PopulatedChallenge } from '@/types/db';
 
 export type QuizStatus = 'correct' | 'wrong' | 'none';
@@ -13,7 +13,7 @@ export type QuizProviderProps = {
   completionProgress: number;
   challenges: (PopulatedChallenge & {
     isCompleted: boolean;
-    challengeOptions: ChallengeOption[];
+    challengeOptions: (typeof challengeOption.$inferSelect)[];
   })[];
   userSubscription: unknown;
 };

@@ -21,5 +21,3 @@ export const lessonRelations = relations(lesson, ({ one, many }) => ({
   }),
   challenges: many(challenge),
 }));
-
-export type Lesson = typeof lesson.$inferSelect;

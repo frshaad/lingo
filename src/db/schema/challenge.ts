@@ -23,5 +23,3 @@ export const challengeRelations = relations(challenge, ({ one, many }) => ({
   challengeOptions: many(challengeOption),
   challengeProgresses: many(challengeProgress),
 }));
-
-export type Challenge = typeof challenge.$inferSelect;

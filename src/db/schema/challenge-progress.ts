@@ -21,5 +21,3 @@ export const challengeProgressRelations = relations(
     }),
   })
 );
-
-export type ChallengeProgress = typeof challengeProgress.$inferSelect;
