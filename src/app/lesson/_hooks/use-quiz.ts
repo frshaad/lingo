@@ -28,14 +28,14 @@ export function useQuiz({
   const [pending, startTransition] = useTransition();
   const { correctControls } = useAudioEffects();
 
-  const [quizData, setQuizData] = useState<QuizState>({
+  const [quizData, setQuizData] = useState<QuizState>(() => ({
     lessonId,
     hearts: startingHearts,
     percentage: completionProgress,
     activeChallengeIndex: findFirstIncompleteChallengeIndex(challenges),
     status: 'none',
     selectedOption: undefined,
-  });
+  }));
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = activeChallenge.challengeOptions ?? [];
