@@ -111,5 +111,5 @@ export async function upsertChallengeProgress(
     await createNewProgress(userId, challengeId, userProgressData.points);
   }
 
-  await revalidatePages(currentChallenge.lessonId);
+  revalidatePages(currentChallenge.lessonId);
 }

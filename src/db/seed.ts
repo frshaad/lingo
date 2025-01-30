@@ -16,11 +16,13 @@ async function clearTables() {
 }
 
 async function seedTables() {
-  await db.insert(schema.course).values(COURSES);
-  await db.insert(schema.unit).values(UNITS);
-  await db.insert(schema.lesson).values(LESSONS);
-  await db.insert(schema.challenge).values(CHALLENGES);
-  await db.insert(schema.challengeOption).values(CHALLENGE_OPTIONS);
+  await Promise.all([
+    db.insert(schema.course).values(COURSES),
+    db.insert(schema.unit).values(UNITS),
+    db.insert(schema.lesson).values(LESSONS),
+    db.insert(schema.challenge).values(CHALLENGES),
+    db.insert(schema.challengeOption).values(CHALLENGE_OPTIONS),
+  ]);
 }
 
 export async function seed() {

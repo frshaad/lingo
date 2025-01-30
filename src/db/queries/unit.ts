@@ -20,8 +20,10 @@ function isChallengeCompleted(challenge: PopulatedChallenge) {
  * @returns Array of units with their lessons and completion status
  */
 export const getUnits = cache(async () => {
-  const { userId } = await auth();
-  const userProgress = await getUserProgress();
+  const [{ userId }, userProgress] = await Promise.all([
+    auth(),
+    getUserProgress(),
+  ]);
 
   if (!userId || !userProgress?.activeCourseId) {
     return [];

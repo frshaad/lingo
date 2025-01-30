@@ -11,8 +11,10 @@ import { challengeProgress, unit } from '@/db/schema';
  * @returns Object containing the first uncompleted lesson or null if no active course
  */
 export const getCourseProgress = cache(async () => {
-  const { userId } = await auth();
-  const userProgress = await getUserProgress();
+  const [{ userId }, userProgress] = await Promise.all([
+    auth(),
+    getUserProgress(),
+  ]);
 
   if (!userId || !userProgress?.activeCourseId) {
     return null;
