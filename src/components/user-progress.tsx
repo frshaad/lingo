@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function UserProgress({ hasActiveSubscription }: Props) {
-  const { activeCourse, userProgress } = useLearnContext();
+  const { userProgress } = useLearnContext();
   const { hearts, points } = userProgress;
 
   return (
@@ -18,8 +18,8 @@ export default function UserProgress({ hasActiveSubscription }: Props) {
       <Button variant="ghost" asChild>
         <Link href="/courses">
           <Image
-            src={activeCourse.imageSrc}
-            alt={activeCourse.title}
+            src={userProgress.activeCourse.imageSrc}
+            alt={userProgress.activeCourse.title}
             width={32}
             height={32}
             className="rounded-md border"

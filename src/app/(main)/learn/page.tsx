@@ -32,7 +32,6 @@ export default async function LearnPage() {
       units={units}
       courseProgress={courseProgress}
       lessonPercentage={lessonPercentage}
-      activeCourse={userProgress.activeCourse}
     >
       <div className="flex gap-12 px-6">
         <FeedWrapper>
