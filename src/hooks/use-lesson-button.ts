@@ -1,12 +1,10 @@
-import { LESSON_CONSTANTS } from '@/app/(main)/learn/_components/lesson.constant';
+import { useMemo } from 'react';
 
-type UseLessonButtonProps = {
-  index: number;
-  id: number;
-  activeLessonId?: number;
-  isCompleted: boolean;
-  totalLessonsCount: number;
-};
+import { LESSON_CONSTANTS } from '@/app/(main)/learn/_components/lesson.constant';
+import type {
+  LessonButtonState,
+  UseLessonButtonProps,
+} from '@/types/lesson-button';
 
 export const useLessonButton = ({
   index,
@@ -14,18 +12,24 @@ export const useLessonButton = ({
   activeLessonId,
   isCompleted,
   totalLessonsCount,
-}: UseLessonButtonProps) => {
-  const { INDENTATION_PATTERN, CYCLE_LENGTH, LESSON_SPACING } =
-    LESSON_CONSTANTS;
-  const cycleIndex = index % CYCLE_LENGTH;
-  const indentationLevel = INDENTATION_PATTERN[cycleIndex];
+}: UseLessonButtonProps): LessonButtonState => {
+  return useMemo(() => {
+    const { INDENTATION_PATTERN, LESSON_SPACING } = LESSON_CONSTANTS;
+    const cycleIndex = index % INDENTATION_PATTERN.CYCLE_LENGTH;
+    const indentationLevel = INDENTATION_PATTERN.PATTERN[cycleIndex];
 
-  return {
-    lessonIconPosition: indentationLevel * LESSON_SPACING,
-    isFirst: index === 0,
-    isLast: index === totalLessonsCount,
-    isActiveLesson: id === activeLessonId,
-    isLockedLesson: !isCompleted && id !== activeLessonId,
-    href: isCompleted ? `/lesson/${id}` : '/lesson',
-  };
+    const isFirst = index === 0;
+    const isLast = index === totalLessonsCount;
+    const isActiveLesson = id === activeLessonId;
+    const isLockedLesson = !isCompleted && id !== activeLessonId;
+
+    return {
+      lessonIconPosition: indentationLevel * LESSON_SPACING.LESSON,
+      isFirst,
+      isLast,
+      isActiveLesson,
+      isLockedLesson,
+      href: isCompleted ? `/lesson/${id}` : '/lesson',
+    };
+  }, [index, id, activeLessonId, isCompleted, totalLessonsCount]);
 };

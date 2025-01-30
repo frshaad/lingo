@@ -2,18 +2,10 @@ import Link from 'next/link';
 
 import { useLessonButton } from '@/hooks/use-lesson-button';
 import { cn } from '@/lib/utils';
+import type { LessonButtonProps } from '@/types/lesson';
 import LessonIcon from './lesson-icon';
 import LessonProgress from './lesson-progress';
 import { StartTooltip } from './start-tooltip';
-
-type LessonButtonProps = {
-  id: number;
-  activeLessonId?: number;
-  isCompleted: boolean;
-  totalLessonsCount: number;
-  percentage: number;
-  index: number;
-};
 
 export default function LessonButton({
   id,
@@ -42,7 +34,12 @@ export default function LessonButton({
     <Link
       href={href}
       aria-disabled={isLockedLesson}
-      className={isLockedLesson ? 'pointer-events-none' : 'pointer-events-auto'}
+      className={cn(
+        'transition-opacity',
+        isLockedLesson
+          ? 'pointer-events-none opacity-50'
+          : 'pointer-events-auto'
+      )}
     >
       <div
         className={cn('relative mt-6', {
@@ -51,7 +48,7 @@ export default function LessonButton({
         style={{ right: `${lessonIconPosition}px` }}
       >
         {isActiveLesson ? (
-          <div className="relative size-24">
+          <div className="relative size-24" aria-valuenow={percentage}>
             <StartTooltip />
             <LessonProgress percentage={percentage}>
               <LessonIcon
