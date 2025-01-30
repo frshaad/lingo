@@ -10,14 +10,14 @@ export const TABLES_TO_CLEAR = [
   schema.challengeProgress,
 ];
 
-export const COURSES: schema.Course[] = [
+export const COURSES: (typeof schema.course.$inferInsert)[] = [
   { id: 1, title: 'Spanish', imageSrc: '/es.svg' },
   { id: 2, title: 'German', imageSrc: '/de.svg' },
   { id: 3, title: 'French', imageSrc: '/fr.svg' },
   { id: 4, title: 'Italian', imageSrc: '/it.svg' },
 ];
 
-export const UNITS: schema.Unit[] = [
+export const UNITS: (typeof schema.unit.$inferInsert)[] = [
   {
     id: 1,
     courseId: 1,
@@ -27,7 +27,7 @@ export const UNITS: schema.Unit[] = [
   },
 ];
 
-export const LESSONS: schema.Lesson[] = [
+export const LESSONS: (typeof schema.lesson.$inferInsert)[] = [
   { id: 1, unitId: 1, order: 1, title: 'Nouns' },
   { id: 2, unitId: 1, order: 2, title: 'Verbs' },
   { id: 3, unitId: 1, order: 3, title: 'Verbs' },
@@ -35,7 +35,7 @@ export const LESSONS: schema.Lesson[] = [
   { id: 5, unitId: 1, order: 5, title: 'Verbs' },
 ];
 
-export const CHALLENGES: schema.Challenge[] = [
+export const CHALLENGES: (typeof schema.challenge.$inferInsert)[] = [
   {
     id: 1,
     lessonId: 1,
@@ -43,31 +43,82 @@ export const CHALLENGES: schema.Challenge[] = [
     type: 'SELECT',
     question: 'Which one of these is "the man"?',
   },
-];
-
-export const CHALLENGE_OPTIONS: schema.ChallengeOption[] = [
-  {
-    id: 1,
-    challengeId: 1,
-    text: 'el hombre',
-    imageSrc: '/man.svg',
-    audioSrc: '/es_man.mp3',
-    isCorrect: true,
-  },
   {
     id: 2,
-    challengeId: 1,
-    text: 'la mujer',
-    imageSrc: '/woman.svg',
-    audioSrc: '/es_woman.mp3',
-    isCorrect: false,
+    lessonId: 1,
+    order: 2,
+    type: 'ASSIST',
+    question: '"the man"',
   },
   {
     id: 3,
-    challengeId: 1,
-    text: 'el robot',
-    imageSrc: '/robot.svg',
-    audioSrc: '/es_robot.mp3',
-    isCorrect: false,
+    lessonId: 1,
+    order: 3,
+    type: 'SELECT',
+    question: 'Which one of these is "the robot"?',
   },
 ];
+
+export const CHALLENGE_OPTIONS: (typeof schema.challengeOption.$inferInsert)[] =
+  [
+    {
+      challengeId: 1,
+      text: 'el hombre',
+      imageSrc: '/man.svg',
+      audioSrc: '/es_man.mp3',
+      isCorrect: true,
+    },
+    {
+      challengeId: 1,
+      text: 'la mujer',
+      imageSrc: '/woman.svg',
+      audioSrc: '/es_woman.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 1,
+      text: 'el robot',
+      imageSrc: '/robot.svg',
+      audioSrc: '/es_robot.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 2,
+      text: 'el hombre',
+      audioSrc: '/es_man.mp3',
+      isCorrect: true,
+    },
+    {
+      challengeId: 2,
+      text: 'la mujer',
+      audioSrc: '/es_woman.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 2,
+      text: 'el robot',
+      audioSrc: '/es_robot.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 3,
+      text: 'el hombre',
+      imageSrc: '/man.svg',
+      audioSrc: '/es_man.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 3,
+      text: 'la mujer',
+      imageSrc: '/woman.svg',
+      audioSrc: '/es_woman.mp3',
+      isCorrect: false,
+    },
+    {
+      challengeId: 3,
+      text: 'el robot',
+      imageSrc: '/robot.svg',
+      audioSrc: '/es_robot.mp3',
+      isCorrect: true,
+    },
+  ];
