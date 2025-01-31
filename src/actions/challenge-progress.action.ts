@@ -7,7 +7,10 @@ import { revalidatePath } from 'next/cache';
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { challenge, challengeProgress, userProgress } from '@/db/schema';
-import { DEFAULT_HEARTS, POINT_INCREMENT_STEP } from '@/lib/constants';
+import {
+  INITIAL_LIVES_COUNT,
+  SCORE_PER_CORRECT_ANSWER,
+} from '@/lib/global.constant';
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
 const PATHS_TO_REVALIDATE = [
@@ -33,8 +36,8 @@ async function updateExistingProgress(
     db
       .update(userProgress)
       .set({
-        hearts: Math.min(currentHearts + 1, DEFAULT_HEARTS),
-        points: currentPoints + POINT_INCREMENT_STEP,
+        hearts: Math.min(currentHearts + 1, INITIAL_LIVES_COUNT),
+        points: currentPoints + SCORE_PER_CORRECT_ANSWER,
       })
       .where(eq(userProgress.userId, userId)),
   ]);
@@ -54,7 +57,7 @@ async function createNewProgress(
     db
       .update(userProgress)
       .set({
-        points: currentPoints + POINT_INCREMENT_STEP,
+        points: currentPoints + SCORE_PER_CORRECT_ANSWER,
       })
       .where(eq(userProgress.userId, userId)),
   ]);

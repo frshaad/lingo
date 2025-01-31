@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 
 import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
-import { DEFAULT_HEARTS } from '@/lib/constants';
+import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
 import type { QuizChallenge, QuizHookArgs, QuizState } from '../_types/quiz';
 
 const findFirstIncompleteChallengeIndex = (
@@ -104,7 +104,7 @@ export function useQuiz({
             // This is a practice
             if (completionProgress === 100) {
               updateQuizData({
-                hearts: Math.min(quizData.hearts + 1, DEFAULT_HEARTS),
+                hearts: Math.min(quizData.hearts + 1, INITIAL_LIVES_COUNT),
               });
             }
           })
