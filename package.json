@@ -15,7 +15,7 @@
     "db:seed": "tsx ./src/db/seed.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.10.4",
+    "@clerk/nextjs": "^6.10.6",
     "@neondatabase/serverless": "^0.10.4",
     "@next/env": "^15.1.6",
     "@radix-ui/react-dialog": "^1.1.5",
@@ -32,14 +32,14 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^19.0.0",
     "react-use": "^17.6.0",
-    "sonner": "^1.7.3",
+    "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.12.0",
+    "@types/node": "^22.13.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "drizzle-kit": "^0.30.4",
@@ -47,6 +47,6 @@
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
-    "ultracite": "^4.1.17"
+    "ultracite": "^4.1.18"
   }
 }
