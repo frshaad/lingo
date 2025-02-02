@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/frshaad/lingo#readme",
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=18.18.0"
   },
   "scripts": {
     "dev": "next dev --turbopack",
