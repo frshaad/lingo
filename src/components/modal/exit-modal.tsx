@@ -1,8 +1,9 @@
 'use client';
 
-import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import { X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -34,7 +35,7 @@ export default function ExitModal() {
               height={80}
             />
           </div>
-          <DialogTitle className="text-center font-bold text-2xl">
+          <DialogTitle className="text-center text-2xl font-bold">
             Wait, Don&apos;t go!
           </DialogTitle>
           <DialogDescription className="text-center text-base">

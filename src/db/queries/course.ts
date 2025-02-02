@@ -1,5 +1,6 @@
-import { eq } from 'drizzle-orm';
 import { cache } from 'react';
+
+import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { course } from '@/db/schema';

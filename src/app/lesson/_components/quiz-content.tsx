@@ -9,7 +9,7 @@ export default function QuizContent() {
 
   return (
     <article className="mx-auto flex size-full flex-col items-center justify-center gap-y-12 px-6 lg:min-h-[350px] lg:w-[600px] lg:px-0">
-      <h1 className="text-center font-bold text-lg text-neutral-700 lg:text-start lg:text-3xl">
+      <h1 className="text-center text-lg font-bold text-neutral-700 lg:text-start lg:text-3xl">
         {title}
       </h1>
       <div className="w-full">

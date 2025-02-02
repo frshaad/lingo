@@ -1,9 +1,11 @@
-import { useCallback, useState, useTransition } from 'react';
+import { useCallback, useMemo, useState, useTransition } from 'react';
+
 import { toast } from 'sonner';
 
 import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
 import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
+
 import type { QuizChallenge, QuizHookArgs, QuizState } from '../_types/quiz';
 
 const findFirstIncompleteChallengeIndex = (
@@ -38,7 +40,10 @@ export function useQuiz({
   }));
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
-  const activeChallengeChoices = activeChallenge.challengeOptions ?? [];
+  const activeChallengeChoices = useMemo(
+    () => activeChallenge.challengeOptions ?? [],
+    [activeChallenge.challengeOptions]
+  );
 
   const updateQuizData = useCallback((updates: Partial<QuizState>) => {
     setQuizData((prev) => ({ ...prev, ...updates }));
@@ -112,14 +117,17 @@ export function useQuiz({
       }
     });
   }, [
-    quizData,
+    quizData.selectedOption,
+    quizData.status,
+    quizData.percentage,
+    quizData.hearts,
     activeChallengeChoices,
-    goToNextChallenge,
     updateQuizData,
+    goToNextChallenge,
     activeChallenge.id,
+    correctControls,
     challenges.length,
     completionProgress,
-    correctControls.play,
   ]);
 
   return {

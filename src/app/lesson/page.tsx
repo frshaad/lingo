@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { getLesson, getUserProgress } from '@/db/queries';
+
 import Quiz from './_components/quiz';
 import { QuizProvider } from './_context/quiz-context';
 

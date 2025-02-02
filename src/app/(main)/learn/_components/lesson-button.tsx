@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useLessonButton } from '@/hooks/use-lesson-button';
 import { cn } from '@/lib/utils';
 import type { LessonButtonProps } from '@/types/lesson';
+
 import { useLearnContext } from '../_context/learn-context';
 import LessonIcon from './lesson-icon';
 import LessonProgress from './lesson-progress';

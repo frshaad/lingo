@@ -11,6 +11,7 @@ import {
 
 async function clearTables() {
   for (const table of TABLES_TO_CLEAR) {
+    // eslint-disable-next-line drizzle/enforce-delete-with-where
     await db.delete(table);
   }
 }

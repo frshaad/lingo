@@ -1,8 +1,5 @@
 export { challenge, challengeRelations } from './challenge';
-export {
-  challengeOption,
-  challengeOptionRelations,
-} from './challenge-option';
+export { challengeOption, challengeOptionRelations } from './challenge-option';
 export {
   challengeProgress,
   challengeProgressRelations,
@@ -10,7 +7,4 @@ export {
 export { course, courseRelations } from './course';
 export { lesson, lessonRelations } from './lesson';
 export { unit, unitRelations } from './unit';
-export {
-  userProgress,
-  userProgressRelations,
-} from './user-progress';
+export { userProgress, userProgressRelations } from './user-progress';

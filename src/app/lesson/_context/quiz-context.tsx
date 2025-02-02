@@ -3,6 +3,7 @@
 import { type ReactNode, createContext, useContext } from 'react';
 
 import type { QuizProviderProps, QuizState } from '@/types/quiz';
+
 import { useQuiz } from '../_hooks/use-quiz';
 
 type QuizContextType = QuizState & {

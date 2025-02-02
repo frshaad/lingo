@@ -1,10 +1,12 @@
 'use client';
 
-import { InfinityIcon } from 'lucide-react';
 import Image from 'next/image';
+
+import { InfinityIcon } from 'lucide-react';
 
 import ExitModal from '@/components/modal/exit-modal';
 import { Progress } from '@/components/ui/progress';
+
 import { useQuizContext } from '../_context/quiz-context';
 
 const HeartDisplay = ({ count }: { count: number | 'infinity' }) => (

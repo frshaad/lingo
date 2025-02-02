@@ -1,5 +1,6 @@
-import { NotebookText } from 'lucide-react';
 import Link from 'next/link';
+
+import { NotebookText } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -17,7 +18,7 @@ export default function UnitBanner({
   return (
     <div className="flex w-full items-center justify-between rounded-xl bg-green-500 p-5 text-white">
       <div className="space-y-2.5">
-        <h3 className="font-bold text-2xl">{title}</h3>
+        <h3 className="text-2xl font-bold">{title}</h3>
         <p className="text-lg">{description}</p>
       </div>
       {!isCompleted && (

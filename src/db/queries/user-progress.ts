@@ -1,6 +1,7 @@
+import { cache } from 'react';
+
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
-import { cache } from 'react';
 
 import db from '@/db';
 import { userProgress } from '@/db/schema';

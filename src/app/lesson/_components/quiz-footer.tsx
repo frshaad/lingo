@@ -1,12 +1,14 @@
 'use client';
 
-import { CheckCircle, type LucideIcon, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+
+import { CheckCircle, type LucideIcon, XCircle } from 'lucide-react';
 import { useKey, useMedia } from 'react-use';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { QuizStatus } from '@/types/quiz';
+
 import { useQuizContext } from '../_context/quiz-context';
 
 type LocalStatus = QuizStatus | 'completed';
@@ -15,7 +17,11 @@ function FooterStatusMessage({
   status,
   lessonId,
   isMobile,
-}: { status: LocalStatus; lessonId: number; isMobile: boolean }) {
+}: {
+  status: LocalStatus;
+  lessonId: number;
+  isMobile: boolean;
+}) {
   const router = useRouter();
 
   if (status === 'none') {
@@ -44,8 +50,8 @@ function FooterStatusMessage({
   return (
     <div
       className={cn(
-        'flex items-center font-bold text-base capitalize lg:text-2xl',
-        status === 'correct' ? 'text-green-500 ' : 'text-rose-500 '
+        'flex items-center text-base font-bold capitalize lg:text-2xl',
+        status === 'correct' ? 'text-green-500' : 'text-rose-500'
       )}
     >
       <Icon className="mr-4 size-6 lg:size-10" />

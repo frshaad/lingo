@@ -1,5 +1,6 @@
-import { ClerkLoaded, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
+
+import { ClerkLoaded, UserButton } from '@clerk/nextjs';
 
 import { cn } from '@/lib/utils';
 
@@ -13,7 +14,7 @@ export default function Sidebar({ className }: Props) {
   return (
     <aside
       className={cn(
-        'top-0 left-0 flex h-full flex-col border-r-2 px-4 lg:fixed lg:w-72',
+        'left-0 top-0 flex h-full flex-col border-r-2 px-4 lg:fixed lg:w-72',
         className
       )}
     >

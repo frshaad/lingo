@@ -1,6 +1,7 @@
 'use client';
 
 import type { PopulatedUnit } from '@/types/db';
+
 import LessonButton from './lesson-button';
 import UnitBanner from './unit-banner';
 

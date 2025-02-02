@@ -1,9 +1,10 @@
 'use client';
 
-import { Check, Loader } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+
+import { Check, Loader } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { upsertUserProgress } from '@/actions/user-progress.action';
@@ -85,7 +86,7 @@ export default function CourseCard({
         className="rounded-lg border object-cover drop-shadow-md"
         priority
       />
-      <p className="mt-3 text-center font-bold text-neutral-700 capitalize">
+      <p className="mt-3 text-center font-bold capitalize text-neutral-700">
         {title}
       </p>
     </button>

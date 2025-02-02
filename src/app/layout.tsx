@@ -1,10 +1,10 @@
-import './globals.css';
-
 import type { Metadata } from 'next';
 
 import ClerkAuthProvider from '@/components/clerk-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { nunito } from '@/lib/fonts';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Lingo',

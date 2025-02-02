@@ -1,12 +1,15 @@
 'use server';
 
-import { currentUser } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+
+import { currentUser } from '@clerk/nextjs/server';
+import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
 import { userProgress } from '@/db/schema';
+
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
 type UserProgressData = {
@@ -54,7 +57,8 @@ export async function upsertUserProgress(courseId: number) {
     if (existingProgress) {
       await db
         .update(userProgress)
-        .set({ activeCourseId, userName, userImageSrc });
+        .set({ activeCourseId, userName, userImageSrc })
+        .where(eq(userProgress.userId, userId));
     } else {
       await db
         .insert(userProgress)

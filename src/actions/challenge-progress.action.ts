@@ -1,8 +1,9 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { auth } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
@@ -11,6 +12,7 @@ import {
   INITIAL_LIVES_COUNT,
   SCORE_PER_CORRECT_ANSWER,
 } from '@/lib/global.constant';
+
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
 const PATHS_TO_REVALIDATE = [

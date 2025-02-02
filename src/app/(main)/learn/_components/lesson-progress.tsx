@@ -1,9 +1,9 @@
 'use client';
 
-import 'react-circular-progressbar/dist/styles.css';
-
 import type { ReactNode } from 'react';
+
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 import { useLearnContext } from '../_context/learn-context';
 

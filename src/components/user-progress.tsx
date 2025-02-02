@@ -1,8 +1,9 @@
 'use client';
 
-import { InfinityIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { InfinityIcon } from 'lucide-react';
 
 import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import { Button } from '@/components/ui/button';
