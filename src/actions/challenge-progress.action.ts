@@ -23,13 +23,19 @@ const PATHS_TO_REVALIDATE = [
 ] as const;
 
 type UpsertChallengeResult = { error: 'hearts' } | undefined;
+type UpdateExistingProgressParams = {
+  userId: string;
+  progressId: number;
+  currentHearts: number;
+  currentPoints: number;
+};
 
-async function updateExistingProgress(
-  userId: string,
-  progressId: number,
-  currentHearts: number,
-  currentPoints: number
-) {
+async function updateExistingProgress({
+  currentHearts,
+  currentPoints,
+  progressId,
+  userId,
+}: UpdateExistingProgressParams) {
   await Promise.all([
     db
       .update(challengeProgress)
@@ -106,12 +112,12 @@ export async function upsertChallengeProgress(
   }
 
   if (isRetrying) {
-    await updateExistingProgress(
+    await updateExistingProgress({
       userId,
-      existingProgress.id,
-      userProgressData.hearts,
-      userProgressData.points
-    );
+      currentHearts: userProgressData.hearts,
+      currentPoints: userProgressData.points,
+      progressId: existingProgress.id,
+    });
   } else {
     await createNewProgress(userId, challengeId, userProgressData.points);
   }
