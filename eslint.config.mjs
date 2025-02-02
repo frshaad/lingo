@@ -4,6 +4,10 @@ import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
 
+const MAX_JSX_DEPTH = 4;
+const MAX_DEPTH = 4;
+const MAX_FN_PARAMS = 3;
+
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
@@ -17,6 +21,8 @@ const eslintConfig = [
       'prefer-arrow-callback': 'error',
       'prefer-const': 'error',
       'prefer-template': 'error',
+      'max-depth': ['warn', { max: MAX_DEPTH }],
+      'max-params': ['error', { max: MAX_FN_PARAMS }],
       'no-useless-rename': [
         'error',
         {
@@ -27,10 +33,33 @@ const eslintConfig = [
       ],
     },
   },
+  // TypeScript
+  {
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-import-type-side-effects': 'error',
+    },
+  },
   // React
   {
     rules: {
       'react/button-has-type': 'error',
+      'react/jsx-max-depth': ['warn', { max: MAX_JSX_DEPTH }],
+      'react/jsx-no-constructed-context-values': 'error',
+      'react/jsx-no-leaked-render': 'error',
+      'react/jsx-no-useless-fragment': ['warn', { allowExpressions: true }],
+      'react/jsx-pascal-case': ['error', { allowNamespace: true }],
+      'react/jsx-sort-props': [
+        'warn',
+        {
+          callbacksLast: true,
+          shorthandLast: true,
+        },
+      ],
+      'react/no-access-state-in-setstate': 'error',
+      'react/no-array-index-key': 'error',
+      'react/no-danger': 'error',
+      'react/self-closing-comp': 'error',
     },
   },
   // Check-File
