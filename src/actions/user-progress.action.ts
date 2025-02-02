@@ -4,11 +4,11 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { currentUser } from '@clerk/nextjs/server';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
-import { userProgress } from '@/db/schema';
+import { challenge, challengeProgress, userProgress } from '@/db/schema';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
@@ -74,4 +74,61 @@ export async function upsertUserProgress(courseId: number) {
     }
     throw new Error('Failed to update progress');
   }
+}
+
+export async function reduceHearts(challengeId: number) {
+  const user = await currentUser();
+  if (!user) {
+    throw new AuthorizationError();
+  }
+
+  const currentUserProgress = await getUserProgress();
+  // const userSubscription = await getUserSubscription();
+
+  const currentChallenge = await db.query.challenge.findFirst({
+    where: eq(challenge.id, challengeId),
+  });
+
+  if (!currentChallenge) {
+    throw new ResourceNotFoundError('Challenge');
+  }
+
+  const { lessonId } = currentChallenge;
+
+  const existingProgress = await db.query.challengeProgress.findFirst({
+    where: and(
+      eq(challengeProgress.userId, user.id),
+      eq(challengeProgress.challengeId, challengeId)
+    ),
+  });
+
+  const isRetrying = !!existingProgress;
+  if (isRetrying) {
+    return { error: 'practice' };
+  }
+
+  if (!currentUserProgress) {
+    throw new ResourceNotFoundError('User Progress');
+  }
+
+  // if (userSubscription?.isActive) {
+  //   return { error: 'subscription' };
+  // }
+
+  if (currentUserProgress.hearts === 0) {
+    return { error: 'hearts' };
+  }
+
+  await db
+    .update(userProgress)
+    .set({
+      hearts: Math.max(currentUserProgress.hearts - 1, 0),
+    })
+    .where(eq(userProgress.userId, user.id));
+
+  revalidatePath('/shop');
+  revalidatePath('/learn');
+  revalidatePath('/quests');
+  revalidatePath('/leaderboard');
+  revalidatePath(`/lesson/${lessonId}`);
 }

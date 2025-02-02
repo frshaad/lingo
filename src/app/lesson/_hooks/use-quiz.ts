@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
+import { reduceHearts } from '@/actions/user-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
 import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
 
@@ -28,7 +29,7 @@ export function useQuiz({
   challenges,
 }: QuizHookArgs) {
   const [pending, startTransition] = useTransition();
-  const { correctControls } = useAudioEffects();
+  const { correctControls, incorrectControls } = useAudioEffects();
 
   const [quizData, setQuizData] = useState<QuizState>(() => ({
     lessonId,
@@ -114,6 +115,22 @@ export function useQuiz({
             }
           })
           .catch(() => toast.error('Something went wrong. Please try again.'));
+      } else {
+        reduceHearts(activeChallenge.id)
+          .then((response) => {
+            if (response?.error === 'hearts') {
+              // Call openHeartsModal()
+              return;
+            }
+
+            incorrectControls.play();
+            updateQuizData({ status: 'wrong' });
+
+            if (!response?.error) {
+              updateQuizData({ hearts: Math.max(quizData.hearts - 1, 0) });
+            }
+          })
+          .catch(() => toast.error('Something went wrong. Please try again.'));
       }
     });
   }, [
@@ -128,6 +145,7 @@ export function useQuiz({
     correctControls,
     challenges.length,
     completionProgress,
+    incorrectControls,
   ]);
 
   return {
