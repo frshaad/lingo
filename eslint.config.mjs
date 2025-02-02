@@ -1,4 +1,5 @@
 import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
@@ -14,8 +15,10 @@ const compat = new FlatCompat({
 
 /** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
+  { languageOptions: { globals: { React: true } } },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   // ESlint JS
+  js.configs.recommended,
   {
     rules: {
       'prefer-arrow-callback': 'error',
@@ -31,6 +34,8 @@ const eslintConfig = [
           ignoreExport: false,
         },
       ],
+      'no-nested-ternary': 'error',
+      'no-var': 'error',
     },
   },
   // TypeScript
@@ -60,6 +65,12 @@ const eslintConfig = [
       'react/no-array-index-key': 'error',
       'react/no-danger': 'error',
       'react/self-closing-comp': 'error',
+    },
+  },
+  // JSX a11y
+  {
+    rules: {
+      'jsx-a11y/prefer-tag-over-role': 'error',
     },
   },
   // Check-File
