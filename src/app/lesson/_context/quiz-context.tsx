@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 
 import type { QuizProviderProps, QuizState } from '@/types/quiz';
 
@@ -27,8 +27,13 @@ export function QuizProvider({
     challenges,
   });
 
+  const memoizedValue = useMemo(
+    () => ({ ...quizState, userSubscription }),
+    [quizState, userSubscription]
+  );
+
   return (
-    <QuizContext.Provider value={{ ...quizState, userSubscription }}>
+    <QuizContext.Provider value={memoizedValue}>
       {children}
     </QuizContext.Provider>
   );
