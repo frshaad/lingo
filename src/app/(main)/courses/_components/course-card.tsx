@@ -61,7 +61,7 @@ export default function CourseCard({
       aria-label={`Select ${title} course`}
     >
       <div className="flex min-h-6 w-full items-center justify-end">
-        {active && (
+        {active ? (
           <div className="flex items-center justify-center rounded-md bg-green-600 p-1.5">
             <Check
               size={16}
@@ -69,14 +69,14 @@ export default function CourseCard({
               aria-hidden="true"
             />
           </div>
-        )}
-        {isPending && (
+        ) : null}
+        {isPending ? (
           <Loader
             size={20}
             className="animate-spin text-neutral-500"
             aria-hidden="true"
           />
-        )}
+        ) : null}
       </div>
       <Image
         src={imageSrc}

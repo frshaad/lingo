@@ -34,10 +34,10 @@ export default async function LearnPage() {
 
   return (
     <LearnContextProvider
-      userProgress={userProgressWithActiveCourse}
-      units={units}
       courseProgress={courseProgress}
       lessonPercentage={lessonPercentage}
+      units={units}
+      userProgress={userProgressWithActiveCourse}
     >
       <div className="flex gap-12 px-6">
         <FeedWrapper>

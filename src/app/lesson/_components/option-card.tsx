@@ -110,14 +110,14 @@ export default function OptionCard({
       })}
     >
       {audio}
-      {imageSrc && <OptionImage src={imageSrc} alt={text} />}
+      {imageSrc ? <OptionImage src={imageSrc} alt={text} /> : null}
       <div
         className={cn(
           'flex items-center justify-between',
           isAssistType && 'flex-row-reverse'
         )}
       >
-        {isAssistType && <div />}
+        {isAssistType ? <div /> : null}
         <p
           className={cn(
             'text-neutral-600 max-lg:text-sm',
