@@ -22,10 +22,10 @@ export default async function LessonPage() {
 
   return (
     <QuizProvider
-      lessonId={lesson.id}
       challenges={lesson.challenges}
-      startingHearts={userProgress.hearts}
       completionProgress={completionProgress}
+      lessonId={lesson.id}
+      startingHearts={userProgress.hearts}
       userSubscription={null}
     >
       <Quiz />

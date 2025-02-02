@@ -11,9 +11,9 @@ import { useQuizContext } from '../_context/quiz-context';
 
 const HeartDisplay = ({ count }: { count: number | 'infinity' }) => (
   <div className="flex items-center gap-x-2 font-bold text-rose-500">
-    <Image src="/heart.svg" alt="hearts" width={28} height={28} />
+    <Image alt="hearts" height={28} src="/heart.svg" width={28} />
     {count === 'infinity' ? (
-      <InfinityIcon size={6} className="stroke-[3]" />
+      <InfinityIcon className="stroke-[3]" size={6} />
     ) : (
       count
     )}

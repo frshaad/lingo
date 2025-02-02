@@ -29,10 +29,10 @@ export default function ExitModal() {
         <DialogHeader>
           <div className="mb-5 flex w-full items-center justify-center">
             <Image
-              src="/mascot_sad.svg"
               alt="sad mascot"
-              width={80}
               height={80}
+              src="/mascot_sad.svg"
+              width={80}
             />
           </div>
           <DialogTitle className="text-center text-2xl font-bold">
@@ -44,15 +44,15 @@ export default function ExitModal() {
         </DialogHeader>
         <DialogFooter className="mb-5 flex w-full gap-y-2 sm:flex-col">
           <DialogClose asChild>
-            <Button size="lg" variant="primary" className="w-full">
+            <Button className="w-full" size="lg" variant="primary">
               Keep Learning
             </Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
+              className="w-full"
               size="lg"
               variant="dangerGhost"
-              className="w-full"
               onClick={() => {
                 router.push('/learn');
               }}

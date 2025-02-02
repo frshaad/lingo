@@ -18,16 +18,16 @@ export default function SidebarItem({ label, path, iconSrc }: Props) {
   return (
     <li>
       <Button
-        variant={isLinkActive ? 'sidebarGhost' : 'sidebar'}
         className="h-14 w-full justify-start"
+        variant={isLinkActive ? 'sidebarGhost' : 'sidebar'}
         asChild
       >
         <Link href={path}>
           <Image
-            src={iconSrc}
             alt={label}
             className="mr-5"
             height={32}
+            src={iconSrc}
             width={32}
           />
           {label}

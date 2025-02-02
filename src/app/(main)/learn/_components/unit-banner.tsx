@@ -24,9 +24,9 @@ export default function UnitBanner({
       {!isCompleted && (
         <Link href="/lesson">
           <Button
+            className="hidden border-2 border-b-4 active:border-b-2 xl:flex"
             size="lg"
             variant="secondary"
-            className="hidden border-2 border-b-4 active:border-b-2 xl:flex"
           >
             <NotebookText className="mr-2" />
             Continue

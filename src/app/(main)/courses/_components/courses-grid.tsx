@@ -14,8 +14,8 @@ export default async function CoursesGrid() {
     <div className="grid grid-cols-2 gap-4 pt-6 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))]">
       {courses.map((course) => (
         <CourseCard
-          key={course.id}
           active={userProgress?.activeCourseId === course.id}
+          key={course.id}
           {...course}
         />
       ))}

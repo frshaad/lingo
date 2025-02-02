@@ -43,7 +43,7 @@ const KeyShortcut = ({
 
 const OptionImage = ({ src, alt }: { src: string; alt: string }) => (
   <div className="relative mb-4 aspect-square max-h-20 w-full lg:max-h-36">
-    <Image src={src} alt={alt} fill />
+    <Image alt={alt} src={src} fill />
   </div>
 );
 
@@ -100,17 +100,17 @@ export default function OptionCard({
 
   return (
     <button
-      type="button"
-      onClick={handleClick}
       className={getButtonStyles({
         isAssistType,
         isDisabled,
         isSelected,
         status: cardStatus,
       })}
+      type="button"
+      onClick={handleClick}
     >
       {audio}
-      {imageSrc ? <OptionImage src={imageSrc} alt={text} /> : null}
+      {imageSrc ? <OptionImage alt={text} src={imageSrc} /> : null}
       <div
         className={cn(
           'flex items-center justify-between',
@@ -129,8 +129,8 @@ export default function OptionCard({
           {text}
         </p>
         <KeyShortcut
-          shortcut={shortcut}
           isSelected={isSelected}
+          shortcut={shortcut}
           status={cardStatus}
         />
       </div>

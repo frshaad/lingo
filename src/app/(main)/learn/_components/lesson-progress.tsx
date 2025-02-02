@@ -12,11 +12,11 @@ export default function LessonProgress({ children }: { children: ReactNode }) {
 
   return (
     <CircularProgressbarWithChildren
-      value={Number.isNaN(lessonPercentage) ? 0 : lessonPercentage}
       styles={{
         path: { stroke: '#4ade80' },
         trail: { stroke: '#e5e7eb' },
       }}
+      value={Number.isNaN(lessonPercentage) ? 0 : lessonPercentage}
     >
       {children}
     </CircularProgressbarWithChildren>

@@ -30,7 +30,7 @@ export default function Error({
           <CardDescription>Something went wrong!</CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button onClick={() => reset()} className="w-full">
+          <Button className="w-full" onClick={() => reset()}>
             Try again
           </Button>
         </CardFooter>

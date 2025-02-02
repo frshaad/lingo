@@ -12,13 +12,13 @@ export default function UnitComponent({
 }: PopulatedUnit) {
   return (
     <>
-      <UnitBanner title={title} description={description} />
+      <UnitBanner description={description} title={title} />
       <div className="relative flex flex-col items-center">
         {lessons.map((lesson, index) => (
           <LessonButton
+            index={index}
             key={lesson.id}
             totalLessonsCount={lessons.length - 1}
-            index={index}
             {...lesson}
           />
         ))}

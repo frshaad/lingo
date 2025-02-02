@@ -25,18 +25,18 @@ export default function LessonIcon({
 
   return (
     <Button
+      className="size-16 border-b-8"
       size="rounded"
       variant={isLockedLesson ? 'locked' : 'secondary'}
-      className="size-16 border-b-8"
     >
       <Icon
-        size={10}
         className={cn(
           isLockedLesson
             ? 'fill-neutral-400 stroke-neutral-400 text-neutral-400'
             : 'fill-primary-foreground text-primary-foreground',
           isCompleted && 'fill-none stroke-[4]'
         )}
+        size={10}
       />
     </Button>
   );

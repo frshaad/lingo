@@ -49,41 +49,41 @@ export default function CourseCard({
 
   return (
     <button
-      type="button"
-      disabled={disabled || isPending}
+      aria-label={`Select ${title} course`}
       className={cn(
         'flex h-full min-h-52 min-w-48 flex-col items-center justify-between',
         'rounded-xl border-2 border-b-4 p-3 pb-6',
         'hover:bg-black/5 active:border-b-2',
         (disabled || isPending) && 'pointer-events-none opacity-50'
       )}
+      disabled={disabled || isPending}
+      type="button"
       onClick={handleActiveCourse}
-      aria-label={`Select ${title} course`}
     >
       <div className="flex min-h-6 w-full items-center justify-end">
         {active ? (
           <div className="flex items-center justify-center rounded-md bg-green-600 p-1.5">
             <Check
-              size={16}
-              className="stroke-[4] text-white"
               aria-hidden="true"
+              className="stroke-[4] text-white"
+              size={16}
             />
           </div>
         ) : null}
         {isPending ? (
           <Loader
-            size={20}
-            className="animate-spin text-neutral-500"
             aria-hidden="true"
+            className="animate-spin text-neutral-500"
+            size={20}
           />
         ) : null}
       </div>
       <Image
-        src={imageSrc}
         alt={`${title} course image`}
-        height={70}
-        width={93.33}
         className="rounded-lg border object-cover drop-shadow-md"
+        height={70}
+        src={imageSrc}
+        width={93.33}
         priority
       />
       <p className="mt-3 text-center font-bold capitalize text-neutral-700">

@@ -8,18 +8,18 @@ export default function QuestionBubble() {
   return (
     <div className="mb-6 flex items-center gap-x-4">
       <Image
-        src="/mascot.svg"
         alt="mascot"
-        width={60}
-        height={60}
         className="max-lg:hidden"
+        height={60}
+        src="/mascot.svg"
+        width={60}
       />
       <Image
-        src="/mascot.svg"
         alt="mascot"
-        width={40}
-        height={40}
         className="lg:hidden"
+        height={40}
+        src="/mascot.svg"
+        width={40}
       />
       <div className="relative rounded-xl border-2 px-4 py-2 text-sm lg:text-base">
         {activeChallenge.question}

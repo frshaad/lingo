@@ -16,13 +16,13 @@ export default function MarketingFooter() {
 
 function CountryFlag({ lang, src }: { lang: string; src: string }) {
   return (
-    <Button size="lg" variant="ghost" className="w-full">
+    <Button className="w-full" size="lg" variant="ghost">
       <Image
-        src={src}
         alt={lang}
-        height={32}
-        width={40}
         className="mr-4 rounded-md capitalize"
+        height={32}
+        src={src}
+        width={40}
       />
       {lang}
     </Button>

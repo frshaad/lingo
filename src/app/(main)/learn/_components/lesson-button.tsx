@@ -34,7 +34,6 @@ export default function LessonButton({
 
   return (
     <Link
-      href={href}
       aria-disabled={isLockedLesson}
       className={cn(
         'transition-opacity',
@@ -42,6 +41,7 @@ export default function LessonButton({
           ? 'pointer-events-none opacity-50'
           : 'pointer-events-auto'
       )}
+      href={href}
     >
       <div
         className={cn('relative mt-6', {
@@ -50,7 +50,7 @@ export default function LessonButton({
         style={{ right: `${lessonIconPosition}px` }}
       >
         {isActiveLesson ? (
-          <div className="relative size-24" aria-valuenow={lessonPercentage}>
+          <div aria-valuenow={lessonPercentage} className="relative size-24">
             <StartTooltip />
             <LessonProgress>
               <LessonIcon

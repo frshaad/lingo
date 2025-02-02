@@ -21,39 +21,39 @@ export default function UserProgress({ hasActiveSubscription }: Props) {
       <Button variant="ghost" asChild>
         <Link href="/courses">
           <Image
-            src={userProgress.activeCourse.imageSrc}
             alt={userProgress.activeCourse.title}
-            width={32}
-            height={32}
             className="rounded-md border"
+            height={32}
+            src={userProgress.activeCourse.imageSrc}
+            width={32}
           />
         </Link>
       </Button>
 
       <Button variant="ghost" asChild>
-        <Link href="/shop" className="text-orange-500">
+        <Link className="text-orange-500" href="/shop">
           <Image
-            src="/points.svg"
             alt="points"
-            width={28}
-            height={28}
             className="mr-2"
+            height={28}
+            src="/points.svg"
+            width={28}
           />
           {points}
         </Link>
       </Button>
 
       <Button variant="ghost" asChild>
-        <Link href="/shop" className="text-rose-500">
+        <Link className="text-rose-500" href="/shop">
           <Image
-            src="/heart.svg"
             alt="hearts"
-            width={22}
-            height={22}
             className="mr-2"
+            height={22}
+            src="/heart.svg"
+            width={22}
           />
           {hasActiveSubscription ? (
-            <InfinityIcon size={16} className="stroke-[3]" />
+            <InfinityIcon className="stroke-[3]" size={16} />
           ) : (
             hearts
           )}

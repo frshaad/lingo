@@ -31,8 +31,8 @@ function FooterStatusMessage({
   if (status === 'completed') {
     return (
       <Button
-        variant="default"
         size={isMobile ? 'sm' : 'lg'}
+        variant="default"
         onClick={() => router.push(`/lesson/${lessonId}`)}
       >
         Practice Again
@@ -78,16 +78,16 @@ export default function QuizFooter() {
     >
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6 lg:px-10">
         <FooterStatusMessage
-          status={localStatus}
-          lessonId={lessonId}
           isMobile={isMobile}
+          lessonId={lessonId}
+          status={localStatus}
         />
         <Button
+          className="ml-auto capitalize"
+          disabled={!selectedOption}
           size={isMobile ? 'sm' : 'lg'}
           variant={status === 'wrong' ? 'danger' : 'secondary'}
           onClick={proceedToNextStep}
-          disabled={!selectedOption}
-          className="ml-auto capitalize"
         >
           {localStatus === 'none' && 'Check'}
           {localStatus === 'correct' && 'Next'}
