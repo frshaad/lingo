@@ -1,5 +1,6 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import type { Linter } from 'eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
 import nodePlugin from 'eslint-plugin-n';
@@ -9,7 +10,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     plugins: {
       'check-file': checkFile,
@@ -42,6 +43,7 @@ const eslintConfig = [
       'drizzle/enforce-update-with-where': 'error',
     },
   },
+  eslintConfigPrettier,
 ] satisfies Linter.Config[];
 
 export default eslintConfig;
