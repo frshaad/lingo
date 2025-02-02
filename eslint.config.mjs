@@ -1,24 +1,21 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import type { Linter } from 'eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
-import nodePlugin from 'eslint-plugin-n';
+import n from 'eslint-plugin-n';
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
 
+/** @type {import('eslint').Linter.Config[]} */
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  // ESlint JS
   {
-    plugins: {
-      'check-file': checkFile,
-      n: nodePlugin,
-      drizzle,
-    },
     rules: {
       'prefer-arrow-callback': 'error',
+      'prefer-const': 'error',
       'prefer-template': 'error',
       'no-useless-rename': [
         'error',
@@ -28,7 +25,18 @@ const eslintConfig = [
           ignoreExport: false,
         },
       ],
+    },
+  },
+  // React
+  {
+    rules: {
       'react/button-has-type': 'error',
+    },
+  },
+  // Check-File
+  {
+    plugins: { 'check-file': checkFile },
+    rules: {
       'check-file/filename-naming-convention': [
         'error',
         { '**/*.{ts,tsx}': 'KEBAB_CASE' },
@@ -38,12 +46,23 @@ const eslintConfig = [
         'error',
         { 'src/**/!(__tests__)': 'KEBAB_CASE' },
       ],
-      'n/no-process-env': 'error',
+    },
+  },
+  // N (Node.js)
+  {
+    plugins: { n },
+    rules: { 'n/no-process-env': 'error' },
+  },
+  // Drizzle
+  {
+    plugins: { drizzle },
+    rules: {
       'drizzle/enforce-delete-with-where': 'error',
       'drizzle/enforce-update-with-where': 'error',
     },
   },
+  // Prettier
   eslintConfigPrettier,
-] satisfies Linter.Config[];
+];
 
 export default eslintConfig;
