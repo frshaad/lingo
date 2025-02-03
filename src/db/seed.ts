@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import db from '@/db';
 import * as schema from '@/db/schema';
 import {
@@ -9,31 +10,53 @@ import {
   UNITS,
 } from '@/db/seed.constant';
 
-async function clearTables() {
-  for (const table of TABLES_TO_CLEAR) {
+async function clearTable(table: any) {
+  try {
     // eslint-disable-next-line drizzle/enforce-delete-with-where
     await db.delete(table);
+    console.info(`✓ Cleared ${table.name}`);
+  } catch (error) {
+    console.error(`✗ Failed to clear ${table.name}:`, error);
+    throw error;
+  }
+}
+
+async function seedTable<T>(table: any, data: T[], tableName: string) {
+  try {
+    await db.insert(table).values(data);
+    console.info(`✔️ Seeded ${tableName} (${data.length} records)`);
+  } catch (error) {
+    console.error(`✖️ Failed to seed ${tableName}:`, error);
+    throw error;
+  }
+}
+
+async function clearTables() {
+  console.info('🧹 Clearing existing data...');
+  for (const table of TABLES_TO_CLEAR) {
+    await clearTable(table);
   }
 }
 
 async function seedTables() {
-  await db.insert(schema.course).values(COURSES);
-  await db.insert(schema.unit).values(UNITS);
-  await db.insert(schema.lesson).values(LESSONS);
-  await db.insert(schema.challenge).values(CHALLENGES);
-  await db.insert(schema.challengeOption).values(CHALLENGE_OPTIONS);
+  console.info('🌱 Seeding tables...');
+
+  await seedTable(schema.course, COURSES, 'courses');
+  await seedTable(schema.unit, UNITS, 'units');
+  await seedTable(schema.lesson, LESSONS, 'lessons');
+  await seedTable(schema.challenge, CHALLENGES, 'challenges');
+  await seedTable(
+    schema.challengeOption,
+    CHALLENGE_OPTIONS,
+    'challenge options'
+  );
 }
 
 export async function seed() {
   try {
-    console.info('🌱 Starting database seed...');
-
-    console.info('Clearing existing data...');
+    console.info('📦 Starting database seed...');
     await clearTables();
-
-    console.info('Seeding tables...');
     await seedTables();
-
     console.info('✅ Seeding completed successfully!');
   } catch (error) {
     console.error('❌ Seeding failed:', error);
