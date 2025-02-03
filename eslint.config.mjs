@@ -70,6 +70,8 @@ const eslintConfig = [
         },
       ],
       'unicorn/prefer-string-raw': 'off',
+      'unicorn/better-regex': 'error',
+      'unicorn/consistent-destructuring': 'error',
     },
   },
   // TypeScript

@@ -14,17 +14,21 @@ type Properties = {
 
 export default function UserProgress({ hasActiveSubscription }: Properties) {
   const { userProgress } = useLearnContext();
-  const { hearts, points } = userProgress;
+  const {
+    hearts,
+    points,
+    activeCourse: { title, imageSrc },
+  } = userProgress;
 
   return (
     <div className="flex w-full items-center justify-between gap-x-2">
       <Button variant="ghost" asChild>
         <Link href="/courses">
           <Image
-            alt={userProgress.activeCourse.title}
+            alt={title}
             className="rounded-md border"
             height={32}
-            src={userProgress.activeCourse.imageSrc}
+            src={imageSrc}
             width={32}
           />
         </Link>
