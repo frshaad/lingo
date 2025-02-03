@@ -4,11 +4,12 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { currentUser } from '@clerk/nextjs/server';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
-import { challenge } from '@/db/schema';
+import { getCurrentChallenge } from '@/db/queries/challenge';
+import { challengeProgress } from '@/db/schema';
 import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
@@ -41,31 +42,19 @@ async function validateAndGetUserData(
   };
 }
 
-async function revalidateProgressPaths(lessonId?: number) {
-  const paths = ['/courses', '/learn', '/shop', '/quests', '/leaderboard'];
-  for (const path of paths) {
-    revalidatePath(path);
-  }
-  if (lessonId) revalidatePath(`/lesson/${lessonId}`);
-}
-
 export async function upsertUserProgress(courseId: number) {
   try {
-    const userData = await validateAndGetUserData(courseId);
-    const {
-      userId,
-      userImageSrc,
-      courseId: activeCourseId,
-      userName,
-    } = userData;
-    await ProgressService.updateUserProgress({
-      userId,
-      activeCourseId,
-      userName,
-      userImageSrc,
-    });
+    const [userData, existingProgress] = await Promise.all([
+      validateAndGetUserData(courseId),
+      getUserProgress(),
+    ]);
 
-    revalidateProgressPaths();
+    await (existingProgress
+      ? ProgressService.updateUserProgress(userData)
+      : ProgressService.addUserProgress(userData));
+
+    revalidatePath('/courses');
+    revalidatePath('/learn');
     redirect('/learn');
   } catch (error) {
     if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
@@ -77,19 +66,45 @@ export async function upsertUserProgress(courseId: number) {
 
 export async function reduceHearts(challengeId: number) {
   const user = await currentUser();
-  if (!user) throw new AuthorizationError();
+  if (!user) {
+    throw new AuthorizationError();
+  }
 
   const [currentUserProgress, currentChallenge] = await Promise.all([
     getUserProgress(),
-    db.query.challenge.findFirst({
-      where: eq(challenge.id, challengeId),
-    }),
+    getCurrentChallenge(challengeId),
   ]);
 
-  if (!currentChallenge) throw new ResourceNotFoundError('Challenge');
-  if (!currentUserProgress) throw new ResourceNotFoundError('User Progress');
-  if (currentUserProgress.hearts === 0) return { error: 'hearts' };
+  if (!currentChallenge) {
+    throw new ResourceNotFoundError('Challenge');
+  }
+
+  const { lessonId } = currentChallenge;
+
+  const existingProgress = await db.query.challengeProgress.findFirst({
+    where: and(
+      eq(challengeProgress.userId, user.id),
+      eq(challengeProgress.challengeId, challengeId)
+    ),
+  });
+
+  const isRetrying = !!existingProgress;
+  if (isRetrying) {
+    return { error: 'practice' };
+  }
+
+  if (!currentUserProgress) {
+    throw new ResourceNotFoundError('User Progress');
+  }
+  if (currentUserProgress.hearts === 0) {
+    return { error: 'hearts' };
+  }
 
   await ProgressService.decrementHearts(user.id, currentUserProgress.hearts);
-  revalidateProgressPaths(currentChallenge.lessonId);
+
+  revalidatePath('/shop');
+  revalidatePath('/learn');
+  revalidatePath('/quests');
+  revalidatePath('/leaderboard');
+  revalidatePath(`/lesson/${lessonId}`);
 }

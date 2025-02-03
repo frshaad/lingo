@@ -25,6 +25,13 @@ export const ProgressService = {
       .where(eq(userProgress.userId, userId));
   },
 
+  async addUserProgress(params: UpdateProgressParams) {
+    const { userId, activeCourseId, userName, userImageSrc } = params;
+    return db
+      .insert(userProgress)
+      .values({ userId, activeCourseId, userName, userImageSrc });
+  },
+
   async incrementHearts(userId: string, currentHearts: number) {
     return this.updateUserProgress({
       userId,
