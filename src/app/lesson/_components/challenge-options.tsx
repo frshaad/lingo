@@ -20,8 +20,8 @@ export default function ChallengeOptions() {
 
   return (
     <div className={getGridClassName(activeChallenge.type)}>
-      {activeChallengeChoices.map((opt, i) => (
-        <OptionCard key={opt.id} shortcut={`${i + 1}`} {...opt} />
+      {activeChallengeChoices.map((opt, index) => (
+        <OptionCard key={opt.id} shortcut={`${index + 1}`} {...opt} />
       ))}
     </div>
   );

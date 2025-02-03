@@ -4,7 +4,7 @@ import { NotebookText } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-interface UnitBannerProps {
+interface UnitBannerProperties {
   title: string;
   description: string;
   isCompleted?: boolean;
@@ -14,7 +14,7 @@ export default function UnitBanner({
   title,
   description,
   isCompleted = false,
-}: UnitBannerProps) {
+}: UnitBannerProperties) {
   return (
     <div className="flex w-full items-center justify-between rounded-xl bg-green-500 p-5 text-white">
       <div className="space-y-2.5">

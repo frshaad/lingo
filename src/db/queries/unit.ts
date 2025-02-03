@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm';
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { challengeProgress, unit } from '@/db/schema';
-import type { PopulatedChallenge } from '@/types/db';
+import type { PopulatedChallenge } from '@/types/database';
 
 function isChallengeCompleted(challenge: PopulatedChallenge) {
   return (

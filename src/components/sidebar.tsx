@@ -20,9 +20,9 @@ const SIDEBAR_ITEMS = [
   { id: 4, label: 'shop', path: '/shop', iconSrc: '/shop.svg' },
 ];
 
-type Props = React.ComponentPropsWithoutRef<'aside'>;
+type Properties = React.ComponentPropsWithoutRef<'aside'>;
 
-export default function Sidebar({ className }: Props) {
+export default function Sidebar({ className }: Properties) {
   return (
     <aside
       className={cn(

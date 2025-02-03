@@ -11,7 +11,7 @@ import { upsertUserProgress } from '@/actions/user-progress.action';
 import type { course } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
-type CourseCardProps = {
+type CourseCardProperties = {
   disabled?: boolean;
   active?: boolean;
 } & typeof course.$inferSelect;
@@ -22,7 +22,7 @@ export default function CourseCard({
   title,
   active,
   disabled,
-}: CourseCardProps) {
+}: CourseCardProperties) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 

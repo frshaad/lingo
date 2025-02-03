@@ -4,7 +4,7 @@ export type LessonType = typeof lesson.$inferSelect & {
   unit: typeof unit.$inferSelect;
 };
 
-export interface LessonButtonProps {
+export interface LessonButtonProperties {
   id: number;
   isCompleted: boolean;
   totalLessonsCount: number;

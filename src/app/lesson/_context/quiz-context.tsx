@@ -2,7 +2,7 @@
 
 import { type ReactNode, createContext, useContext, useMemo } from 'react';
 
-import type { QuizProviderProps, QuizState } from '@/types/quiz';
+import type { QuizProviderProperties, QuizState } from '@/types/quiz';
 
 import { useQuiz } from '../_hooks/use-quiz';
 
@@ -19,7 +19,7 @@ export function QuizProvider({
   completionProgress,
   challenges,
   userSubscription,
-}: QuizProviderProps & { children: ReactNode }) {
+}: QuizProviderProperties & { children: ReactNode }) {
   const quizState = useQuiz({
     lessonId,
     startingHearts,

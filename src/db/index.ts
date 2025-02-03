@@ -6,5 +6,5 @@ import env from '@/lib/env';
 import * as schema from './schema';
 
 const sql = neon(env.DATABASE_URL);
-const db = drizzle(sql, { schema, casing: 'snake_case' });
-export default db;
+const database = drizzle(sql, { schema, casing: 'snake_case' });
+export default database;

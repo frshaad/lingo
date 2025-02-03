@@ -8,12 +8,12 @@ import type { QuizStatus } from '@/types/quiz';
 
 import { useQuizContext } from '../_context/quiz-context';
 
-type OptionCardProps = typeof challengeOption.$inferSelect & {
+type OptionCardProperties = typeof challengeOption.$inferSelect & {
   shortcut: string;
 };
 
 type CardStatus = QuizStatus;
-type GetButtonStylesParams = {
+type GetButtonStylesParameters = {
   isSelected: boolean;
   status: CardStatus;
   isDisabled: boolean;
@@ -52,7 +52,7 @@ const getButtonStyles = ({
   isDisabled,
   isSelected,
   status,
-}: GetButtonStylesParams) => {
+}: GetButtonStylesParameters) => {
   return cn(
     'h-full rounded-xl border-2 border-b-4 p-4 hover:bg-black/5 active:border-b-2 lg:p-6',
     isSelected && 'border-sky-300 bg-sky-100 hover:bg-sky-100',
@@ -73,7 +73,7 @@ export default function OptionCard({
   shortcut,
   audioSrc,
   id,
-}: OptionCardProps) {
+}: OptionCardProperties) {
   const {
     pending: isDisabled,
     selectChoice,

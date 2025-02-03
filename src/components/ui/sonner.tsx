@@ -3,15 +3,15 @@
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner } from 'sonner';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+type ToasterProperties = React.ComponentProps<typeof Sonner>;
 
-const Toaster = ({ ...props }: ToasterProps) => {
+const Toaster = ({ ...properties }: ToasterProperties) => {
   const { theme = 'system' } = useTheme();
 
   return (
     <Sonner
       className="toaster group"
-      theme={theme as ToasterProps['theme']}
+      theme={theme as ToasterProperties['theme']}
       toastOptions={{
         classNames: {
           toast:
@@ -23,7 +23,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
             'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
         },
       }}
-      {...props}
+      {...properties}
     />
   );
 };

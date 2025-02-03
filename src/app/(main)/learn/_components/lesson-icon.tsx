@@ -3,7 +3,7 @@ import { Check, Crown, type LucideIcon, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type Props = {
+type Properties = {
   isCompleted: boolean;
   isLast: boolean;
   isLockedLesson: boolean;
@@ -13,7 +13,7 @@ export default function LessonIcon({
   isCompleted,
   isLast,
   isLockedLesson,
-}: Props) {
+}: Properties) {
   let Icon: LucideIcon;
   if (isCompleted) {
     Icon = Check;

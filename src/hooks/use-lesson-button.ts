@@ -4,7 +4,7 @@ import { LESSON_CONSTANTS } from '@/app/(main)/learn/_components/lesson.constant
 import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import type {
   LessonButtonState,
-  UseLessonButtonProps,
+  UseLessonButtonProperties,
 } from '@/types/lesson-button';
 
 export const useLessonButton = ({
@@ -12,7 +12,7 @@ export const useLessonButton = ({
   id,
   isCompleted,
   totalLessonsCount,
-}: UseLessonButtonProps): LessonButtonState => {
+}: UseLessonButtonProperties): LessonButtonState => {
   const { courseProgress } = useLearnContext();
   const activeLessonId = courseProgress?.activeLesson?.id;
 

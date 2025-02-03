@@ -1,9 +1,9 @@
-import './env-config';
-import { type Env, envSchema } from './schema';
+import './environment-config';
+import { type Environment, environmentSchema } from './schema';
 
-export function validateEnv(): Env {
+export function validateEnvironment(): Environment {
   // eslint-disable-next-line n/no-process-env
-  const parsed = envSchema.safeParse(process.env);
+  const parsed = environmentSchema.safeParse(process.env);
 
   if (!parsed.success) {
     console.error(
@@ -16,5 +16,5 @@ export function validateEnv(): Env {
   return parsed.data;
 }
 
-const env = validateEnv();
-export default env;
+const environment = validateEnvironment();
+export default environment;

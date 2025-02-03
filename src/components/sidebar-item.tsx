@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
-type Props = {
+type Properties = {
   path: string;
   label: string;
   iconSrc: string;
 };
-export default function SidebarItem({ label, path, iconSrc }: Props) {
+export default function SidebarItem({ label, path, iconSrc }: Properties) {
   const pathname = usePathname();
   const isLinkActive = path === pathname;
 

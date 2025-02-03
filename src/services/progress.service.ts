@@ -7,7 +7,7 @@ import {
   SCORE_PER_CORRECT_ANSWER,
 } from '@/lib/global.constant';
 
-type UpdateProgressParams = {
+type UpdateProgressParameters = {
   userId: string;
   hearts?: number;
   points?: number;
@@ -17,16 +17,16 @@ type UpdateProgressParams = {
 };
 
 export const ProgressService = {
-  async updateUserProgress(params: UpdateProgressParams) {
-    const { userId, ...updateData } = params;
+  async updateUserProgress(parameters: UpdateProgressParameters) {
+    const { userId, ...updateData } = parameters;
     return db
       .update(userProgress)
       .set(updateData)
       .where(eq(userProgress.userId, userId));
   },
 
-  async addUserProgress(params: UpdateProgressParams) {
-    const { userId, activeCourseId, userName, userImageSrc } = params;
+  async addUserProgress(parameters: UpdateProgressParameters) {
+    const { userId, activeCourseId, userName, userImageSrc } = parameters;
     return db
       .insert(userProgress)
       .values({ userId, activeCourseId, userName, userImageSrc });

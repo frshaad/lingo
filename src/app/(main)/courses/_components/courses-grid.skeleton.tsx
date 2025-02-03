@@ -13,7 +13,7 @@ function CourseCardSkeleton() {
 export default function CoursesGridSkeleton() {
   return (
     <div className="grid grid-cols-2 gap-4 pt-6 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))]">
-      {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
+      {Array.from({ length: 4 }, (_, index) => index + 1).map((item) => (
         <CourseCardSkeleton key={item} />
       ))}
     </div>

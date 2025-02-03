@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const envSchema = z.object({
+export const environmentSchema = z.object({
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
   CLERK_SECRET_KEY: z.string(),
   NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
@@ -11,4 +11,4 @@ export const envSchema = z.object({
   DATABASE_URL: z.string(),
 });
 
-export type Env = z.infer<typeof envSchema>;
+export type Environment = z.infer<typeof environmentSchema>;

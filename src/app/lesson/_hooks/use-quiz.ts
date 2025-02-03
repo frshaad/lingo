@@ -7,7 +7,11 @@ import { reduceHearts } from '@/actions/user-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
 import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
 
-import type { QuizChallenge, QuizHookArgs, QuizState } from '../_types/quiz';
+import type {
+  QuizChallenge,
+  QuizHookArguments,
+  QuizState,
+} from '../_types/quiz';
 
 const findFirstIncompleteChallengeIndex = (
   challenges: QuizChallenge[]
@@ -27,7 +31,7 @@ export function useQuiz({
   startingHearts,
   completionProgress,
   challenges,
-}: QuizHookArgs) {
+}: QuizHookArguments) {
   const [pending, startTransition] = useTransition();
   const { correctControls, incorrectControls } = useAudioEffects();
 
@@ -47,7 +51,7 @@ export function useQuiz({
   );
 
   const updateQuizData = useCallback((updates: Partial<QuizState>) => {
-    setQuizData((prev) => ({ ...prev, ...updates }));
+    setQuizData((previous) => ({ ...previous, ...updates }));
   }, []);
 
   const selectChoice = useCallback(

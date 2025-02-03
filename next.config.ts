@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
 
-import { validateEnv } from '@/lib/env';
+import { validateEnvironment } from '@/lib/env';
 
-validateEnv();
+validateEnvironment();
 
 const nextConfig: NextConfig = {
   logging: {

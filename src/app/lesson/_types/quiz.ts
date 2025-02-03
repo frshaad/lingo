@@ -1,5 +1,5 @@
 import type { challengeOption } from '@/db/schema';
-import type { PopulatedChallenge } from '@/types/db';
+import type { PopulatedChallenge } from '@/types/database';
 import type { QuizStatus } from '@/types/quiz';
 
 export type QuizChallenge = PopulatedChallenge & {
@@ -7,7 +7,7 @@ export type QuizChallenge = PopulatedChallenge & {
   challengeOptions: (typeof challengeOption.$inferSelect)[];
 };
 
-export type QuizHookArgs = {
+export type QuizHookArguments = {
   lessonId: number;
   startingHearts: number;
   completionProgress: number;

@@ -8,11 +8,11 @@ import { InfinityIcon } from 'lucide-react';
 import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import { Button } from '@/components/ui/button';
 
-type Props = {
+type Properties = {
   hasActiveSubscription: boolean;
 };
 
-export default function UserProgress({ hasActiveSubscription }: Props) {
+export default function UserProgress({ hasActiveSubscription }: Properties) {
   const { userProgress } = useLearnContext();
   const { hearts, points } = userProgress;
 

@@ -1,4 +1,4 @@
-export interface UseLessonButtonProps {
+export interface UseLessonButtonProperties {
   index: number;
   id: number;
   activeLessonId?: number;

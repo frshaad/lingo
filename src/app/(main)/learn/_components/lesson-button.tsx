@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useLessonButton } from '@/hooks/use-lesson-button';
 import { cn } from '@/lib/utils';
-import type { LessonButtonProps } from '@/types/lesson';
+import type { LessonButtonProperties } from '@/types/lesson';
 
 import { useLearnContext } from '../_context/learn-context';
 import LessonIcon from './lesson-icon';
@@ -16,7 +16,7 @@ export default function LessonButton({
   isCompleted,
   totalLessonsCount,
   index,
-}: LessonButtonProps) {
+}: LessonButtonProperties) {
   const { lessonPercentage } = useLearnContext();
   const {
     lessonIconPosition,
