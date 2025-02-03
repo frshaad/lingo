@@ -69,14 +69,14 @@ export default function CourseCard({
               size={16}
             />
           </div>
-        ) : null}
+        ) : undefined}
         {isPending ? (
           <Loader
             aria-hidden="true"
             className="animate-spin text-neutral-500"
             size={20}
           />
-        ) : null}
+        ) : undefined}
       </div>
       <Image
         alt={`${title} course image`}

@@ -26,7 +26,7 @@ export default async function LessonPage() {
       completionProgress={completionProgress}
       lessonId={lesson.id}
       startingHearts={userProgress.hearts}
-      userSubscription={null}
+      userSubscription={undefined}
     >
       <Quiz />
     </QuizProvider>

@@ -25,7 +25,7 @@ function FooterStatusMessage({
   const router = useRouter();
 
   if (status === 'none') {
-    return null;
+    return undefined;
   }
 
   if (status === 'completed') {

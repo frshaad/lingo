@@ -19,7 +19,9 @@ export type LearnContextProviderProps = {
   lessonPercentage: number;
 };
 
-const LearnContext = createContext<LearnContextProviderProps | null>(null);
+const LearnContext = createContext<LearnContextProviderProps | undefined>(
+  undefined
+);
 
 export function LearnContextProvider({
   courseProgress,

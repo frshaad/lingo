@@ -10,7 +10,7 @@ type QuizContextType = QuizState & {
   userSubscription: unknown;
 };
 
-const QuizContext = createContext<QuizContextType | null>(null);
+const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export function QuizProvider({
   children,
