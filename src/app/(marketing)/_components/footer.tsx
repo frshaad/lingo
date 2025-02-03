@@ -2,18 +2,6 @@ import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 
-export default function MarketingFooter() {
-  return (
-    <footer className="hidden h-20 w-full border-t-2 border-slate-200 p-2 dark:border-slate-800 lg:block">
-      <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
-        {COUNTRIES.map((country) => (
-          <CountryFlag key={country.id} {...country} />
-        ))}
-      </div>
-    </footer>
-  );
-}
-
 function CountryFlag({ lang, src }: { lang: string; src: string }) {
   return (
     <Button className="w-full" size="lg" variant="ghost">
@@ -36,3 +24,15 @@ const COUNTRIES = [
   { id: 4, src: '/it.svg', lang: 'italian' },
   { id: 5, src: '/jp.svg', lang: 'japanese' },
 ];
+
+export default function MarketingFooter() {
+  return (
+    <footer className="hidden h-20 w-full border-t-2 border-slate-200 p-2 dark:border-slate-800 lg:block">
+      <div className="mx-auto flex h-full max-w-screen-lg items-center justify-evenly">
+        {COUNTRIES.map((country) => (
+          <CountryFlag key={country.id} {...country} />
+        ))}
+      </div>
+    </footer>
+  );
+}
