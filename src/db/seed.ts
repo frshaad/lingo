@@ -64,8 +64,5 @@ export async function seed() {
   }
 }
 
-// eslint-disable-next-line unicorn/prefer-module
-if (require.main === module) {
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  seed();
-}
+// eslint-disable-next-line unicorn/prefer-top-level-await
+seed();
