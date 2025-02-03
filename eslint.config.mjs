@@ -62,7 +62,6 @@ const eslintConfig = [
   {
     rules: {
       'unicorn/prevent-abbreviations': 'off',
-      'unicorn/no-process-exit': 'off',
       'unicorn/prefer-string-raw': 'off',
     },
   },

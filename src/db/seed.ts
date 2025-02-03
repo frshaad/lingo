@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { exit } from 'node:process';
+
 import db from '@/db';
 import * as schema from '@/db/schema';
 import {
@@ -60,7 +62,7 @@ export async function seed() {
     console.info('✅ Seeding completed successfully!');
   } catch (error) {
     console.error('❌ Seeding failed:', error);
-    process.exit(1);
+    exit(1);
   }
 }
 
