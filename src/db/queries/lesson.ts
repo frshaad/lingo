@@ -17,14 +17,14 @@ import { challengeProgress, lesson } from '@/db/schema';
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth();
   if (!userId) {
-    return undefined;
+    return;
   }
 
   const courseProgress = await getCourseProgress();
 
   const lessonId = id || courseProgress?.activeLessonId;
   if (!lessonId) {
-    return undefined;
+    return;
   }
 
   const lessonData = await db.query.lesson.findFirst({
@@ -43,7 +43,7 @@ export const getLesson = cache(async (id?: number) => {
   });
 
   if (!lessonData?.challenges) {
-    return undefined;
+    return;
   }
 
   return {

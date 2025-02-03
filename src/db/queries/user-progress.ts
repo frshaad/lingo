@@ -13,7 +13,7 @@ import { userProgress } from '@/db/schema';
 export const getUserProgress = cache(async () => {
   const { userId } = await auth();
   if (!userId) {
-    return undefined;
+    return;
   }
 
   const userProgressData = await db.query.userProgress.findFirst({

@@ -18,7 +18,7 @@ export const getCourseProgress = cache(async () => {
   ]);
 
   if (!userId || !userProgress?.activeCourseId) {
-    return undefined;
+    return;
   }
 
   const unitsInActiveCourse = await db.query.unit.findMany({
