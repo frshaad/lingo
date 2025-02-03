@@ -7,75 +7,45 @@ import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
-import { challenge, challengeProgress, userProgress } from '@/db/schema';
-import {
-  INITIAL_LIVES_COUNT,
-  SCORE_PER_CORRECT_ANSWER,
-} from '@/lib/global.constant';
+import { getCurrentChallenge } from '@/db/queries/challenge';
+import { challengeProgress } from '@/db/schema';
+import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
-const PATHS_TO_REVALIDATE = [
-  '/learn',
-  '/lesson',
-  '/quests',
-  '/leaderboard',
-] as const;
-
 type UpsertChallengeResult = { error: 'hearts' } | undefined;
-type UpdateExistingProgressParams = {
+type HandleExistingProgressParameters = {
   userId: string;
-  progressId: number;
   currentHearts: number;
   currentPoints: number;
+  progressId: number;
 };
 
-async function updateExistingProgress({
+async function handleExistingProgress({
   currentHearts,
   currentPoints,
   progressId,
   userId,
-}: UpdateExistingProgressParams) {
+}: HandleExistingProgressParameters) {
   await Promise.all([
     db
       .update(challengeProgress)
       .set({ isCompleted: true })
       .where(eq(challengeProgress.id, progressId)),
-    db
-      .update(userProgress)
-      .set({
-        hearts: Math.min(currentHearts + 1, INITIAL_LIVES_COUNT),
-        points: currentPoints + SCORE_PER_CORRECT_ANSWER,
-      })
-      .where(eq(userProgress.userId, userId)),
+    ProgressService.incrementHearts(userId, currentHearts),
+    ProgressService.addPoints(userId, currentPoints),
   ]);
 }
 
-async function createNewProgress(
+async function handleNewProgress(
   userId: string,
   challengeId: number,
   currentPoints: number
 ) {
   await Promise.all([
-    db.insert(challengeProgress).values({
-      challengeId,
-      userId,
-      isCompleted: true,
-    }),
-    db
-      .update(userProgress)
-      .set({
-        points: currentPoints + SCORE_PER_CORRECT_ANSWER,
-      })
-      .where(eq(userProgress.userId, userId)),
+    ProgressService.markChallengeComplete(userId, challengeId),
+    ProgressService.addPoints(userId, currentPoints),
   ]);
-}
-
-function revalidatePages(lessonId: number) {
-  for (const path of PATHS_TO_REVALIDATE) {
-    revalidatePath(path);
-  }
-  revalidatePath(`/lesson/${lessonId}`);
 }
 
 export async function upsertChallengeProgress(
@@ -86,39 +56,42 @@ export async function upsertChallengeProgress(
     throw new AuthorizationError();
   }
 
-  const userProgressData = await getUserProgress();
+  const [userProgressData, currentChallenge, existingProgress] =
+    await Promise.all([
+      getUserProgress(),
+      getCurrentChallenge(challengeId),
+      db.query.challengeProgress.findFirst({
+        where: and(
+          eq(challengeProgress.userId, userId),
+          eq(challengeProgress.challengeId, challengeId)
+        ),
+      }),
+    ]);
+
   if (!userProgressData) {
     throw new ResourceNotFoundError('User Progress');
   }
-
-  const currentChallenge = await db.query.challenge.findFirst({
-    where: eq(challenge.id, challengeId),
-  });
   if (!currentChallenge) {
     throw new ResourceNotFoundError('Challenge');
   }
 
-  const existingProgress = await db.query.challengeProgress.findFirst({
-    where: and(
-      eq(challengeProgress.userId, userId),
-      eq(challengeProgress.challengeId, challengeId)
-    ),
-  });
-
   const isRetrying = !!existingProgress;
-
   if (userProgressData.hearts === 0 && !isRetrying) {
     return { error: 'hearts' };
   }
 
   await (isRetrying
-    ? updateExistingProgress({
+    ? handleExistingProgress({
         userId,
         currentHearts: userProgressData.hearts,
         currentPoints: userProgressData.points,
         progressId: existingProgress.id,
       })
-    : createNewProgress(userId, challengeId, userProgressData.points));
+    : handleNewProgress(userId, challengeId, userProgressData.points));
 
-  revalidatePages(currentChallenge.lessonId);
+  const paths = ['/learn', '/lesson', '/quests', '/leaderboard'];
+  for (const path of paths) {
+    revalidatePath(path);
+  }
+  revalidatePath(`/lesson/${currentChallenge.lessonId}`);
 }

@@ -8,7 +8,9 @@ import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
-import { challenge, challengeProgress, userProgress } from '@/db/schema';
+import { getCurrentChallenge } from '@/db/queries/challenge';
+import { challengeProgress } from '@/db/schema';
+import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
 
@@ -46,22 +48,11 @@ export async function upsertUserProgress(courseId: number) {
       validateAndGetUserData(courseId),
       getUserProgress(),
     ]);
-
-    const {
-      courseId: activeCourseId,
-      userName,
-      userImageSrc,
-      userId,
-    } = userData;
+    const { courseId: activeCourseId } = userData;
 
     await (existingProgress
-      ? db
-          .update(userProgress)
-          .set({ activeCourseId, userName, userImageSrc })
-          .where(eq(userProgress.userId, userId))
-      : db
-          .insert(userProgress)
-          .values({ userId, activeCourseId, userName, userImageSrc }));
+      ? ProgressService.updateUserProgress({ ...userData, activeCourseId })
+      : ProgressService.addUserProgress({ ...userData, activeCourseId }));
 
     revalidatePath('/courses');
     revalidatePath('/learn');
@@ -80,12 +71,10 @@ export async function reduceHearts(challengeId: number) {
     throw new AuthorizationError();
   }
 
-  const currentUserProgress = await getUserProgress();
-  // const userSubscription = await getUserSubscription();
-
-  const currentChallenge = await db.query.challenge.findFirst({
-    where: eq(challenge.id, challengeId),
-  });
+  const [currentUserProgress, currentChallenge] = await Promise.all([
+    getUserProgress(),
+    getCurrentChallenge(challengeId),
+  ]);
 
   if (!currentChallenge) {
     throw new ResourceNotFoundError('Challenge');
@@ -108,21 +97,11 @@ export async function reduceHearts(challengeId: number) {
   if (!currentUserProgress) {
     throw new ResourceNotFoundError('User Progress');
   }
-
-  // if (userSubscription?.isActive) {
-  //   return { error: 'subscription' };
-  // }
-
   if (currentUserProgress.hearts === 0) {
     return { error: 'hearts' };
   }
 
-  await db
-    .update(userProgress)
-    .set({
-      hearts: Math.max(currentUserProgress.hearts - 1, 0),
-    })
-    .where(eq(userProgress.userId, user.id));
+  await ProgressService.decrementHearts(user.id, currentUserProgress.hearts);
 
   revalidatePath('/shop');
   revalidatePath('/learn');
