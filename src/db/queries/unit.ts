@@ -54,7 +54,7 @@ export const getUnits = cache(async () => {
       isCompleted:
         lesson.challenges.length === 0
           ? false
-          : lesson.challenges.every(isChallengeCompleted),
+          : lesson.challenges.every((element) => isChallengeCompleted(element)),
     })),
   }));
 });

@@ -4,8 +4,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
-import unicorn from 'eslint-plugin-unicorn';
-import globals from 'globals';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 const MAX_JSX_DEPTH = 4;
 const MAX_DEPTH = 4;
@@ -59,52 +58,11 @@ const eslintConfig = [
     },
   },
   // Unicorn
+  eslintPluginUnicorn.configs['flat/recommended'],
   {
-    languageOptions: { globals: globals.builtin },
-    plugins: { unicorn },
     rules: {
-      'unicorn/new-for-builtins': 'error',
-      'unicorn/no-useless-switch-case': 'error',
-      'unicorn/prefer-array-flat-map': 'error',
-      'unicorn/no-document-cookie': 'error',
-      'unicorn/prefer-string-slice': 'error',
-      'unicorn/prefer-at': 'error',
-      'unicorn/prefer-string-trim-start-end': 'error',
-      'unicorn/prefer-node-protocol': 'error',
-      'unicorn/prefer-number-properties': 'error',
-      'unicorn/consistent-existence-index-check': 'error',
-      'unicorn/explicit-length-check': 'error',
-      'unicorn/no-array-for-each': 'error',
-      'unicorn/no-array-push-push': 'error',
-      'unicorn/no-array-reduce': 'error',
-      'unicorn/no-await-expression-member': 'error',
-      'unicorn/no-await-in-promise-methods': 'error',
-      'unicorn/no-for-loop': 'error',
-      'unicorn/no-invalid-fetch-options': 'error',
-      'unicorn/no-lonely-if': 'error',
-      'unicorn/no-negated-condition': 'error',
-      'unicorn/no-negation-in-equality-check': 'error',
-      'unicorn/no-nested-ternary': 'error',
-      'unicorn/no-new-array': 'error',
-      'unicorn/no-null': 'error',
-      'unicorn/no-single-promise-in-promise-methods': 'error',
-      'unicorn/no-static-only-class': 'error',
-      'unicorn/no-typeof-undefined': 'error',
-      'unicorn/no-unnecessary-await': 'error',
-      'unicorn/no-unnecessary-polyfills': 'error',
-      'unicorn/no-unreadable-array-destructuring': 'error',
-      'unicorn/no-unreadable-iife': 'error',
-      'unicorn/no-useless-fallback-in-spread': 'error',
-      'unicorn/no-useless-length-check': 'error',
-      'unicorn/no-useless-spread': 'error',
-      'unicorn/no-useless-undefined': 'error',
-      'unicorn/no-zero-fractions': 'error',
-      'unicorn/numeric-separators-style': 'error',
-      'unicorn/prefer-array-find': 'error',
-      'unicorn/prefer-array-flat': 'error',
-      'unicorn/prefer-array-index-of': 'error',
-      'unicorn/prefer-array-some': 'error',
-      'unicorn/prefer-date-now': 'error',
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/no-process-exit': 'off',
     },
   },
   // TypeScript

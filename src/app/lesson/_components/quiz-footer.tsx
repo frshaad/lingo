@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { CheckCircle, type LucideIcon, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
 import { useKey, useMedia } from 'react-use';
 
 import { Button } from '@/components/ui/button';
@@ -40,12 +40,7 @@ function FooterStatusMessage({
     );
   }
 
-  let Icon: LucideIcon;
-  if (status === 'correct') {
-    Icon = CheckCircle;
-  } else {
-    Icon = XCircle;
-  }
+  const Icon = status === 'correct' ? CheckCircle : XCircle;
 
   return (
     <div
