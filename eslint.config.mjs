@@ -98,6 +98,13 @@ const eslintConfig = [
       'unicorn/no-useless-length-check': 'error',
       'unicorn/no-useless-spread': 'error',
       'unicorn/no-useless-undefined': 'error',
+      'unicorn/no-zero-fractions': 'error',
+      'unicorn/numeric-separators-style': 'error',
+      'unicorn/prefer-array-find': 'error',
+      'unicorn/prefer-array-flat': 'error',
+      'unicorn/prefer-array-index-of': 'error',
+      'unicorn/prefer-array-some': 'error',
+      'unicorn/prefer-date-now': 'error',
     },
   },
   // TypeScript
