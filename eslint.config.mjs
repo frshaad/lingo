@@ -46,9 +46,18 @@ const eslintConfig = [
       'prefer-regex-literals': 'error',
       'no-constructor-return': 'warn',
       'no-use-before-define': 'error',
+      'no-template-curly-in-string': 'error',
+      'no-eval': 'error',
+      'prefer-rest-params': 'error',
+      'no-sequences': 'error',
+      'no-param-reassign': 'error',
+      'no-else-return': 'error',
+      'default-param-last': 'error',
+      'prefer-exponentiation-operator': 'error',
+      eqeqeq: 'error',
     },
   },
-  // ESLint Plugin Unicorn
+  // Unicorn
   {
     languageOptions: { globals: globals.builtin },
     plugins: { unicorn },
@@ -56,6 +65,12 @@ const eslintConfig = [
       'unicorn/new-for-builtins': 'error',
       'unicorn/no-useless-switch-case': 'error',
       'unicorn/prefer-array-flat-map': 'error',
+      'unicorn/no-document-cookie': 'error',
+      'unicorn/prefer-string-slice': 'error',
+      'unicorn/prefer-at': 'error',
+      'unicorn/prefer-string-trim-start-end': 'error',
+      'unicorn/prefer-node-protocol': 'error',
+      'unicorn/prefer-number-properties': 'error',
     },
   },
   // TypeScript
@@ -64,6 +79,10 @@ const eslintConfig = [
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/no-this-alias': 'error',
+      '@typescript-eslint/no-inferrable-types': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/prefer-as-const': 'error',
+      '@typescript-eslint/prefer-function-type': 'error',
     },
   },
   // React
@@ -87,6 +106,7 @@ const eslintConfig = [
       'react/no-danger': 'error',
       'react/self-closing-comp': 'error',
       'react/void-dom-elements-no-children': 'error',
+      'react/jsx-curly-brace-presence': 'error',
     },
   },
   // JSX a11y
@@ -95,6 +115,8 @@ const eslintConfig = [
       'jsx-a11y/prefer-tag-over-role': 'error',
       'jsx-a11y/no-aria-hidden-on-focusable': 'error',
       'jsx-a11y/lang': 'error',
+      'jsx-a11y/no-static-element-interactions': 'error',
+      'jsx-a11y/autocomplete-valid': 'error',
     },
   },
   // Check-File
