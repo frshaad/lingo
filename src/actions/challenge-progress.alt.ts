@@ -7,7 +7,8 @@ import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
-import { challenge, challengeProgress } from '@/db/schema';
+import { getCurrentChallenge } from '@/db/queries/challenge';
+import { challengeProgress } from '@/db/schema';
 import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
@@ -51,14 +52,14 @@ export async function upsertChallengeProgress(
   challengeId: number
 ): Promise<UpsertChallengeResult> {
   const { userId } = await auth();
-  if (!userId) throw new AuthorizationError();
+  if (!userId) {
+    throw new AuthorizationError();
+  }
 
   const [userProgressData, currentChallenge, existingProgress] =
     await Promise.all([
       getUserProgress(),
-      db.query.challenge.findFirst({
-        where: eq(challenge.id, challengeId),
-      }),
+      getCurrentChallenge(challengeId),
       db.query.challengeProgress.findFirst({
         where: and(
           eq(challengeProgress.userId, userId),
@@ -67,8 +68,12 @@ export async function upsertChallengeProgress(
       }),
     ]);
 
-  if (!userProgressData) throw new ResourceNotFoundError('User Progress');
-  if (!currentChallenge) throw new ResourceNotFoundError('Challenge');
+  if (!userProgressData) {
+    throw new ResourceNotFoundError('User Progress');
+  }
+  if (!currentChallenge) {
+    throw new ResourceNotFoundError('Challenge');
+  }
 
   const isRetrying = !!existingProgress;
   if (userProgressData.hearts === 0 && !isRetrying) {
@@ -85,6 +90,8 @@ export async function upsertChallengeProgress(
     : handleNewProgress(userId, challengeId, userProgressData.points));
 
   const paths = ['/learn', '/lesson', '/quests', '/leaderboard'];
-  for (const path of paths) revalidatePath(path);
+  for (const path of paths) {
+    revalidatePath(path);
+  }
   revalidatePath(`/lesson/${currentChallenge.lessonId}`);
 }
