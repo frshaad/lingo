@@ -4,6 +4,8 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
+import unicorn from 'eslint-plugin-unicorn';
+import globals from 'globals';
 
 const MAX_JSX_DEPTH = 4;
 const MAX_DEPTH = 4;
@@ -36,6 +38,24 @@ const eslintConfig = [
       ],
       'no-nested-ternary': 'error',
       'no-var': 'error',
+      curly: 'error',
+      'no-extra-label': 'error',
+      'no-lone-blocks': 'error',
+      'no-useless-concat': 'warn',
+      'no-unneeded-ternary': 'error',
+      'prefer-regex-literals': 'error',
+      'no-constructor-return': 'warn',
+      'no-use-before-define': 'error',
+    },
+  },
+  // ESLint Plugin Unicorn
+  {
+    languageOptions: { globals: globals.builtin },
+    plugins: { unicorn },
+    rules: {
+      'unicorn/new-for-builtins': 'error',
+      'unicorn/no-useless-switch-case': 'error',
+      'unicorn/prefer-array-flat-map': 'error',
     },
   },
   // TypeScript
@@ -43,6 +63,7 @@ const eslintConfig = [
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-import-type-side-effects': 'error',
+      '@typescript-eslint/no-this-alias': 'error',
     },
   },
   // React
@@ -65,12 +86,15 @@ const eslintConfig = [
       'react/no-array-index-key': 'error',
       'react/no-danger': 'error',
       'react/self-closing-comp': 'error',
+      'react/void-dom-elements-no-children': 'error',
     },
   },
   // JSX a11y
   {
     rules: {
       'jsx-a11y/prefer-tag-over-role': 'error',
+      'jsx-a11y/no-aria-hidden-on-focusable': 'error',
+      'jsx-a11y/lang': 'error',
     },
   },
   // Check-File
