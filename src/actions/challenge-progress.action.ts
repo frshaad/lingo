@@ -111,16 +111,14 @@ export async function upsertChallengeProgress(
     return { error: 'hearts' };
   }
 
-  if (isRetrying) {
-    await updateExistingProgress({
-      userId,
-      currentHearts: userProgressData.hearts,
-      currentPoints: userProgressData.points,
-      progressId: existingProgress.id,
-    });
-  } else {
-    await createNewProgress(userId, challengeId, userProgressData.points);
-  }
+  await (isRetrying
+    ? updateExistingProgress({
+        userId,
+        currentHearts: userProgressData.hearts,
+        currentPoints: userProgressData.points,
+        progressId: existingProgress.id,
+      })
+    : createNewProgress(userId, challengeId, userProgressData.points));
 
   revalidatePages(currentChallenge.lessonId);
 }

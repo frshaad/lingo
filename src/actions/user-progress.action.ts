@@ -54,16 +54,14 @@ export async function upsertUserProgress(courseId: number) {
       userId,
     } = userData;
 
-    if (existingProgress) {
-      await db
-        .update(userProgress)
-        .set({ activeCourseId, userName, userImageSrc })
-        .where(eq(userProgress.userId, userId));
-    } else {
-      await db
-        .insert(userProgress)
-        .values({ userId, activeCourseId, userName, userImageSrc });
-    }
+    await (existingProgress
+      ? db
+          .update(userProgress)
+          .set({ activeCourseId, userName, userImageSrc })
+          .where(eq(userProgress.userId, userId))
+      : db
+          .insert(userProgress)
+          .values({ userId, activeCourseId, userName, userImageSrc }));
 
     revalidatePath('/courses');
     revalidatePath('/learn');
