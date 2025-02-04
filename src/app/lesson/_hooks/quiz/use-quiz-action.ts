@@ -24,7 +24,13 @@ export function useQuizAction({
   completionProgress,
 }: UseQuizActionParameters) {
   const [pending, startTransition] = useTransition();
-  const { correctControls, incorrectControls } = useAudioEffects();
+  const {
+    correctControls,
+    incorrectControls,
+    correctAudio,
+    finishAudio,
+    incorrectAudio,
+  } = useAudioEffects();
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = useMemo(
@@ -150,5 +156,8 @@ export function useQuizAction({
     proceedToNextStep,
     activeChallenge,
     activeChallengeChoices,
+    correctAudio,
+    finishAudio,
+    incorrectAudio,
   };
 }

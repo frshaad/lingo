@@ -57,39 +57,50 @@ function FooterStatusMessage({
 
 export default function QuizFooter() {
   const isMobile = useMedia('(max-width: 1024px)');
-  const { selectedOption, status, lessonId, proceedToNextStep, pending } =
-    useQuizContext();
+  const {
+    selectedOption,
+    status,
+    lessonId,
+    proceedToNextStep,
+    pending,
+    correctAudio,
+    incorrectAudio,
+  } = useQuizContext();
   const localStatus = status as LocalStatus;
 
   useKey('Enter', proceedToNextStep, {}, [proceedToNextStep]);
 
   return (
-    <footer
-      className={cn(
-        'h-24 border-t-2 lg:h-36',
-        status === 'correct' && 'border-transparent bg-green-100',
-        status === 'wrong' && 'border-transparent bg-rose-100'
-      )}
-    >
-      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6 lg:px-10">
-        <FooterStatusMessage
-          isMobile={isMobile}
-          lessonId={lessonId}
-          status={localStatus}
-        />
-        <Button
-          className="ml-auto capitalize"
-          disabled={pending || !selectedOption}
-          size={isMobile ? 'sm' : 'lg'}
-          variant={status === 'wrong' ? 'danger' : 'secondary'}
-          onClick={proceedToNextStep}
-        >
-          {localStatus === 'none' && 'Check'}
-          {localStatus === 'correct' && 'Next'}
-          {localStatus === 'wrong' && 'Retry'}
-          {localStatus === 'completed' && 'Continue'}
-        </Button>
-      </div>
-    </footer>
+    <>
+      {incorrectAudio}
+      {correctAudio}
+      <footer
+        className={cn(
+          'h-24 border-t-2 lg:h-36',
+          status === 'correct' && 'border-transparent bg-green-100',
+          status === 'wrong' && 'border-transparent bg-rose-100'
+        )}
+      >
+        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6 lg:px-10">
+          <FooterStatusMessage
+            isMobile={isMobile}
+            lessonId={lessonId}
+            status={localStatus}
+          />
+          <Button
+            className="ml-auto capitalize"
+            disabled={pending || !selectedOption}
+            size={isMobile ? 'sm' : 'lg'}
+            variant={status === 'wrong' ? 'danger' : 'secondary'}
+            onClick={proceedToNextStep}
+          >
+            {localStatus === 'none' && 'Check'}
+            {localStatus === 'correct' && 'Next'}
+            {localStatus === 'wrong' && 'Retry'}
+            {localStatus === 'completed' && 'Continue'}
+          </Button>
+        </div>
+      </footer>
+    </>
   );
 }

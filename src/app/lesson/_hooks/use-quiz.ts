@@ -28,13 +28,7 @@ export function useQuiz({
     status: 'none',
     selectedOption: undefined,
   });
-  const {
-    selectChoice,
-    pending,
-    proceedToNextStep,
-    activeChallenge,
-    activeChallengeChoices,
-  } = useQuizAction({
+  const quizActions = useQuizAction({
     quizData,
     updateQuizData,
     challenges,
@@ -43,11 +37,7 @@ export function useQuiz({
 
   return {
     ...quizData,
-    title: formatChallengeQuestion(activeChallenge),
-    activeChallenge,
-    activeChallengeChoices,
-    selectChoice,
-    proceedToNextStep,
-    pending,
+    ...quizActions,
+    title: formatChallengeQuestion(quizActions.activeChallenge),
   };
 }
