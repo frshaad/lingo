@@ -50,25 +50,75 @@ export function useQuizAction({
     });
   }, [quizData.activeChallengeIndex, updateQuizData]);
 
+  const handleCorrectAnswer = useCallback(async () => {
+    try {
+      const response = await upsertChallengeProgress(activeChallenge.id);
+
+      if (response?.error === 'hearts') {
+        // Call openHeartsModal()
+        return;
+      }
+
+      correctControls.play();
+      updateQuizData({
+        status: 'correct',
+        percentage: quizData.percentage + 100 / challenges.length,
+      });
+
+      // Reward heart for practice sessions
+      if (completionProgress === 100) {
+        updateQuizData({
+          hearts: Math.min(quizData.hearts + 1, INITIAL_LIVES_COUNT),
+        });
+      }
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+    }
+  }, [
+    activeChallenge.id,
+    challenges.length,
+    completionProgress,
+    correctControls,
+    quizData.hearts,
+    quizData.percentage,
+    updateQuizData,
+  ]);
+
+  const handleWrongAnswer = useCallback(async () => {
+    try {
+      const response = await reduceHearts(activeChallenge.id);
+
+      if (response?.error === 'hearts') {
+        // Call openHeartsModal()
+        return;
+      }
+
+      incorrectControls.play();
+      updateQuizData({ status: 'wrong' });
+
+      if (!response?.error) {
+        updateQuizData({ hearts: Math.max(quizData.hearts - 1, 0) });
+      }
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+    }
+  }, [activeChallenge.id, incorrectControls, quizData.hearts, updateQuizData]);
+
   const proceedToNextStep = useCallback(() => {
     if (!quizData.selectedOption) {
-      // button: disabled (user should select an option first)
       return;
     }
 
     if (quizData.status === 'wrong') {
-      // button: retry (user's answer was wrong)
       updateQuizData({ status: 'none', selectedOption: undefined });
       return;
     }
 
     if (quizData.status === 'correct') {
-      // button: next question (user's answer was correct)
       goToNextChallenge();
       return;
     }
 
-    // Find correct answer
     const correctChoice = activeChallengeChoices.find(
       (choice) => choice.isCorrect
     );
@@ -76,64 +126,22 @@ export function useQuizAction({
       return;
     }
 
-    // status is 'none' and user has selected an option (not checked yet)
-    // button: check user's answer
     startTransition(() => {
       const isUserAnswerCorrect = correctChoice.id === quizData.selectedOption;
-
       if (isUserAnswerCorrect) {
-        upsertChallengeProgress(activeChallenge.id)
-          .then((response) => {
-            if (response?.error === 'hearts') {
-              // Call openHeartsModal()
-              return;
-            }
-
-            correctControls.play();
-            updateQuizData({
-              status: 'correct',
-              percentage: quizData.percentage + 100 / challenges.length,
-            });
-
-            // This is a practice
-            if (completionProgress === 100) {
-              updateQuizData({
-                hearts: Math.min(quizData.hearts + 1, INITIAL_LIVES_COUNT),
-              });
-            }
-          })
-          .catch(() => toast.error('Something went wrong. Please try again.'));
+        handleCorrectAnswer();
       } else {
-        reduceHearts(activeChallenge.id)
-          .then((response) => {
-            if (response?.error === 'hearts') {
-              // Call openHeartsModal()
-              return;
-            }
-
-            incorrectControls.play();
-            updateQuizData({ status: 'wrong' });
-
-            if (!response?.error) {
-              updateQuizData({ hearts: Math.max(quizData.hearts - 1, 0) });
-            }
-          })
-          .catch(() => toast.error('Something went wrong. Please try again.'));
+        handleWrongAnswer();
       }
     });
   }, [
     quizData.selectedOption,
     quizData.status,
-    quizData.percentage,
-    quizData.hearts,
     activeChallengeChoices,
     updateQuizData,
     goToNextChallenge,
-    activeChallenge.id,
-    correctControls,
-    challenges.length,
-    completionProgress,
-    incorrectControls,
+    handleCorrectAnswer,
+    handleWrongAnswer,
   ]);
 
   return {
