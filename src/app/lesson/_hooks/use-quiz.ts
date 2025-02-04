@@ -34,10 +34,12 @@ export function useQuiz({
     challenges,
     completionProgress,
   });
+  const challengesCount = challenges.length;
 
   return {
     ...quizData,
     ...quizActions,
     title: formatChallengeQuestion(quizActions.activeChallenge),
+    challengesCount,
   };
 }

@@ -12,6 +12,9 @@ import type { QuizStatus } from '@/types/quiz';
 import { useQuizContext } from '../_context/quiz-context';
 
 type LocalStatus = QuizStatus | 'completed';
+type QuizFooterProperties = {
+  status: LocalStatus;
+};
 
 function FooterStatusMessage({
   status,
@@ -55,18 +58,17 @@ function FooterStatusMessage({
   );
 }
 
-export default function QuizFooter() {
+export default function QuizFooter({ status }: QuizFooterProperties) {
+  const router = useRouter();
   const isMobile = useMedia('(max-width: 1024px)');
   const {
     selectedOption,
-    status,
     lessonId,
     proceedToNextStep,
     pending,
     correctAudio,
     incorrectAudio,
   } = useQuizContext();
-  const localStatus = status as LocalStatus;
 
   useKey('Enter', proceedToNextStep, {}, [proceedToNextStep]);
 
@@ -74,6 +76,7 @@ export default function QuizFooter() {
     <>
       {incorrectAudio}
       {correctAudio}
+
       <footer
         className={cn(
           'h-24 border-t-2 lg:h-36',
@@ -85,19 +88,25 @@ export default function QuizFooter() {
           <FooterStatusMessage
             isMobile={isMobile}
             lessonId={lessonId}
-            status={localStatus}
+            status={status}
           />
           <Button
             className="ml-auto capitalize"
             disabled={pending || !selectedOption}
             size={isMobile ? 'sm' : 'lg'}
             variant={status === 'wrong' ? 'danger' : 'secondary'}
-            onClick={proceedToNextStep}
+            onClick={() => {
+              if (status === 'completed') {
+                router.push('/learn');
+                return;
+              }
+              proceedToNextStep();
+            }}
           >
-            {localStatus === 'none' && 'Check'}
-            {localStatus === 'correct' && 'Next'}
-            {localStatus === 'wrong' && 'Retry'}
-            {localStatus === 'completed' && 'Continue'}
+            {status === 'none' && 'Check'}
+            {status === 'correct' && 'Next'}
+            {status === 'wrong' && 'Retry'}
+            {status === 'completed' && 'Continue'}
           </Button>
         </div>
       </footer>
