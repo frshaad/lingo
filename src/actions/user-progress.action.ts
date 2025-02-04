@@ -4,12 +4,11 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { currentUser } from '@clerk/nextjs/server';
-import { and, eq } from 'drizzle-orm';
 
-import db from '@/db';
 import { getCourseById, getUserProgress } from '@/db/queries';
 import { getCurrentChallenge } from '@/db/queries/challenge';
-import { challengeProgress } from '@/db/schema';
+import { findChallengeProgress } from '@/db/utils';
+import { authenticateUser } from '@/lib/auth';
 import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
@@ -66,10 +65,7 @@ export async function upsertUserProgress(courseId: number) {
 }
 
 export async function reduceHearts(challengeId: number) {
-  const user = await currentUser();
-  if (!user) {
-    throw new AuthorizationError();
-  }
+  const userId = await authenticateUser();
 
   const [currentUserProgress, currentChallenge] = await Promise.all([
     getUserProgress(),
@@ -82,13 +78,7 @@ export async function reduceHearts(challengeId: number) {
 
   const { lessonId } = currentChallenge;
 
-  const existingProgress = await db.query.challengeProgress.findFirst({
-    where: and(
-      eq(challengeProgress.userId, user.id),
-      eq(challengeProgress.challengeId, challengeId)
-    ),
-  });
-
+  const existingProgress = await findChallengeProgress(userId, challengeId);
   const isRetrying = !!existingProgress;
   if (isRetrying) {
     return { error: 'practice' };
@@ -101,7 +91,7 @@ export async function reduceHearts(challengeId: number) {
     return { error: 'hearts' };
   }
 
-  await ProgressService.decrementHearts(user.id, currentUserProgress.hearts);
+  await ProgressService.decrementHearts(userId, currentUserProgress.hearts);
 
   revalidatePath('/shop');
   revalidatePath('/learn');

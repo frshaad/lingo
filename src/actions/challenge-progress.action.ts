@@ -2,12 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { and, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { getCurrentChallenge } from '@/db/queries/challenge';
 import { challengeProgress } from '@/db/schema';
+import { findChallengeProgress } from '@/db/utils';
 import { authenticateUser } from '@/lib/auth';
 import { ProgressService } from '@/services/progress.service';
 
@@ -57,12 +58,7 @@ export async function upsertChallengeProgress(
     await Promise.all([
       getUserProgress(),
       getCurrentChallenge(challengeId),
-      db.query.challengeProgress.findFirst({
-        where: and(
-          eq(challengeProgress.userId, userId),
-          eq(challengeProgress.challengeId, challengeId)
-        ),
-      }),
+      findChallengeProgress(userId, challengeId),
     ]);
 
   if (!userProgressData) {
