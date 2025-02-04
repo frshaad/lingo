@@ -149,7 +149,7 @@ const eslintConfig = [
       'drizzle/enforce-update-with-where': 'error',
     },
   },
-  //
+  // Browser Compatibility
   pluginCompat.configs['flat/recommended'],
   // Prettier
   configPrettier,
