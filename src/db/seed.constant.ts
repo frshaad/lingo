@@ -57,6 +57,27 @@ export const CHALLENGES: (typeof schema.challenge.$inferInsert)[] = [
     type: 'SELECT',
     question: 'Which one of these is "the robot"?',
   },
+  {
+    id: 4,
+    lessonId: 2,
+    order: 1,
+    type: 'SELECT',
+    question: 'Which one of these is "the man"?',
+  },
+  {
+    id: 5,
+    lessonId: 2,
+    order: 2,
+    type: 'ASSIST',
+    question: '"the man"',
+  },
+  {
+    id: 6,
+    lessonId: 2,
+    order: 3,
+    type: 'SELECT',
+    question: 'Which one of these is "the robot"?',
+  },
 ];
 
 export const CHALLENGE_OPTIONS: (typeof schema.challengeOption.$inferInsert)[] =
