@@ -67,35 +67,42 @@ export async function upsertUserProgress(courseId: number) {
 export async function reduceHearts(challengeId: number) {
   const userId = await authenticateUser();
 
-  const [currentUserProgress, currentChallenge] = await Promise.all([
-    getUserProgress(),
-    getCurrentChallenge(challengeId),
-  ]);
+  const [currentUserProgress, currentChallenge, existingProgress] =
+    await Promise.all([
+      getUserProgress(),
+      getCurrentChallenge(challengeId),
+      findChallengeProgress(userId, challengeId),
+    ]);
+
+  // TODO: Get user subscription
+
+  if (!currentUserProgress) {
+    throw new ResourceNotFoundError('User Progress');
+  }
 
   if (!currentChallenge) {
     throw new ResourceNotFoundError('Challenge');
   }
 
-  const { lessonId } = currentChallenge;
-
-  const existingProgress = await findChallengeProgress(userId, challengeId);
   const isRetrying = !!existingProgress;
   if (isRetrying) {
     return { error: 'practice' };
   }
 
-  if (!currentUserProgress) {
-    throw new ResourceNotFoundError('User Progress');
-  }
-  if (currentUserProgress.hearts === 0) {
+  // TODO: Handle Subscription
+
+  const { hearts } = currentUserProgress;
+  if (hearts === 0) {
     return { error: 'hearts' };
   }
 
-  await ProgressService.decrementHearts(userId, currentUserProgress.hearts);
+  await ProgressService.decrementHearts(userId, hearts);
 
   revalidatePath('/shop');
   revalidatePath('/learn');
   revalidatePath('/quests');
   revalidatePath('/leaderboard');
+
+  const { lessonId } = currentChallenge;
   revalidatePath(`/lesson/${lessonId}`);
 }
