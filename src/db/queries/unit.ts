@@ -1,11 +1,11 @@
 import { cache } from 'react';
 
-import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { challengeProgress, unit } from '@/db/schema';
+import { authenticateUser } from '@/lib/auth';
 import type { PopulatedChallenge } from '@/types/database';
 
 function isChallengeCompleted(challenge: PopulatedChallenge) {
@@ -21,8 +21,8 @@ function isChallengeCompleted(challenge: PopulatedChallenge) {
  * @returns Array of units with their lessons and completion status
  */
 export const getUnits = cache(async () => {
-  const [{ userId }, userProgress] = await Promise.all([
-    auth(),
+  const [userId, userProgress] = await Promise.all([
+    authenticateUser(),
     getUserProgress(),
   ]);
 

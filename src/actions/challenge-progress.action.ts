@@ -2,16 +2,16 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { auth } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { getCurrentChallenge } from '@/db/queries/challenge';
 import { challengeProgress } from '@/db/schema';
+import { authenticateUser } from '@/lib/auth';
 import { ProgressService } from '@/services/progress.service';
 
-import { AuthorizationError, ResourceNotFoundError } from './errors';
+import { ResourceNotFoundError } from './errors';
 
 type UpsertChallengeResult = { error: 'hearts' } | undefined;
 type HandleExistingProgressParameters = {
@@ -51,10 +51,7 @@ async function handleNewProgress(
 export async function upsertChallengeProgress(
   challengeId: number
 ): Promise<UpsertChallengeResult> {
-  const { userId } = await auth();
-  if (!userId) {
-    throw new AuthorizationError();
-  }
+  const userId = await authenticateUser();
 
   const [userProgressData, currentChallenge, existingProgress] =
     await Promise.all([

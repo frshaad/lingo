@@ -1,19 +1,19 @@
 import { cache } from 'react';
 
-import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getUserProgress } from '@/db/queries';
 import { challengeProgress, unit } from '@/db/schema';
+import { authenticateUser } from '@/lib/auth';
 
 /**
  * Gets the user's current course progress and identifies the first uncompleted lesson
  * @returns Object containing the first uncompleted lesson or null if no active course
  */
 export const getCourseProgress = cache(async () => {
-  const [{ userId }, userProgress] = await Promise.all([
-    auth(),
+  const [userId, userProgress] = await Promise.all([
+    authenticateUser(),
     getUserProgress(),
   ]);
 

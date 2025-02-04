@@ -1,11 +1,11 @@
 import { cache } from 'react';
 
-import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 
 import db from '@/db';
 import { getCourseProgress } from '@/db/queries';
 import { challengeProgress, lesson } from '@/db/schema';
+import { authenticateUser } from '@/lib/auth';
 
 /**
  * Retrieves a lesson with all its challenges and user progress information.
@@ -15,10 +15,7 @@ import { challengeProgress, lesson } from '@/db/schema';
  * @returns The lesson data with challenges and completion status, or null if not found/unauthorized
  */
 export const getLesson = cache(async (id?: number) => {
-  const { userId } = await auth();
-  if (!userId) {
-    return;
-  }
+  const userId = await authenticateUser();
 
   const courseProgress = await getCourseProgress();
 
