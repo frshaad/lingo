@@ -14,7 +14,7 @@ export type QuizHookArguments = {
   challenges: QuizChallenge[];
 };
 
-export type QuizState = {
+export type InitialQuizState = {
   lessonId: number;
   hearts: number;
   percentage: number;

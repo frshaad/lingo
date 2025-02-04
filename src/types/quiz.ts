@@ -5,7 +5,7 @@ import type { PopulatedChallenge } from '@/types/database';
 export type QuizStatus = 'correct' | 'wrong' | 'none';
 export type ChallengeType = 'ASSIST' | 'SELECT';
 
-export type QuizState = ReturnType<typeof useQuiz>;
+export type UseQuizData = ReturnType<typeof useQuiz>;
 
 export type QuizProviderProperties = {
   lessonId: number;

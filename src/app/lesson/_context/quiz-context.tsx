@@ -2,11 +2,11 @@
 
 import { type ReactNode, createContext, useContext, useMemo } from 'react';
 
-import type { QuizProviderProperties, QuizState } from '@/types/quiz';
+import type { QuizProviderProperties, UseQuizData } from '@/types/quiz';
 
 import { useQuiz } from '../_hooks/use-quiz';
 
-type QuizContextType = QuizState & {
+type QuizContextType = UseQuizData & {
   userSubscription: unknown;
 };
 
