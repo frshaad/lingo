@@ -57,7 +57,7 @@ function FooterStatusMessage({
 
 export default function QuizFooter() {
   const isMobile = useMedia('(max-width: 1024px)');
-  const { selectedOption, status, lessonId, proceedToNextStep } =
+  const { selectedOption, status, lessonId, proceedToNextStep, pending } =
     useQuizContext();
   const localStatus = status as LocalStatus;
 
@@ -79,7 +79,7 @@ export default function QuizFooter() {
         />
         <Button
           className="ml-auto capitalize"
-          disabled={!selectedOption}
+          disabled={pending || !selectedOption}
           size={isMobile ? 'sm' : 'lg'}
           variant={status === 'wrong' ? 'danger' : 'secondary'}
           onClick={proceedToNextStep}
