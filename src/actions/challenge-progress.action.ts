@@ -53,7 +53,6 @@ export async function upsertChallengeProgress(
   challengeId: number
 ): Promise<UpsertChallengeResult> {
   const userId = await authenticateUser();
-
   const [userProgressData, currentChallenge, existingProgress] =
     await Promise.all([
       getUserProgress(),
@@ -64,23 +63,25 @@ export async function upsertChallengeProgress(
   if (!userProgressData) {
     throw new ResourceNotFoundError('User Progress');
   }
+  const { hearts, points } = userProgressData;
+
   if (!currentChallenge) {
     throw new ResourceNotFoundError('Challenge');
   }
 
   const isRetrying = !!existingProgress;
-  if (userProgressData.hearts === 0 && !isRetrying) {
+  if (hearts === 0 && !isRetrying) {
     return { error: 'hearts' };
   }
 
   await (isRetrying
     ? handleExistingProgress({
         userId,
-        currentHearts: userProgressData.hearts,
-        currentPoints: userProgressData.points,
+        currentHearts: hearts,
+        currentPoints: points,
         progressId: existingProgress.id,
       })
-    : handleNewProgress(userId, challengeId, userProgressData.points));
+    : handleNewProgress(userId, challengeId, points));
 
   const paths = ['/learn', '/lesson', '/quests', '/leaderboard'];
   for (const path of paths) {

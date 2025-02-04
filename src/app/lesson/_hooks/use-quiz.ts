@@ -20,10 +20,8 @@ const findFirstIncompleteChallengeIndex = (
   return index === -1 ? 0 : index;
 };
 
-const formatChallengeQuestion = (challenge: QuizChallenge): string => {
-  return challenge.type === 'ASSIST'
-    ? 'Select the correct meaning'
-    : challenge.question;
+const formatChallengeQuestion = ({ type, question }: QuizChallenge): string => {
+  return type === 'ASSIST' ? 'Select the correct meaning' : question;
 };
 
 export function useQuiz({
@@ -43,16 +41,15 @@ export function useQuiz({
     status: 'none',
     selectedOption: undefined,
   }));
+  const updateQuizData = useCallback((updates: Partial<QuizState>) => {
+    setQuizData((previous) => ({ ...previous, ...updates }));
+  }, []);
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = useMemo(
     () => activeChallenge.challengeOptions ?? [],
     [activeChallenge.challengeOptions]
   );
-
-  const updateQuizData = useCallback((updates: Partial<QuizState>) => {
-    setQuizData((previous) => ({ ...previous, ...updates }));
-  }, []);
 
   const selectChoice = useCallback(
     (choiceId: number) => {
@@ -74,19 +71,23 @@ export function useQuiz({
 
   const proceedToNextStep = useCallback(() => {
     if (!quizData.selectedOption) {
+      // button: disabled (user should select an option first)
       return;
     }
 
     if (quizData.status === 'wrong') {
+      // button: retry (user's answer was wrong)
       updateQuizData({ status: 'none', selectedOption: undefined });
       return;
     }
 
     if (quizData.status === 'correct') {
+      // button: next question (user's answer was correct)
       goToNextChallenge();
       return;
     }
 
+    // Find correct answer
     const correctChoice = activeChallengeChoices.find(
       (choice) => choice.isCorrect
     );
@@ -94,10 +95,12 @@ export function useQuiz({
       return;
     }
 
+    // status is 'none' and user has selected an option (not checked yet)
+    // button: check user's answer
     startTransition(() => {
-      const isCorrect = correctChoice.id === quizData.selectedOption;
+      const isUserAnswerCorrect = correctChoice.id === quizData.selectedOption;
 
-      if (isCorrect) {
+      if (isUserAnswerCorrect) {
         upsertChallengeProgress(activeChallenge.id)
           .then((response) => {
             if (response?.error === 'hearts') {
