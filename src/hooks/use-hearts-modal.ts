@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
-interface HeartsModalStore {
+type HeartsModalStore = {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
-}
+};
 
 export const useHeartsModal = create<HeartsModalStore>((set) => ({
   isOpen: false,
