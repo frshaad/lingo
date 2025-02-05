@@ -5,10 +5,12 @@ import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 
 import db from '@/db';
-import { getUserProgress } from '@/db/queries';
-import { getCurrentChallenge } from '@/db/queries/challenge';
+import {
+  findChallengeProgress,
+  getCurrentChallenge,
+  getUserProgress,
+} from '@/db/queries';
 import { challengeProgress } from '@/db/schema';
-import { findChallengeProgress } from '@/db/utils';
 import { authenticateUser } from '@/lib/auth';
 import { ProgressService } from '@/services/progress.service';
 
