@@ -1,6 +1,13 @@
 'use client';
 
-import { type ReactNode, createContext, useContext, useState } from 'react';
+import {
+  type PropsWithChildren,
+  createContext,
+  useContext,
+  useState,
+} from 'react';
+
+import { type StoreApi, createStore, useStore } from 'zustand';
 
 import type { CourseProgressType, UserProgressType } from '@/db/queries';
 import type { unit } from '@/db/schema';
@@ -12,14 +19,14 @@ type RequiredActiveCourse = Omit<
   activeCourse: NonNullable<NonNullable<UserProgressType>['activeCourse']>;
 };
 
-export type LearnContextProviderProperties = {
+export type LearnContext = {
   userProgress: RequiredActiveCourse;
   units: (typeof unit.$inferSelect)[];
   courseProgress: NonNullable<CourseProgressType>;
   lessonPercentage: number;
 };
 
-const LearnContext = createContext<LearnContextProviderProperties | undefined>(
+const LearnContext = createContext<StoreApi<LearnContext> | undefined>(
   undefined
 );
 
@@ -29,21 +36,25 @@ export function LearnContextProvider({
   units,
   userProgress,
   children,
-}: LearnContextProviderProperties & { children: ReactNode }) {
-  const [data] = useState(() => ({
-    courseProgress,
-    lessonPercentage,
-    units,
-    userProgress,
-  }));
+}: LearnContext & PropsWithChildren) {
+  const [store] = useState(() =>
+    createStore<LearnContext>(() => ({
+      courseProgress,
+      lessonPercentage,
+      units,
+      userProgress,
+    }))
+  );
 
-  return <LearnContext.Provider value={data}>{children}</LearnContext.Provider>;
+  return (
+    <LearnContext.Provider value={store}>{children}</LearnContext.Provider>
+  );
 }
 
-export function useLearnContext(): LearnContextProviderProperties {
+export function useLearnContext(): LearnContext {
   const context = useContext(LearnContext);
   if (!context) {
     throw new Error('useLearnContext must be used within LearnContextProvider');
   }
-  return context;
+  return useStore(context, (state) => state);
 }
