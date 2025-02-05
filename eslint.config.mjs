@@ -2,7 +2,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import configPrettier from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
-import pluginCompat from 'eslint-plugin-compat';
 import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
 import unicorn from 'eslint-plugin-unicorn';
@@ -149,8 +148,6 @@ const eslintConfig = [
       'drizzle/enforce-update-with-where': 'error',
     },
   },
-  // Browser Compatibility
-  pluginCompat.configs['flat/recommended'],
   // Prettier
   configPrettier,
 ];

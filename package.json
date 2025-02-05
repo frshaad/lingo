@@ -20,9 +20,6 @@
   "engines": {
     "node": ">=18.18.0"
   },
-  "browserslist": [
-    ">0.3%, last 2 versions, Firefox ESR, not dead, not op_mini all"
-  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -73,7 +70,6 @@
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-check-file": "^3.0.0",
-    "eslint-plugin-compat": "^6.0.2",
     "eslint-plugin-drizzle": "^0.2.3",
     "eslint-plugin-n": "^17.15.1",
     "eslint-plugin-unicorn": "^56.0.1",
