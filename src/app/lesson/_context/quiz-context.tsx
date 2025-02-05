@@ -1,6 +1,10 @@
 'use client';
 
-import { type ReactNode, createContext, useContext, useMemo } from 'react';
+import type { PropsWithChildren } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import type { StoreApi } from 'zustand';
+import { createStore, useStore } from 'zustand';
 
 import type { QuizProviderProperties, UseQuizData } from '@/types/quiz';
 
@@ -10,7 +14,9 @@ type QuizContextType = UseQuizData & {
   userSubscription: unknown;
 };
 
-const QuizContext = createContext<QuizContextType | undefined>(undefined);
+const QuizContext = createContext<StoreApi<QuizContextType> | undefined>(
+  undefined
+);
 
 export function QuizProvider({
   children,
@@ -19,7 +25,7 @@ export function QuizProvider({
   completionProgress,
   challenges,
   userSubscription,
-}: QuizProviderProperties & { children: ReactNode }) {
+}: QuizProviderProperties & PropsWithChildren) {
   const quizState = useQuiz({
     lessonId,
     startingHearts,
@@ -27,16 +33,21 @@ export function QuizProvider({
     challenges,
   });
 
-  const memoizedValue = useMemo(
-    () => ({ ...quizState, userSubscription }),
-    [quizState, userSubscription]
+  const [store] = useState(() =>
+    createStore<QuizContextType>(() => ({
+      ...quizState,
+      userSubscription,
+    }))
   );
 
-  return (
-    <QuizContext.Provider value={memoizedValue}>
-      {children}
-    </QuizContext.Provider>
-  );
+  useEffect(() => {
+    store.setState({
+      ...quizState,
+      userSubscription,
+    });
+  }, [store, quizState, userSubscription]);
+
+  return <QuizContext.Provider value={store}>{children}</QuizContext.Provider>;
 }
 
 export function useQuizContext(): QuizContextType {
@@ -44,5 +55,5 @@ export function useQuizContext(): QuizContextType {
   if (!context) {
     throw new Error('useQuizContext must be used within QuizProvider');
   }
-  return context;
+  return useStore(context, (state) => state);
 }
