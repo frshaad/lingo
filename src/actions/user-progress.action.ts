@@ -5,8 +5,11 @@ import { redirect } from 'next/navigation';
 
 import { currentUser } from '@clerk/nextjs/server';
 
-import { getCourseById, getUserProgress } from '@/db/queries';
-import { getCurrentChallenge } from '@/db/queries/challenge';
+import {
+  getCourseById,
+  getCurrentChallenge,
+  getUserProgress,
+} from '@/db/queries';
 import { findChallengeProgress } from '@/db/utils';
 import { authenticateUser } from '@/lib/auth';
 import { ProgressService } from '@/services/progress.service';
