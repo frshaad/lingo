@@ -17,18 +17,15 @@ import { useHeartsModal } from '@/hooks/use-hearts-modal';
 
 export default function HeartsModal() {
   const router = useRouter();
-  const { open, setOpen } = useHeartsModal();
+  const { isOpen, onClose } = useHeartsModal();
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      {/* <DialogTrigger>
-        <X className="cursor-pointer text-slate-500 transition hover:opacity-75" />
-      </DialogTrigger> */}
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="mb-5 flex w-full items-center justify-center">
             <Image
-              alt="sad mascot"
+              alt="bad mascot"
               height={80}
               src="/mascot_bad.svg"
               width={80}

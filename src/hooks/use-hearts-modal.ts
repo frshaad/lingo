@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { create } from 'zustand';
 
-export function useHeartsModal() {
-  const [open, setOpen] = useState(false);
-
-  return { open, setOpen };
+interface HeartsModalStore {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
 }
+
+export const useHeartsModal = create<HeartsModalStore>((set) => ({
+  isOpen: false,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+}));

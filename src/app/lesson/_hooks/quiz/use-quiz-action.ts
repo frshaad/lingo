@@ -32,7 +32,7 @@ export function useQuizAction({
     finishAudio,
     incorrectAudio,
   } = useAudioEffects();
-  const { setOpen: openHeartsModal } = useHeartsModal();
+  const heartsModal = useHeartsModal();
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = useMemo(
@@ -63,8 +63,7 @@ export function useQuizAction({
       const response = await upsertChallengeProgress(activeChallenge.id);
 
       if (response?.error === 'hearts') {
-        // Call openHeartsModal()
-        openHeartsModal(true);
+        heartsModal.onOpen();
         return;
       }
 
@@ -88,7 +87,7 @@ export function useQuizAction({
     challenges.length,
     completionProgress,
     correctControls,
-    openHeartsModal,
+    heartsModal,
     quizData.hearts,
     quizData.percentage,
     updateQuizData,
@@ -99,8 +98,7 @@ export function useQuizAction({
       const response = await reduceHearts(activeChallenge.id);
 
       if (response?.error === 'hearts') {
-        // Call openHeartsModal()
-        openHeartsModal(true);
+        heartsModal.onOpen();
         return;
       }
 
@@ -116,7 +114,7 @@ export function useQuizAction({
   }, [
     activeChallenge.id,
     incorrectControls,
-    openHeartsModal,
+    heartsModal,
     quizData.hearts,
     updateQuizData,
   ]);
