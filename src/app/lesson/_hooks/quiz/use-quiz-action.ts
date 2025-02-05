@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { upsertChallengeProgress } from '@/actions/challenge-progress.action';
 import { reduceHearts } from '@/actions/user-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
+import { useHeartsModal } from '@/hooks/use-hearts-modal';
 import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
 
 import type { InitialQuizState, QuizChallenge } from '../../_types/quiz';
@@ -31,6 +32,7 @@ export function useQuizAction({
     finishAudio,
     incorrectAudio,
   } = useAudioEffects();
+  const { setOpen: openHeartsModal } = useHeartsModal();
 
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = useMemo(
@@ -62,6 +64,7 @@ export function useQuizAction({
 
       if (response?.error === 'hearts') {
         // Call openHeartsModal()
+        openHeartsModal(true);
         return;
       }
 
@@ -85,6 +88,7 @@ export function useQuizAction({
     challenges.length,
     completionProgress,
     correctControls,
+    openHeartsModal,
     quizData.hearts,
     quizData.percentage,
     updateQuizData,
@@ -96,6 +100,7 @@ export function useQuizAction({
 
       if (response?.error === 'hearts') {
         // Call openHeartsModal()
+        openHeartsModal(true);
         return;
       }
 
@@ -108,7 +113,13 @@ export function useQuizAction({
     } catch {
       toast.error('Something went wrong. Please try again.');
     }
-  }, [activeChallenge.id, incorrectControls, quizData.hearts, updateQuizData]);
+  }, [
+    activeChallenge.id,
+    incorrectControls,
+    openHeartsModal,
+    quizData.hearts,
+    updateQuizData,
+  ]);
 
   const proceedToNextStep = useCallback(() => {
     if (!quizData.selectedOption) {

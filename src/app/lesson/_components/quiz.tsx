@@ -1,5 +1,7 @@
 'use client';
 
+import HeartsModal from '@/components/modal/hearts-modal';
+
 import { useQuizContext } from '../_context/quiz-context';
 import LessonFinishedScreen from './lesson-finished-screen';
 import QuizContent from './quiz-content';
@@ -12,6 +14,7 @@ export default function Quiz() {
   if (activeChallenge.lessonId === lessonId) {
     return (
       <>
+        <HeartsModal />
         <QuizHeader />
         <QuizContent />
         <QuizFooter status={status} />
