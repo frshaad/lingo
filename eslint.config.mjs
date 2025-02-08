@@ -1,9 +1,9 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import configPrettier from 'eslint-config-prettier';
-import checkFile from 'eslint-plugin-check-file';
 import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
+import tailwind from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
 
 const MAX_JSX_DEPTH = 4;
@@ -121,21 +121,6 @@ const eslintConfig = [
       'jsx-a11y/autocomplete-valid': 'error',
     },
   },
-  // Check-File
-  {
-    plugins: { 'check-file': checkFile },
-    rules: {
-      'check-file/filename-naming-convention': [
-        'error',
-        { '**/*.{ts,tsx}': 'KEBAB_CASE' },
-        { ignoreMiddleExtensions: true },
-      ],
-      'check-file/folder-naming-convention': [
-        'error',
-        { 'src/**/!(__tests__)': 'KEBAB_CASE' },
-      ],
-    },
-  },
   // N (Node.js)
   {
     plugins: { n },
@@ -149,6 +134,8 @@ const eslintConfig = [
       'drizzle/enforce-update-with-where': 'error',
     },
   },
+  // Tailwind
+  ...tailwind.configs['flat/recommended'],
   // Prettier
   configPrettier,
 ];

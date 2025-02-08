@@ -23,7 +23,7 @@ export default function QuestionBubble() {
       />
       <div className="relative rounded-xl border-2 px-4 py-2 text-sm lg:text-base">
         {activeChallenge.question}
-        <div className="absolute -left-3 top-1/2 size-0 -translate-y-1/2 rotate-90 transform border-x-8 border-t-8 border-x-transparent" />
+        <div className="absolute -left-3 top-1/2 size-0 -translate-y-1/2 rotate-90 border-x-8 border-t-8 border-x-transparent" />
       </div>
     </div>
   );
