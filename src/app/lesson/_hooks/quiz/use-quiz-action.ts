@@ -8,7 +8,7 @@ import { reduceHearts } from '@/actions/user-progress.action';
 import { useAudioEffects } from '@/hooks/use-audio-effects';
 import { useHeartsModal } from '@/hooks/use-hearts-modal';
 import { usePracticeModal } from '@/hooks/use-practice-modal';
-import { INITIAL_LIVES_COUNT } from '@/lib/global.constant';
+import { FULL_LIVES_COUNT } from '@/lib/global.constant';
 
 import type { InitialQuizState, QuizChallenge } from '../../_types/quiz';
 
@@ -85,7 +85,7 @@ export function useQuizAction({
       // Reward heart for practice sessions
       if (completionProgress === 100) {
         updateQuizData({
-          hearts: Math.min(quizData.hearts + 1, INITIAL_LIVES_COUNT),
+          hearts: Math.min(quizData.hearts + 1, FULL_LIVES_COUNT),
         });
       }
     } catch {

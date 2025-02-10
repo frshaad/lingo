@@ -9,18 +9,12 @@ import {
 
 import { type StoreApi, createStore, useStore } from 'zustand';
 
-import type { CourseProgressType, UserProgressType } from '@/db/queries';
+import type { CourseProgressType } from '@/db/queries';
 import type { unit } from '@/db/schema';
-
-type RequiredActiveCourse = Omit<
-  NonNullable<UserProgressType>,
-  'activeCourse'
-> & {
-  activeCourse: NonNullable<NonNullable<UserProgressType>['activeCourse']>;
-};
+import type { UserProgressWithActiveCourse } from '@/types/user-progress';
 
 export type LearnContext = {
-  userProgress: RequiredActiveCourse;
+  userProgress: UserProgressWithActiveCourse;
   units: (typeof unit.$inferSelect)[];
   courseProgress: NonNullable<CourseProgressType>;
   lessonPercentage: number;

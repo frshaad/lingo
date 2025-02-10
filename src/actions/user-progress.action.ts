@@ -12,6 +12,7 @@ import {
   getUserProgress,
 } from '@/db/queries';
 import { authenticateUser } from '@/lib/auth';
+import { FULL_LIVES_COUNT, REFILL_HEARTS_COST } from '@/lib/global.constant';
 import { ProgressService } from '@/services/progress.service';
 
 import { AuthorizationError, ResourceNotFoundError } from './errors';
@@ -108,4 +109,28 @@ export async function reduceHearts(challengeId: number) {
 
   const { lessonId } = currentChallenge;
   revalidatePath(`/lesson/${lessonId}`);
+}
+
+export async function refillHearts() {
+  const currentUserProgress = await getUserProgress();
+  if (!currentUserProgress) {
+    throw new ResourceNotFoundError('User Progress');
+  }
+
+  if (currentUserProgress.hearts === FULL_LIVES_COUNT) {
+    throw new Error('Hearts are already full.');
+  }
+
+  if (currentUserProgress.points < REFILL_HEARTS_COST) {
+    throw new Error('Not enough points!');
+  }
+
+  const { userId, points } = currentUserProgress;
+
+  await ProgressService.refillHeartsCount(userId, points);
+
+  revalidatePath('/shop');
+  revalidatePath('/learn');
+  revalidatePath('/quests');
+  revalidatePath('/leaderboard');
 }

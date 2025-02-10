@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
+import FeedWrapper from '@/components/feed-wrapper';
+import StickyWrapper from '@/components/sticky-wrapper';
 import UserProgress from '@/components/user-progress';
 import {
   getCourseProgress,
@@ -7,10 +9,9 @@ import {
   getUnits,
   getUserProgress,
 } from '@/db/queries';
+import type { UserProgressWithActiveCourse } from '@/types/user-progress';
 
 import FeedHeader from './_components/feed-header';
-import FeedWrapper from './_components/feed-wrapper';
-import StickyWrapper from './_components/sticky-wrapper';
 import Unit from './_components/unit';
 import { LearnContextProvider } from './_context/learn-context';
 
@@ -30,7 +31,7 @@ export default async function LearnPage() {
   const userProgressWithActiveCourse = {
     ...userProgress,
     activeCourse: userProgress.activeCourse,
-  } as const;
+  } as UserProgressWithActiveCourse;
 
   return (
     <LearnContextProvider
@@ -47,7 +48,10 @@ export default async function LearnPage() {
           ))}
         </FeedWrapper>
         <StickyWrapper>
-          <UserProgress hasActiveSubscription={false} />
+          <UserProgress
+            hasActiveSubscription={false}
+            userProgress={userProgressWithActiveCourse}
+          />
         </StickyWrapper>
       </div>
     </LearnContextProvider>

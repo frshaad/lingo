@@ -5,15 +5,18 @@ import Link from 'next/link';
 
 import { InfinityIcon } from 'lucide-react';
 
-import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import { Button } from '@/components/ui/button';
+import type { UserProgressWithActiveCourse } from '@/types/user-progress';
 
 type Properties = {
   hasActiveSubscription: boolean;
+  userProgress: UserProgressWithActiveCourse;
 };
 
-export default function UserProgress({ hasActiveSubscription }: Properties) {
-  const { userProgress } = useLearnContext();
+export default function UserProgress({
+  hasActiveSubscription,
+  userProgress,
+}: Properties) {
   const {
     hearts,
     points,
