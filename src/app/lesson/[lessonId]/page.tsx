@@ -1,13 +1,19 @@
 import { redirect } from 'next/navigation';
 
+import PracticeModal from '@/components/modal/practice-modal';
 import { getLesson, getUserProgress } from '@/db/queries';
 
-import Quiz from './_components/quiz';
-import { QuizProvider } from './_context/quiz-context';
+import Quiz from '../_components/quiz';
+import { QuizProvider } from '../_context/quiz-context';
 
-export default async function LessonPage() {
+type Properties = {
+  params: Promise<{ lessonId: number }>;
+};
+
+export default async function LessonIdPage({ params }: Properties) {
+  const { lessonId } = await params;
   const [lesson, userProgress] = await Promise.all([
-    getLesson(),
+    getLesson(lessonId),
     getUserProgress(),
   ]);
 
@@ -28,6 +34,7 @@ export default async function LessonPage() {
       startingHearts={userProgress.hearts}
       userSubscription={undefined} // TODO: add user subscription
     >
+      <PracticeModal />
       <Quiz />
     </QuizProvider>
   );
