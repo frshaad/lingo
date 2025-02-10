@@ -17,10 +17,10 @@ import { useHeartsModal } from '@/hooks/use-hearts-modal';
 
 export default function HeartsModal() {
   const router = useRouter();
-  const { isOpen, onClose } = useHeartsModal();
+  const { isOpen, close } = useHeartsModal();
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={close}>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="mb-5 flex w-full items-center justify-center">

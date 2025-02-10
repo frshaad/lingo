@@ -63,7 +63,7 @@ export function useQuizAction({
       const response = await upsertChallengeProgress(activeChallenge.id);
 
       if (response?.error === 'hearts') {
-        heartsModal.onOpen();
+        heartsModal.open();
         return;
       }
 
@@ -98,7 +98,7 @@ export function useQuizAction({
       const response = await reduceHearts(activeChallenge.id);
 
       if (response?.error === 'hearts') {
-        heartsModal.onOpen();
+        heartsModal.open();
         return;
       }
 
