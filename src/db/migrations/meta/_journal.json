@@ -8,6 +8,13 @@
       "when": 1738525007480,
       "tag": "0000_damp_the_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1739286546342,
+      "tag": "0001_striped_vision",
+      "breakpoints": true
     }
   ]
 }
