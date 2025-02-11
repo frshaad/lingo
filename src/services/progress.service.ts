@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 
-import database from '@/db';
+import db from '@/db';
 import { challengeProgress, userProgress } from '@/db/schema';
 import {
   FULL_LIVES_COUNT,
@@ -20,7 +20,7 @@ type UpdateProgressParameters = {
 export const ProgressService = {
   async updateUserProgress(parameters: UpdateProgressParameters) {
     const { userId, ...updateData } = parameters;
-    return database
+    return db
       .update(userProgress)
       .set(updateData)
       .where(eq(userProgress.userId, userId));
@@ -28,7 +28,7 @@ export const ProgressService = {
 
   async addUserProgress(parameters: UpdateProgressParameters) {
     const { userId, activeCourseId, userName, userImageSrc } = parameters;
-    return database
+    return db
       .insert(userProgress)
       .values({ userId, activeCourseId, userName, userImageSrc });
   },
@@ -55,7 +55,7 @@ export const ProgressService = {
   },
 
   async markChallengeComplete(userId: string, challengeId: number) {
-    return database.insert(challengeProgress).values({
+    return db.insert(challengeProgress).values({
       challengeId,
       userId,
       isCompleted: true,
@@ -63,7 +63,7 @@ export const ProgressService = {
   },
 
   async refillHeartsCount(userId: string, points: number) {
-    return await database
+    return await db
       .update(userProgress)
       .set({
         hearts: FULL_LIVES_COUNT,
