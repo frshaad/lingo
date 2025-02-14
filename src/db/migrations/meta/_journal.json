@@ -15,6 +15,13 @@
       "when": 1739286546342,
       "tag": "0001_striped_vision",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739529561456,
+      "tag": "0002_daily_drax",
+      "breakpoints": true
     }
   ]
 }

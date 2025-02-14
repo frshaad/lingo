@@ -8,6 +8,7 @@ export const TABLES_TO_CLEAR = [
   schema.challenge,
   schema.challengeOption,
   schema.challengeProgress,
+  schema.userSubscription,
 ];
 
 export const COURSES: (typeof schema.course.$inferInsert)[] = [
