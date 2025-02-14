@@ -5,7 +5,6 @@ import { eq } from 'drizzle-orm';
 import db from '@/db';
 import { userSubscription } from '@/db/schema';
 import { authenticateUser } from '@/lib/auth';
-import { DAY_IN_MS } from '@/lib/global.constant';
 
 export const getUserSubscription = cache(async () => {
   const userId = await authenticateUser();
@@ -17,9 +16,7 @@ export const getUserSubscription = cache(async () => {
     return;
   }
 
-  const isSubscriptionActive =
-    !!data.stripePriceId &&
-    data.stripeCurrentPeriodEnd?.getTime() + DAY_IN_MS > Date.now();
+  const isSubscriptionActive = data.userId === userId;
 
   return { ...data, isSubscriptionActive };
 });

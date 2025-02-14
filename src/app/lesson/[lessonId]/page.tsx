@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import PracticeModal from '@/components/modal/practice-modal';
-import { getLesson, getUserProgress } from '@/db/queries';
+import { getLesson, getUserProgress, getUserSubscription } from '@/db/queries';
 
 import Quiz from '../_components/quiz';
 import { QuizProvider } from '../_context/quiz-context';
@@ -12,9 +12,10 @@ type Properties = {
 
 export default async function LessonIdPage({ params }: Properties) {
   const { lessonId } = await params;
-  const [lesson, userProgress] = await Promise.all([
+  const [lesson, userProgress, userSubscription] = await Promise.all([
     getLesson(lessonId),
     getUserProgress(),
+    getUserSubscription(),
   ]);
 
   if (!lesson || !userProgress) {
@@ -32,7 +33,7 @@ export default async function LessonIdPage({ params }: Properties) {
       completionProgress={completionProgress}
       lessonId={lesson.id}
       startingHearts={userProgress.hearts}
-      userSubscription={undefined} // TODO: add user subscription
+      userSubscription={userSubscription?.isSubscriptionActive}
     >
       <PracticeModal />
       <Quiz />

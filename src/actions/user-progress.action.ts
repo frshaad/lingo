@@ -10,6 +10,7 @@ import {
   getCourseById,
   getCurrentChallenge,
   getUserProgress,
+  getUserSubscription,
 } from '@/db/queries';
 import { authenticateUser } from '@/lib/auth';
 import { FULL_LIVES_COUNT, REFILL_HEARTS_COST } from '@/lib/global.constant';
@@ -71,14 +72,17 @@ export async function upsertUserProgress(courseId: number) {
 export async function reduceHearts(challengeId: number) {
   const userId = await authenticateUser();
 
-  const [currentUserProgress, currentChallenge, existingProgress] =
-    await Promise.all([
-      getUserProgress(),
-      getCurrentChallenge(challengeId),
-      findChallengeProgress(userId, challengeId),
-    ]);
-
-  // TODO: Get user subscription
+  const [
+    currentUserProgress,
+    currentChallenge,
+    existingProgress,
+    userSubscription,
+  ] = await Promise.all([
+    getUserProgress(),
+    getCurrentChallenge(challengeId),
+    findChallengeProgress(userId, challengeId),
+    getUserSubscription(),
+  ]);
 
   if (!currentUserProgress) {
     throw new ResourceNotFoundError('User Progress');
@@ -93,7 +97,9 @@ export async function reduceHearts(challengeId: number) {
     return { error: 'practice' };
   }
 
-  // TODO: Handle Subscription
+  if (userSubscription?.isSubscriptionActive) {
+    return { error: 'subscription' };
+  }
 
   const { hearts } = currentUserProgress;
   if (hearts === 0) {

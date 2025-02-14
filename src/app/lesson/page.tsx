@@ -1,14 +1,15 @@
 import { redirect } from 'next/navigation';
 
-import { getLesson, getUserProgress } from '@/db/queries';
+import { getLesson, getUserProgress, getUserSubscription } from '@/db/queries';
 
 import Quiz from './_components/quiz';
 import { QuizProvider } from './_context/quiz-context';
 
 export default async function LessonPage() {
-  const [lesson, userProgress] = await Promise.all([
+  const [lesson, userProgress, userSubscription] = await Promise.all([
     getLesson(),
     getUserProgress(),
+    getUserSubscription(),
   ]);
 
   if (!lesson || !userProgress) {
@@ -26,7 +27,7 @@ export default async function LessonPage() {
       completionProgress={completionProgress}
       lessonId={lesson.id}
       startingHearts={userProgress.hearts}
-      userSubscription={undefined} // TODO: add user subscription
+      userSubscription={userSubscription?.isSubscriptionActive}
     >
       <Quiz />
     </QuizProvider>

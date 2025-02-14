@@ -8,6 +8,7 @@ import {
   getLessonPercentage,
   getUnits,
   getUserProgress,
+  getUserSubscription,
 } from '@/db/queries';
 import type { UserProgressWithActiveCourse } from '@/types/user-progress';
 
@@ -16,13 +17,19 @@ import Unit from './_components/unit';
 import { LearnContextProvider } from './_context/learn-context';
 
 export default async function LearnPage() {
-  const [userProgress, units, courseProgress, lessonPercentage] =
-    await Promise.all([
-      getUserProgress(),
-      getUnits(),
-      getCourseProgress(),
-      getLessonPercentage(),
-    ]);
+  const [
+    userProgress,
+    units,
+    courseProgress,
+    lessonPercentage,
+    userSubscription,
+  ] = await Promise.all([
+    getUserProgress(),
+    getUnits(),
+    getCourseProgress(),
+    getLessonPercentage(),
+    getUserSubscription(),
+  ]);
 
   if (!userProgress?.activeCourse || !courseProgress) {
     redirect('/courses');
@@ -49,7 +56,7 @@ export default async function LearnPage() {
         </FeedWrapper>
         <StickyWrapper>
           <UserProgress
-            hasActiveSubscription={false}
+            hasActiveSubscription={!!userSubscription?.isSubscriptionActive}
             userProgress={userProgressWithActiveCourse}
           />
         </StickyWrapper>
