@@ -11,6 +11,7 @@ type Properties = {
   label: string;
   iconSrc: string;
 };
+
 export default function SidebarItem({ label, path, iconSrc }: Properties) {
   const pathname = usePathname();
   const isLinkActive = path === pathname;
