@@ -38,6 +38,10 @@ async function validateAndGetUserData(
     throw new ResourceNotFoundError('Course');
   }
 
+  if (course.units.length === 0 || course.units[0].lessons.length === 0) {
+    throw new Error('Course is empty');
+  }
+
   return {
     userId: user.id,
     courseId,
@@ -52,6 +56,7 @@ export async function upsertUserProgress(courseId: number) {
       validateAndGetUserData(courseId),
       getUserProgress(),
     ]);
+
     const { courseId: activeCourseId } = userData;
 
     await (existingProgress
@@ -92,8 +97,9 @@ export async function reduceHearts(challengeId: number) {
     throw new ResourceNotFoundError('Challenge');
   }
 
-  const isRetrying = !!existingProgress;
-  if (isRetrying) {
+  const isPracticing = !!existingProgress;
+
+  if (isPracticing) {
     return { error: 'practice' };
   }
 
