@@ -24,7 +24,12 @@ export const getCourseById = cache(async (courseId: number) => {
     where: eq(course.id, courseId),
     with: {
       units: {
-        with: { lessons: true },
+        orderBy: (units, { asc }) => [asc(units.order)],
+        with: {
+          lessons: {
+            orderBy: (lessons, { asc }) => [asc(lessons.order)],
+          },
+        },
       },
     },
   });
