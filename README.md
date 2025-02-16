@@ -33,17 +33,20 @@ A modern web application for language learning, built with cutting-edge technolo
 ## 🛠️ Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/frshaad/lingo.git
 cd lingo
 ```
 
 2. Install dependencies
+
 ```bash
 pnpm install
 ```
 
 3. Set up environment variables
+
 ```bash
 cp .env.example .env
 ```
@@ -78,6 +81,7 @@ const dbUrl = env.DATABASE_URL
 ```
 
 4. Run the development server
+
 ```bash
 pnpm dev
 ```
@@ -98,14 +102,6 @@ src/
 ## 🖼️ Screenshots
 
 [Coming soon]
-
-## 🎯 Future Improvements
-
-- [x] Add user authentication
-- [x] Implement progress tracking
-- [ ] Add more language options
-- [ ] Integrate with a backend API
-- [ ] Add social features
 
 ## 👨‍💻 About Me
 

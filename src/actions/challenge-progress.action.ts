@@ -9,6 +9,7 @@ import {
   findChallengeProgress,
   getCurrentChallenge,
   getUserProgress,
+  getUserSubscription,
 } from '@/db/queries';
 import { challengeProgress } from '@/db/schema';
 import { authenticateUser } from '@/lib/auth';
@@ -55,12 +56,17 @@ export async function upsertChallengeProgress(
   challengeId: number
 ): Promise<UpsertChallengeResult> {
   const userId = await authenticateUser();
-  const [userProgressData, currentChallenge, existingProgress] =
-    await Promise.all([
-      getUserProgress(),
-      getCurrentChallenge(challengeId),
-      findChallengeProgress(userId, challengeId),
-    ]);
+  const [
+    userProgressData,
+    currentChallenge,
+    existingProgress,
+    userSubscription,
+  ] = await Promise.all([
+    getUserProgress(),
+    getCurrentChallenge(challengeId),
+    findChallengeProgress(userId, challengeId),
+    getUserSubscription(),
+  ]);
 
   if (!userProgressData) {
     throw new ResourceNotFoundError('User Progress');
@@ -71,12 +77,17 @@ export async function upsertChallengeProgress(
     throw new ResourceNotFoundError('Challenge');
   }
 
-  const isRetrying = !!existingProgress;
-  if (hearts === 0 && !isRetrying) {
+  const isPracticing = !!existingProgress;
+
+  if (
+    hearts === 0 &&
+    !isPracticing &&
+    !userSubscription?.isSubscriptionActive
+  ) {
     return { error: 'hearts' };
   }
 
-  await (isRetrying
+  await (isPracticing
     ? handleExistingProgress({
         userId,
         currentHearts: hearts,
