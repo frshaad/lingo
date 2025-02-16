@@ -6,12 +6,17 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { StoreApi } from 'zustand';
 import { createStore, useStore } from 'zustand';
 
+import type { userSubscription } from '@/db/schema';
 import type { QuizProviderProperties, UseQuizData } from '@/types/quiz';
 
 import { useQuiz } from '../_hooks/use-quiz';
 
 type QuizContextType = UseQuizData & {
-  userSubscription: unknown;
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isSubscriptionActive: boolean;
+      })
+    | undefined;
 };
 
 const QuizContext = createContext<StoreApi<QuizContextType> | undefined>(

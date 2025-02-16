@@ -33,7 +33,7 @@ export default async function LessonIdPage({ params }: Properties) {
       completionProgress={completionProgress}
       lessonId={lesson.id}
       startingHearts={userProgress.hearts}
-      userSubscription={userSubscription?.isSubscriptionActive}
+      userSubscription={userSubscription}
     >
       <PracticeModal />
       <Quiz />
