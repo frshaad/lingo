@@ -6,7 +6,7 @@ import { CheckCircle, XCircle } from 'lucide-react';
 import { useKey, useMedia } from 'react-use';
 
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utilities';
 import type { QuizStatus } from '@/types/quiz';
 
 import { useQuizContext } from '../_context/quiz-context';

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useAudio, useKey } from 'react-use';
 
 import type { challengeOption } from '@/db/schema';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utilities';
 import type { QuizStatus } from '@/types/quiz';
 
 import { useQuizContext } from '../_context/quiz-context';

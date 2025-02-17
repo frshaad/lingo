@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 import { upsertUserProgress } from '@/actions/user-progress.action';
 import type { course } from '@/db/schema';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utilities';
 
 type CourseCardProperties = {
   disabled?: boolean;
