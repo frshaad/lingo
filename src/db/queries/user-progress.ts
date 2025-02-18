@@ -1,5 +1,6 @@
 import { cache } from 'react';
 
+import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 
 import db from '@/db';
@@ -22,3 +23,23 @@ export const getUserProgress = cache(async () => {
 });
 
 export type UserProgressType = Awaited<ReturnType<typeof getUserProgress>>;
+
+export const getTopTenUsers = cache(async () => {
+  const { userId } = await auth();
+  if (!userId) {
+    return [];
+  }
+
+  const topTenUsers = await db.query.userProgress.findMany({
+    orderBy: (userProgress, { desc }) => [desc(userProgress.points)],
+    limit: 10,
+    columns: {
+      userId: true,
+      userName: true,
+      userImageSrc: true,
+      points: true,
+    },
+  });
+
+  return topTenUsers;
+});
