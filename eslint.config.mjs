@@ -1,10 +1,11 @@
+// @ts-check
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import configPrettier from 'eslint-config-prettier';
-import drizzle from 'eslint-plugin-drizzle';
 import n from 'eslint-plugin-n';
 import tailwind from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
+import tseslint from 'typescript-eslint';
 
 const MAX_JSX_DEPTH = 4;
 const MAX_DEPTH = 4;
@@ -14,9 +15,8 @@ const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
 
-/** @type {import('eslint').Linter.Config[]} */
-const eslintConfig = [
-  { languageOptions: { globals: { React: true } } },
+export default tseslint.config([
+  { languageOptions: { globals: { React: true } }, ignores: ['node_modules'] },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   // ESlint JS
   js.configs.recommended,
@@ -58,14 +58,21 @@ const eslintConfig = [
     },
   },
   // Unicorn
-  unicorn.configs['flat/recommended'],
+  unicorn.configs.recommended,
   {
     rules: {
       'unicorn/prevent-abbreviations': [
         'error',
         {
           allowList: {
-            // prop: true,
+            util: true,
+            utils: true,
+            prop: true,
+            props: true,
+            param: true,
+            params: true,
+            env: true,
+            db: true,
           },
         },
       ],
@@ -126,18 +133,8 @@ const eslintConfig = [
     plugins: { n },
     rules: { 'n/no-process-env': 'error' },
   },
-  // Drizzle
-  {
-    plugins: { drizzle },
-    rules: {
-      'drizzle/enforce-delete-with-where': 'error',
-      'drizzle/enforce-update-with-where': 'error',
-    },
-  },
   // Tailwind
   ...tailwind.configs['flat/recommended'],
   // Prettier
   configPrettier,
-];
-
-export default eslintConfig;
+]);
