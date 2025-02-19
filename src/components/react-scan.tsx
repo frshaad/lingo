@@ -1,0 +1,19 @@
+'use client';
+
+// react-scan must be imported before react
+import { scan } from 'react-scan';
+
+import type { JSX } from 'react';
+import { useEffect } from 'react';
+
+
+export function ReactScan(): JSX.Element {
+  useEffect(() => {
+    scan({
+      enabled: true,
+    });
+  }, []);
+
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <></>
+}
