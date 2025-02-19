@@ -46,7 +46,7 @@ export function useQuizAction({
   const activeChallenge = challenges[quizData.activeChallengeIndex];
   const activeChallengeChoices = useMemo(
     () => activeChallenge.challengeOptions ?? [],
-    [activeChallenge.challengeOptions]
+    [activeChallenge.challengeOptions],
   );
 
   const selectChoice = useCallback(
@@ -56,7 +56,7 @@ export function useQuizAction({
       }
       updateQuizData({ selectedOption: choiceId });
     },
-    [quizData.status, updateQuizData]
+    [quizData.status, updateQuizData],
   );
 
   const goToNextChallenge = useCallback(() => {
@@ -144,7 +144,7 @@ export function useQuizAction({
     }
 
     const correctChoice = activeChallengeChoices.find(
-      (choice) => choice.isCorrect
+      (choice) => choice.isCorrect,
     );
     if (!correctChoice) {
       return;

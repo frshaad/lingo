@@ -21,5 +21,5 @@ export const challengeOptionRelations = relations(
       fields: [challengeOption.challengeId],
       references: [challenge.id],
     }),
-  })
+  }),
 );

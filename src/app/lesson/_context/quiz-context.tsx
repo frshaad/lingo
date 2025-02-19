@@ -20,7 +20,7 @@ type QuizContextType = UseQuizData & {
 };
 
 const QuizContext = createContext<StoreApi<QuizContextType> | undefined>(
-  undefined
+  undefined,
 );
 
 export function QuizProvider({
@@ -42,7 +42,7 @@ export function QuizProvider({
     createStore<QuizContextType>(() => ({
       ...quizState,
       userSubscription,
-    }))
+    })),
   );
 
   useEffect(() => {

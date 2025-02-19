@@ -49,7 +49,7 @@ function FooterStatusMessage({
     <div
       className={cn(
         'flex items-center text-base font-bold capitalize lg:text-2xl',
-        status === 'correct' ? 'text-green-500' : 'text-rose-500'
+        status === 'correct' ? 'text-green-500' : 'text-rose-500',
       )}
     >
       <Icon className="mr-4 size-6 lg:size-10" />
@@ -81,7 +81,7 @@ export default function QuizFooter({ status }: QuizFooterProperties) {
         className={cn(
           'h-24 border-t-2 lg:h-36',
           status === 'correct' && 'border-transparent bg-green-100',
-          status === 'wrong' && 'border-transparent bg-rose-100'
+          status === 'wrong' && 'border-transparent bg-rose-100',
         )}
       >
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6 lg:px-10">

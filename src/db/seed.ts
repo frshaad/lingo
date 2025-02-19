@@ -14,7 +14,6 @@ import {
 
 async function clearTable(table: any) {
   try {
-    // eslint-disable-next-line drizzle/enforce-delete-with-where
     await db.delete(table);
     console.info(`✓ Cleared ${table.name}`);
   } catch (error) {
@@ -50,7 +49,7 @@ async function seedTables() {
   await seedTable(
     schema.challengeOption,
     CHALLENGE_OPTIONS,
-    'challenge options'
+    'challenge options',
   );
 }
 

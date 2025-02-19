@@ -39,7 +39,7 @@ export default function LessonButton({
         'transition-opacity',
         isLockedLesson
           ? 'pointer-events-none opacity-50'
-          : 'pointer-events-auto'
+          : 'pointer-events-auto',
       )}
       href={href}
     >

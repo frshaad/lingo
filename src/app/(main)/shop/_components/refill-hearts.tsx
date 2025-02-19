@@ -27,7 +27,7 @@ export default function RefillHearts({ hearts, points }: Properties) {
 
     startTransition(() => {
       refillHearts().catch(() =>
-        toast.error('Refilling Hearts: Something went wrong!')
+        toast.error('Refilling Hearts: Something went wrong!'),
       );
     });
   };

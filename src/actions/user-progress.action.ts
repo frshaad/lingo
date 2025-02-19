@@ -26,7 +26,7 @@ type UserProgressData = {
 };
 
 async function validateAndGetUserData(
-  courseId: number
+  courseId: number,
 ): Promise<UserProgressData> {
   const user = await currentUser();
   if (!user) {

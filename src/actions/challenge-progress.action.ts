@@ -44,7 +44,7 @@ async function handleExistingProgress({
 async function handleNewProgress(
   userId: string,
   challengeId: number,
-  currentPoints: number
+  currentPoints: number,
 ) {
   await Promise.all([
     ProgressService.markChallengeComplete(userId, challengeId),
@@ -53,7 +53,7 @@ async function handleNewProgress(
 }
 
 export async function upsertChallengeProgress(
-  challengeId: number
+  challengeId: number,
 ): Promise<UpsertChallengeResult> {
   const userId = await authenticateUser();
   const [

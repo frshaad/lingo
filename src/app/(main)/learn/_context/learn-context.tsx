@@ -21,7 +21,7 @@ export type LearnContext = {
 };
 
 const LearnContext = createContext<StoreApi<LearnContext> | undefined>(
-  undefined
+  undefined,
 );
 
 export function LearnContextProvider({
@@ -37,7 +37,7 @@ export function LearnContextProvider({
       lessonPercentage,
       units,
       userProgress,
-    }))
+    })),
   );
 
   return (

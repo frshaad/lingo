@@ -11,7 +11,7 @@ const getGridClassName = (type: ChallengeType): string => {
   }
   return cn(
     baseClass,
-    'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]'
+    'grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]',
   );
 };
 

@@ -3,7 +3,7 @@ import { useQuizAction } from './quiz/use-quiz-action';
 import { useQuizData } from './quiz/use-quiz-data';
 
 const findFirstIncompleteChallengeIndex = (
-  challenges: QuizChallenge[]
+  challenges: QuizChallenge[],
 ): number => {
   const index = challenges.findIndex((challenge) => !challenge.isCompleted);
   return index === -1 ? 0 : index;

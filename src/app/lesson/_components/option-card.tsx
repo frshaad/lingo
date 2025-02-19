@@ -34,7 +34,7 @@ const KeyShortcut = ({
       'flex size-5 items-center justify-center rounded-lg border-2 font-semibold text-neutral-400 max-lg:text-xs lg:size-7',
       isSelected && 'border-sky-300 text-sky-500',
       status === 'correct' && 'border-green-500 text-green-500',
-      status === 'wrong' && 'border-rose-500 text-rose-500'
+      status === 'wrong' && 'border-rose-500 text-rose-500',
     )}
   >
     {shortcut}
@@ -63,7 +63,7 @@ const getButtonStyles = ({
       status === 'wrong' &&
       'border-rose-300 bg-rose-100 hover:bg-rose-100',
     isDisabled && 'pointer-events-none hover:bg-white',
-    isAssistType && 'w-full lg:p-3'
+    isAssistType && 'w-full lg:p-3',
   );
 };
 
@@ -114,7 +114,7 @@ export default function OptionCard({
       <div
         className={cn(
           'flex items-center justify-between',
-          isAssistType && 'flex-row-reverse'
+          isAssistType && 'flex-row-reverse',
         )}
       >
         {isAssistType ? <div /> : undefined}
@@ -123,7 +123,7 @@ export default function OptionCard({
             'text-neutral-600 max-lg:text-sm',
             isSelected && 'text-sky-500',
             isSelected && status === 'correct' && 'text-green-500',
-            isSelected && status === 'wrong' && 'text-rose-500'
+            isSelected && status === 'wrong' && 'text-rose-500',
           )}
         >
           {text}

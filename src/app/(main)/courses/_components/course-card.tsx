@@ -54,7 +54,7 @@ export default function CourseCard({
         'flex h-full min-h-52 min-w-48 flex-col items-center justify-between',
         'rounded-xl border-2 border-b-4 p-3 pb-6',
         'hover:bg-black/5 active:border-b-2',
-        (disabled || isPending) && 'pointer-events-none opacity-50'
+        (disabled || isPending) && 'pointer-events-none opacity-50',
       )}
       disabled={disabled || isPending}
       type="button"
