@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { ClerkLoaded, UserButton } from '@clerk/nextjs';
 
-import { cn } from '@/lib/utilities';
+import { cn } from '@/lib/utils';
 
 import ClerkLoadingSpinner from './clerk/clerk-loading';
 import Logo from './logo';

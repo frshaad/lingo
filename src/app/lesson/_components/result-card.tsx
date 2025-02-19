@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { cn } from '@/lib/utilities';
+import { cn } from '@/lib/utils';
 
 type Properties = {
   value: number;

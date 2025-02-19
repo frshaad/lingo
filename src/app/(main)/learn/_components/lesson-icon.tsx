@@ -1,7 +1,7 @@
 import { Check, Crown, type LucideIcon, Star } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utilities';
+import { cn } from '@/lib/utils';
 
 type Properties = {
   isCompleted: boolean;
