@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import FeedWrapper from '@/components/feed-wrapper';
+import PromotionCard from '@/components/promotion-card';
 import StickyWrapper from '@/components/sticky-wrapper';
 import { Separator } from '@/components/ui/separator';
 import UserProgress from '@/components/user-progress';
@@ -30,6 +31,8 @@ export default async function LeaderBoardPage() {
     activeCourse: userProgress.activeCourse,
   } as UserProgressWithActiveCourse;
 
+  const isPro = Boolean(userSubscription?.isSubscriptionActive);
+
   return (
     <div className="flex gap-12 px-6">
       <FeedWrapper>
@@ -55,6 +58,7 @@ export default async function LeaderBoardPage() {
           hasActiveSubscription={!!userSubscription?.isSubscriptionActive}
           userProgress={userProgressWithActiveCourse}
         />
+        {!isPro && <PromotionCard />}
       </StickyWrapper>
     </div>
   );

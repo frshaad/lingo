@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import FeedWrapper from '@/components/feed-wrapper';
+import PromotionCard from '@/components/promotion-card';
 import StickyWrapper from '@/components/sticky-wrapper';
 import UserProgress from '@/components/user-progress';
 import {
@@ -40,6 +41,8 @@ export default async function LearnPage() {
     activeCourse: userProgress.activeCourse,
   } as UserProgressWithActiveCourse;
 
+  const isPro = Boolean(userSubscription?.isSubscriptionActive);
+
   return (
     <LearnContextProvider
       courseProgress={courseProgress}
@@ -56,9 +59,10 @@ export default async function LearnPage() {
         </FeedWrapper>
         <StickyWrapper>
           <UserProgress
-            hasActiveSubscription={!!userSubscription?.isSubscriptionActive}
+            hasActiveSubscription={isPro}
             userProgress={userProgressWithActiveCourse}
           />
+          {!isPro && <PromotionCard />}
         </StickyWrapper>
       </div>
     </LearnContextProvider>

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import FeedWrapper from '@/components/feed-wrapper';
+import PromotionCard from '@/components/promotion-card';
 import StickyWrapper from '@/components/sticky-wrapper';
 import UserProgress from '@/components/user-progress';
 import { getUserProgress, getUserSubscription } from '@/db/queries';
@@ -25,6 +26,7 @@ export default async function ShopPage() {
   } as UserProgressWithActiveCourse;
 
   const { points, hearts } = userProgressWithActiveCourse;
+  const isPro = Boolean(userSubscription?.isSubscriptionActive);
 
   return (
     <div className="flex gap-12 px-6">
@@ -49,6 +51,7 @@ export default async function ShopPage() {
           hasActiveSubscription={!!userSubscription?.isSubscriptionActive}
           userProgress={userProgressWithActiveCourse}
         />
+        {!isPro && <PromotionCard />}
       </StickyWrapper>
     </div>
   );
