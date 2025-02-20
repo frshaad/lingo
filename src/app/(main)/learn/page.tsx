@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 
 import FeedWrapper from '@/components/feed-wrapper';
 import PromotionCard from '@/components/promotion-card';
+import QuestsCard from '@/components/quests-card';
 import StickyWrapper from '@/components/sticky-wrapper';
 import UserProgress from '@/components/user-progress';
 import {
@@ -63,6 +64,7 @@ export default async function LearnPage() {
             userProgress={userProgressWithActiveCourse}
           />
           {!isPro && <PromotionCard />}
+          <QuestsCard points={userProgress.points} />
         </StickyWrapper>
       </div>
     </LearnContextProvider>

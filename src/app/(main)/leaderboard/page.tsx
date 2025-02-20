@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 
 import FeedWrapper from '@/components/feed-wrapper';
 import PromotionCard from '@/components/promotion-card';
+import QuestsCard from '@/components/quests-card';
 import StickyWrapper from '@/components/sticky-wrapper';
 import { Separator } from '@/components/ui/separator';
 import UserProgress from '@/components/user-progress';
@@ -59,6 +60,7 @@ export default async function LeaderBoardPage() {
           userProgress={userProgressWithActiveCourse}
         />
         {!isPro && <PromotionCard />}
+        <QuestsCard points={userProgress.points} />
       </StickyWrapper>
     </div>
   );

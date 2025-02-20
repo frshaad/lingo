@@ -9,7 +9,7 @@ import { getUserProgress, getUserSubscription } from '@/db/queries';
 import { QUESTS } from '@/lib/global.constant';
 import type { UserProgressWithActiveCourse } from '@/types/user-progress';
 
-import QuestItem from './_components/quest-item';
+import QuestItem from '../../../components/quest-item';
 
 export default async function QuestsPage() {
   const [userProgress, userSubscription] = await Promise.all([
@@ -45,6 +45,7 @@ export default async function QuestsPage() {
                 key={quest.id}
                 quest={quest}
                 userPoints={userProgress.points}
+                isLarge
               />
             ))}
           </section>
