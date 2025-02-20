@@ -1,5 +1,3 @@
 src/db/migrations/*
 
 pnpm-lock.yaml
-
-src/components/react-scan.tsx

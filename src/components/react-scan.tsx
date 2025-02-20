@@ -6,7 +6,6 @@ import { scan } from 'react-scan';
 import type { JSX } from 'react';
 import { useEffect } from 'react';
 
-
 export function ReactScan(): JSX.Element {
   useEffect(() => {
     scan({
@@ -15,5 +14,5 @@ export function ReactScan(): JSX.Element {
   }, []);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <></>
+  return <></>;
 }
