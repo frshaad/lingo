@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getTableName } from 'drizzle-orm';
+import type { PgTable } from 'drizzle-orm/pg-core';
 import { exit } from 'node:process';
 
 import db from '@/db';
@@ -12,22 +13,22 @@ import {
   UNITS,
 } from '@/db/seed.constant';
 
-async function clearTable(table: any) {
+async function clearTable(table: PgTable) {
   try {
     await db.delete(table);
-    console.info(`✓ Cleared ${table.name}`);
+    console.info(`✓ Cleared ${getTableName(table)}`);
   } catch (error) {
-    console.error(`✗ Failed to clear ${table.name}:`, error);
+    console.error(`✗ Failed to clear ${getTableName(table)}:`, error);
     throw error;
   }
 }
 
-async function seedTable<T>(table: any, data: T[], tableName: string) {
+async function seedTable<T>(table: PgTable, data: T[]) {
   try {
     await db.insert(table).values(data);
-    console.info(`✔️ Seeded ${tableName} (${data.length} records)`);
+    console.info(`✔️ Seeded ${getTableName(table)} (${data.length} records)`);
   } catch (error) {
-    console.error(`✖️ Failed to seed ${tableName}:`, error);
+    console.error(`✖️ Failed to seed ${getTableName(table)}:`, error);
     throw error;
   }
 }
@@ -42,15 +43,11 @@ async function clearTables() {
 async function seedTables() {
   console.info('🌱 Seeding tables...');
 
-  await seedTable(schema.course, COURSES, 'courses');
-  await seedTable(schema.unit, UNITS, 'units');
-  await seedTable(schema.lesson, LESSONS, 'lessons');
-  await seedTable(schema.challenge, CHALLENGES, 'challenges');
-  await seedTable(
-    schema.challengeOption,
-    CHALLENGE_OPTIONS,
-    'challenge options',
-  );
+  await seedTable(schema.course, COURSES);
+  await seedTable(schema.unit, UNITS);
+  await seedTable(schema.lesson, LESSONS);
+  await seedTable(schema.challenge, CHALLENGES);
+  await seedTable(schema.challengeOption, CHALLENGE_OPTIONS);
 }
 
 export async function seed() {
