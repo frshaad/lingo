@@ -70,7 +70,14 @@ export default function QuizFooter({ status }: QuizFooterProperties) {
     incorrectAudio,
   } = useQuizContext();
 
-  useKey('Enter', proceedToNextStep, {}, [proceedToNextStep]);
+  const handleProceedToNextStep = () => {
+    if (status === 'completed') {
+      return;
+    }
+    proceedToNextStep();
+  };
+
+  useKey('Enter', handleProceedToNextStep, {}, [handleProceedToNextStep]);
 
   return (
     <>
