@@ -13,7 +13,7 @@ export default function FeedHeaderSkeleton() {
           <ArrowLeft className="stroke-2 text-neutral-400" size={20} />
         </Link>
       </Button>
-      <Skeleton className="h-[28px] w-[70px] rounded-full" />
+      <Skeleton className="h-[28px] w-[70px] rounded-md" />
 
       <div className="w-6" />
     </div>
