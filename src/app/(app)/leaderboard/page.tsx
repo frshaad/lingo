@@ -37,7 +37,7 @@ export default async function LeaderBoardPage() {
   return (
     <div className="flex gap-12 px-6">
       <FeedWrapper>
-        <div className="flex w-full flex-col items-center gap-y-6">
+        <div className="flex w-full flex-col items-center gap-y-3">
           <Image
             alt="leaderboard"
             height={90}
