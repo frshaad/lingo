@@ -30,6 +30,7 @@ export default function QuizFooter({ status }: QuizFooterProperties) {
 
   const handleProceedToNextStep = () => {
     if (status === 'completed') {
+      router.push('/learn');
       return;
     }
     proceedToNextStep();
