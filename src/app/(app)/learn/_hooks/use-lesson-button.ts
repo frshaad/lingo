@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 
-import { LESSON_CONSTANTS } from '@/app/(main)/learn/_components/lesson.constant';
-import { useLearnContext } from '@/app/(main)/learn/_context/learn-context';
 import type {
   LessonButtonState,
   UseLessonButtonProperties,
 } from '@/types/lesson-button';
+
+import { useLearnContext } from '../_context/learn-context';
+import { LESSON_CONSTANTS } from './lesson.constant';
 
 export const useLessonButton = ({
   index,

@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 
-import { useLessonButton } from '@/hooks/use-lesson-button';
 import { cn } from '@/lib/utils';
 import type { LessonButtonProperties } from '@/types/lesson';
 
 import { useLearnContext } from '../_context/learn-context';
+import { useLessonButton } from '../_hooks/use-lesson-button';
 import LessonIcon from './lesson-icon';
 import LessonProgress from './lesson-progress';
 import { StartTooltip } from './start-tooltip';
