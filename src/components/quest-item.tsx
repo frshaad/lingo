@@ -23,7 +23,6 @@ export default function QuestItem({
         'flex w-full items-center',
         isLarge ? 'gap-x-4 border-t-2 p-4' : 'gap-x-3 pb-4',
       )}
-      key={quest.id}
     >
       <Image
         alt="points"
