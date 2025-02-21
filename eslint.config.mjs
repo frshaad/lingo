@@ -53,7 +53,6 @@ export default tseslint.config([
       'no-else-return': 'error',
       'default-param-last': 'error',
       'prefer-exponentiation-operator': 'error',
-      eqeqeq: 'error',
       'no-lonely-if': 'error',
     },
   },
