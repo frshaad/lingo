@@ -28,8 +28,9 @@ export function useQuizAction({
 }: UseQuizActionParameters) {
   const [pending, startTransition] = useTransition();
   const {
-    correctControls,
-    incorrectControls,
+    correctAudioControls,
+    incorrectAudioControls,
+    finishAudioControls,
     correctAudio,
     finishAudio,
     incorrectAudio,
@@ -76,7 +77,7 @@ export function useQuizAction({
         return;
       }
 
-      correctControls.play();
+      correctAudioControls.play();
       updateQuizData({
         status: 'correct',
         percentage: quizData.percentage + 100 / challenges.length,
@@ -95,7 +96,7 @@ export function useQuizAction({
     activeChallenge.id,
     challenges.length,
     completionProgress,
-    correctControls,
+    correctAudioControls,
     heartsModal,
     quizData.hearts,
     quizData.percentage,
@@ -111,7 +112,7 @@ export function useQuizAction({
         return;
       }
 
-      incorrectControls.play();
+      incorrectAudioControls.play();
       updateQuizData({ status: 'wrong' });
 
       if (!response?.error) {
@@ -122,7 +123,7 @@ export function useQuizAction({
     }
   }, [
     activeChallenge.id,
-    incorrectControls,
+    incorrectAudioControls,
     heartsModal,
     quizData.hearts,
     updateQuizData,
@@ -177,5 +178,6 @@ export function useQuizAction({
     correctAudio,
     finishAudio,
     incorrectAudio,
+    finishAudioControls,
   };
 }

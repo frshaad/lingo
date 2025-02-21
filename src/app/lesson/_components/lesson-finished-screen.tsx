@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
@@ -11,7 +12,13 @@ import { ResultCard } from './result-card';
 
 export default function LessonFinishedScreen() {
   const { width, height } = useWindowSize();
-  const { finishAudio, hearts, challengesCount } = useQuizContext();
+  const { finishAudio, hearts, challengesCount, finishAudioControls } =
+    useQuizContext();
+
+  useEffect(() => {
+    finishAudioControls.play();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

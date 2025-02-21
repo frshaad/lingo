@@ -1,17 +1,20 @@
 import { useAudio } from 'react-use';
 
 export function useAudioEffects() {
-  const [finishAudio] = useAudio({ src: '/finish.mp3', autoPlay: true });
-  const [correctAudio, , correctControls] = useAudio({ src: '/correct.wav' });
-  const [incorrectAudio, , incorrectControls] = useAudio({
+  const [finishAudio, , finishAudioControls] = useAudio({ src: '/finish.mp3' });
+  const [correctAudio, , correctAudioControls] = useAudio({
+    src: '/correct.wav',
+  });
+  const [incorrectAudio, , incorrectAudioControls] = useAudio({
     src: '/incorrect.wav',
   });
 
   return {
     finishAudio,
+    finishAudioControls,
     correctAudio,
-    correctControls,
+    correctAudioControls,
     incorrectAudio,
-    incorrectControls,
+    incorrectAudioControls,
   };
 }

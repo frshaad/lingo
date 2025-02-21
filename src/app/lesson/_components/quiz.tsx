@@ -9,11 +9,21 @@ import QuizFooter from './quiz-footer';
 import QuizHeader from './quiz-header';
 
 export default function Quiz() {
-  const { activeChallenge, lessonId, status } = useQuizContext();
+  const {
+    activeChallenge,
+    lessonId,
+    status,
+    correctAudio,
+    finishAudio,
+    incorrectAudio,
+  } = useQuizContext();
 
   if (activeChallenge.lessonId === lessonId) {
     return (
       <>
+        {finishAudio}
+        {correctAudio}
+        {incorrectAudio}
         <HeartsModal />
         <QuizHeader />
         <QuizContent />
