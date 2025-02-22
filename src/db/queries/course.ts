@@ -9,8 +9,10 @@ import { course } from '@/db/schema';
  * Retrieves all available courses from the database
  * @returns Array of all courses
  */
-export const getCourses = cache(async () => {
-  const courses = await db.query.course.findMany();
+export const getAllCourses = cache(async () => {
+  const courses = await db.query.course.findMany({
+    with: { units: true },
+  });
   return courses;
 });
 

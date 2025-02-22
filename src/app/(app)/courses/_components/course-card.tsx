@@ -8,12 +8,13 @@ import { Check, Loader } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { upsertUserProgress } from '@/actions/user-progress.action';
-import type { course } from '@/db/schema';
+import type { course, unit } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 type CourseCardProperties = {
   disabled?: boolean;
   active?: boolean;
+  units: (typeof unit.$inferSelect)[];
 } & typeof course.$inferSelect;
 
 export default function CourseCard({
@@ -22,9 +23,12 @@ export default function CourseCard({
   title,
   active,
   disabled,
+  units,
 }: CourseCardProperties) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const isCourseEmpty = units.length === 0;
+  const isCardDisabled = disabled || isPending || isCourseEmpty;
 
   const handleActiveCourse = () => {
     if (isPending || disabled) {
@@ -54,9 +58,9 @@ export default function CourseCard({
         'flex h-full min-h-52 min-w-48 flex-col items-center justify-between',
         'rounded-xl border-2 border-b-4 p-3 pb-6',
         'hover:bg-black/5 active:border-b-2',
-        (disabled || isPending) && 'pointer-events-none opacity-50',
+        isCardDisabled && 'pointer-events-none opacity-50',
       )}
-      disabled={disabled || isPending}
+      disabled={isCardDisabled}
       type="button"
       onClick={handleActiveCourse}
     >

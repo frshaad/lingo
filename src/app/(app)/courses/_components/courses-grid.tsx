@@ -1,13 +1,11 @@
-import { getCourses, getUserProgress } from '@/db/queries';
+import { getAllCourses, getUserProgress } from '@/db/queries';
 
 import CourseCard from './course-card';
 
 export default async function CoursesGrid() {
-  const coursesPromise = getCourses();
-  const userProgressPromise = getUserProgress();
   const [courses, userProgress] = await Promise.all([
-    coursesPromise,
-    userProgressPromise,
+    getAllCourses(),
+    getUserProgress(),
   ]);
 
   return (
