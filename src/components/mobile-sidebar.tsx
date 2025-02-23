@@ -1,3 +1,7 @@
+'use client';
+
+import { useCallback, useState } from 'react';
+
 import { Menu } from 'lucide-react';
 
 import Sidebar from '@/components/sidebar';
@@ -10,8 +14,19 @@ import {
 } from '@/components/ui/sheet';
 
 export default function MobileSidebar() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const closeMobileSidebar = useCallback(() => {
+    setIsOpen((previous) => !previous);
+  }, []);
+
   return (
-    <Sheet>
+    <Sheet
+      open={isOpen}
+      onOpenChange={() => {
+        closeMobileSidebar();
+      }}
+    >
       <SheetTrigger>
         <Menu />
       </SheetTrigger>
@@ -19,7 +34,7 @@ export default function MobileSidebar() {
         <SheetHeader>
           <SheetTitle />
         </SheetHeader>
-        <Sidebar />
+        <Sidebar closeMobileSidebar={closeMobileSidebar} />
       </SheetContent>
     </Sheet>
   );

@@ -20,9 +20,11 @@ const SIDEBAR_ITEMS = [
   { id: 4, label: 'shop', path: '/shop', iconSrc: '/shop.svg' },
 ];
 
-type Properties = React.ComponentPropsWithoutRef<'aside'>;
+type Properties = React.ComponentPropsWithoutRef<'aside'> & {
+  closeMobileSidebar?: () => void;
+};
 
-export default function Sidebar({ className }: Properties) {
+export default function Sidebar({ className, closeMobileSidebar }: Properties) {
   return (
     <aside
       className={cn(
@@ -36,7 +38,11 @@ export default function Sidebar({ className }: Properties) {
 
       <ul className="flex flex-1 flex-col gap-y-2">
         {SIDEBAR_ITEMS.map((item) => (
-          <SidebarItem key={item.id} {...item} />
+          <SidebarItem
+            closeMobileSidebar={closeMobileSidebar}
+            key={item.id}
+            {...item}
+          />
         ))}
       </ul>
 

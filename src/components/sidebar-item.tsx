@@ -10,9 +10,15 @@ type Properties = {
   path: string;
   label: string;
   iconSrc: string;
+  closeMobileSidebar?: () => void;
 };
 
-export default function SidebarItem({ label, path, iconSrc }: Properties) {
+export default function SidebarItem({
+  label,
+  path,
+  iconSrc,
+  closeMobileSidebar,
+}: Properties) {
   const pathname = usePathname();
   const isLinkActive = path === pathname;
 
@@ -22,6 +28,7 @@ export default function SidebarItem({ label, path, iconSrc }: Properties) {
         className="h-14 w-full justify-start"
         variant={isLinkActive ? 'sidebarGhost' : 'sidebar'}
         asChild
+        onClick={closeMobileSidebar}
       >
         <Link href={path}>
           <Image
