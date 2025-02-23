@@ -92,7 +92,10 @@ export default function OptionCard({
       return;
     }
 
-    controls.play();
+    if (audioSrc) {
+      controls.play();
+    }
+
     selectChoice(id);
   };
 
@@ -109,7 +112,7 @@ export default function OptionCard({
       type="button"
       onClick={handleClick}
     >
-      {audio}
+      {Boolean(audioSrc) && audio}
       {imageSrc ? <OptionImage alt={text} src={imageSrc} /> : undefined}
       <div
         className={cn(
@@ -120,7 +123,7 @@ export default function OptionCard({
         {isAssistType ? <div /> : undefined}
         <p
           className={cn(
-            'text-neutral-600 max-lg:text-sm',
+            'text-neutral-600 text-lg font-medium max-lg:text-sm',
             isSelected && 'text-sky-500',
             isSelected && status === 'correct' && 'text-green-500',
             isSelected && status === 'wrong' && 'text-rose-500',
