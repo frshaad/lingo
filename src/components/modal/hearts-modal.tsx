@@ -45,7 +45,7 @@ export default function HeartsModal() {
               size="lg"
               variant="primary"
               onClick={() => {
-                router.push('/store');
+                router.push('/shop');
               }}
             >
               Get unlimited hearts
