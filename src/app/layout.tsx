@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
 import ClerkAuthProvider from '@/components/clerk-provider';
-import { ReactScan } from '@/components/react-scan';
 import { Toaster } from '@/components/ui/sonner';
 import { nunito } from '@/lib/fonts';
 
@@ -21,7 +20,6 @@ export default function RootLayout({
   return (
     <ClerkAuthProvider>
       <html lang="en" suppressHydrationWarning>
-        <ReactScan />
         <body className={`${nunito.className} antialiased`}>
           {children}
           <Toaster />

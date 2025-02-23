@@ -5,7 +5,6 @@
   "singleQuote": true,
   "trailingComma": "all",
   "importOrder": [
-    "^(react-scan?/?([a-zA-Z/]*))$",
     "^(react|next?/?([a-zA-Z/]*))$",
     "<THIRD_PARTY_MODULES>",
     "^@/(.*)$",
