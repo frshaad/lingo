@@ -51,6 +51,9 @@ export function useQuizAction({
     [activeChallenge],
   );
 
+  const isLastChallenge =
+    quizData.activeChallengeIndex === challenges.length - 1;
+
   const selectChoice = useCallback(
     (choiceId: number) => {
       if (quizData.status !== 'none') {
@@ -62,12 +65,15 @@ export function useQuizAction({
   );
 
   const goToNextChallenge = useCallback(() => {
-    updateQuizData({
-      activeChallengeIndex: quizData.activeChallengeIndex + 1,
-      status: 'none',
-      selectedOption: undefined,
-    });
-  }, [quizData.activeChallengeIndex, updateQuizData]);
+    // Only proceed if we're not at the last challenge
+    if (!isLastChallenge) {
+      updateQuizData({
+        activeChallengeIndex: quizData.activeChallengeIndex + 1,
+        status: 'none',
+        selectedOption: undefined,
+      });
+    }
+  }, [isLastChallenge, quizData.activeChallengeIndex, updateQuizData]);
 
   const handleCorrectAnswer = useCallback(async () => {
     if (!activeChallenge) return;
@@ -81,10 +87,19 @@ export function useQuizAction({
       }
 
       correctAudioControls.play();
+
+      const newPercentage = quizData.percentage + 100 / challenges.length;
       updateQuizData({
         status: 'correct',
-        percentage: quizData.percentage + 100 / challenges.length,
+        percentage: newPercentage,
       });
+
+      // If this is the last challenge, set it as completed immediately
+      if (isLastChallenge) {
+        updateQuizData({
+          activeChallengeIndex: challenges.length,
+        });
+      }
 
       // Reward heart for practice sessions
       if (completionProgress === 100) {
@@ -103,6 +118,7 @@ export function useQuizAction({
     heartsModal,
     quizData.hearts,
     quizData.percentage,
+    isLastChallenge,
     updateQuizData,
   ]);
 

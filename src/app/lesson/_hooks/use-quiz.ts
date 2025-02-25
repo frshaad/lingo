@@ -6,7 +6,7 @@ const findFirstIncompleteChallengeIndex = (
   challenges: QuizChallenge[],
 ): number => {
   const index = challenges.findIndex((challenge) => !challenge.isCompleted);
-  return index === -1 ? 0 : index;
+  return index === -1 ? challenges.length : index;
 };
 
 const formatChallengeQuestion = ({ type, question }: QuizChallenge): string => {
@@ -26,9 +26,9 @@ export function useQuiz({
     lessonId,
     activeChallengeIndex,
     hearts: startingHearts,
-    percentage: completionProgress,
+    percentage: isLessonCompleted ? 100 : completionProgress,
     status: isLessonCompleted ? 'completed' : 'none',
-    selectedOption: isLessonCompleted ? 0 : undefined, // Add this line
+    selectedOption: undefined,
   });
 
   const quizActions = useQuizAction({
@@ -39,11 +39,10 @@ export function useQuiz({
   });
 
   const challengesCount = challenges.length;
-
-  // Only format title if there's an active challenge
-  const title = quizActions.activeChallenge
-    ? formatChallengeQuestion(quizActions.activeChallenge)
-    : '';
+  const activeChallenge = isLessonCompleted
+    ? undefined
+    : quizActions.activeChallenge;
+  const title = activeChallenge ? formatChallengeQuestion(activeChallenge) : '';
 
   return {
     ...quizData,
