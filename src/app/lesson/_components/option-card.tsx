@@ -33,8 +33,8 @@ const KeyShortcut = ({
     className={cn(
       'flex size-5 items-center justify-center rounded-lg border-2 font-semibold text-neutral-400 max-lg:text-xs lg:size-7',
       isSelected && 'border-sky-300 text-sky-500',
-      status === 'correct' && 'border-green-500 text-green-500',
-      status === 'wrong' && 'border-rose-500 text-rose-500',
+      isSelected && status === 'correct' && 'border-green-500 text-green-500',
+      isSelected && status === 'wrong' && 'border-rose-500 text-rose-500',
     )}
   >
     {shortcut}
