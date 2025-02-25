@@ -103,11 +103,11 @@ src/
 
 ## 🖼️ Screenshots
 
-| ![Landing Page](/public/screenshots/lingo-shot-1.png)        | ![Courses Page](/public/screenshots/lingo-shot-2.png)         |
-| ------------------------------------------------------------ | ------------------------------------------------------------- |
-| ![Learn Page](/public/screenshots/lingo-shot-3.png)          | ![Quests Page](/public/screenshots/lingo-shot-8.png)          |
-| ![Lesson Page - Wrong](/public/screenshots/lingo-shot-5.png) | ![Lesson Page- Correct](/public/screenshots/lingo-shot-6.png) |
-| ![Finish Page](/public/screenshots/lingo-shot-7.png)         | ![Shop Page](/public/screenshots/lingo-shot-9.png)            |
+| ![Landing Page](/public/screenshots/lingo-shot-1.webp)        | ![Courses Page](/public/screenshots/lingo-shot-2.webp)         |
+| ------------------------------------------------------------- | -------------------------------------------------------------- |
+| ![Learn Page](/public/screenshots/lingo-shot-3.webp)          | ![Quests Page](/public/screenshots/lingo-shot-8.webp)          |
+| ![Lesson Page - Wrong](/public/screenshots/lingo-shot-5.webp) | ![Lesson Page- Correct](/public/screenshots/lingo-shot-6.webp) |
+| ![Finish Page](/public/screenshots/lingo-shot-7.webp)         | ![Shop Page](/public/screenshots/lingo-shot-9.webp)            |
 
 ## 👨‍💻 About Me
 
