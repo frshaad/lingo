@@ -54,6 +54,8 @@ cp .env.example .env
 Add the following required environment variables to your `.env` file:
 
 ```bash
+NEXT_PUBLIC_APP_URL='http://localhost:3000' # https://lingo-kohl-gamma.vercel.app/
+
 # Clerk Authentication (Required)
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=   # Your Clerk public key
 CLERK_SECRET_KEY=                    # Your Clerk secret key
@@ -101,7 +103,11 @@ src/
 
 ## 🖼️ Screenshots
 
-[Coming soon]
+| ![Landing Page](/public/screenshots/lingo-shot-1.png)        | ![Courses Page](/public/screenshots/lingo-shot-2.png)         |
+| ------------------------------------------------------------ | ------------------------------------------------------------- |
+| ![Learn Page](/public/screenshots/lingo-shot-3.png)          | ![Quests Page](/public/screenshots/lingo-shot-8.png)          |
+| ![Lesson Page - Wrong](/public/screenshots/lingo-shot-5.png) | ![Lesson Page- Correct](/public/screenshots/lingo-shot-6.png) |
+| ![Finish Page](/public/screenshots/lingo-shot-7.png)         | ![Shop Page](/public/screenshots/lingo-shot-9.png)            |
 
 ## 👨‍💻 About Me
 
