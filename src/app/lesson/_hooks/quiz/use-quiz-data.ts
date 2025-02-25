@@ -7,6 +7,7 @@ export function useQuizData(initialQuizState: InitialQuizState) {
     ...initialQuizState,
     percentage:
       initialQuizState.percentage === 100 ? 0 : initialQuizState.percentage,
+    selectedOption: initialQuizState.status === 'completed' ? 0 : undefined,
   }));
 
   const updateQuizData = useCallback((updates: Partial<InitialQuizState>) => {

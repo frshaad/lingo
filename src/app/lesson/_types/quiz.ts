@@ -19,6 +19,6 @@ export type InitialQuizState = {
   hearts: number;
   percentage: number;
   activeChallengeIndex: number;
-  status: QuizStatus;
+  status: QuizStatus | 'completed';
   selectedOption?: number;
 };

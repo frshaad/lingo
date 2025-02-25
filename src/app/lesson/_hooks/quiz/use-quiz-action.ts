@@ -44,10 +44,11 @@ export function useQuizAction({
     }
   });
 
-  const activeChallenge = challenges[quizData.activeChallengeIndex];
+  const activeChallenge =
+    challenges[quizData.activeChallengeIndex] || undefined;
   const activeChallengeChoices = useMemo(
-    () => activeChallenge.challengeOptions ?? [],
-    [activeChallenge.challengeOptions],
+    () => activeChallenge?.challengeOptions ?? [],
+    [activeChallenge],
   );
 
   const selectChoice = useCallback(
@@ -69,6 +70,8 @@ export function useQuizAction({
   }, [quizData.activeChallengeIndex, updateQuizData]);
 
   const handleCorrectAnswer = useCallback(async () => {
+    if (!activeChallenge) return;
+
     try {
       const response = await upsertChallengeProgress(activeChallenge.id);
 
@@ -93,7 +96,7 @@ export function useQuizAction({
       toast.error('Something went wrong. Please try again.');
     }
   }, [
-    activeChallenge.id,
+    activeChallenge,
     challenges.length,
     completionProgress,
     correctAudioControls,
@@ -104,6 +107,8 @@ export function useQuizAction({
   ]);
 
   const handleWrongAnswer = useCallback(async () => {
+    if (!activeChallenge) return;
+
     try {
       const response = await reduceHearts(activeChallenge.id);
 
@@ -122,11 +127,11 @@ export function useQuizAction({
       toast.error('Something went wrong. Please try again.');
     }
   }, [
-    activeChallenge.id,
+    activeChallenge,
     incorrectAudioControls,
+    updateQuizData,
     heartsModal,
     quizData.hearts,
-    updateQuizData,
   ]);
 
   const proceedToNextStep = useCallback(() => {

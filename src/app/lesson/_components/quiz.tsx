@@ -11,26 +11,26 @@ import QuizHeader from './quiz-header';
 export default function Quiz() {
   const {
     activeChallenge,
-    lessonId,
     status,
     correctAudio,
     finishAudio,
     incorrectAudio,
+    isLessonCompleted,
   } = useQuizContext();
 
-  if (activeChallenge.lessonId === lessonId) {
-    return (
-      <>
-        {finishAudio}
-        {correctAudio}
-        {incorrectAudio}
-        <HeartsModal />
-        <QuizHeader />
-        <QuizContent />
-        <QuizFooter status={status} />
-      </>
-    );
+  if (isLessonCompleted || !activeChallenge) {
+    return <LessonFinishedScreen />;
   }
 
-  return <LessonFinishedScreen />;
+  return (
+    <>
+      {finishAudio}
+      {correctAudio}
+      {incorrectAudio}
+      <HeartsModal />
+      <QuizHeader />
+      <QuizContent />
+      <QuizFooter status={status} />
+    </>
+  );
 }

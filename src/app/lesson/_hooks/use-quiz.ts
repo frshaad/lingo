@@ -20,26 +20,36 @@ export function useQuiz({
   challenges,
 }: QuizHookArguments) {
   const activeChallengeIndex = findFirstIncompleteChallengeIndex(challenges);
+  const isLessonCompleted = activeChallengeIndex >= challenges.length;
+
   const { quizData, updateQuizData } = useQuizData({
     lessonId,
     activeChallengeIndex,
     hearts: startingHearts,
     percentage: completionProgress,
-    status: 'none',
-    selectedOption: undefined,
+    status: isLessonCompleted ? 'completed' : 'none',
+    selectedOption: isLessonCompleted ? 0 : undefined, // Add this line
   });
+
   const quizActions = useQuizAction({
     quizData,
     updateQuizData,
     challenges,
     completionProgress,
   });
+
   const challengesCount = challenges.length;
+
+  // Only format title if there's an active challenge
+  const title = quizActions.activeChallenge
+    ? formatChallengeQuestion(quizActions.activeChallenge)
+    : '';
 
   return {
     ...quizData,
     ...quizActions,
-    title: formatChallengeQuestion(quizActions.activeChallenge),
+    title,
     challengesCount,
+    isLessonCompleted,
   };
 }

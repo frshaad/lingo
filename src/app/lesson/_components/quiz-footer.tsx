@@ -23,7 +23,6 @@ export default function QuizFooter({ status }: QuizFooterProperties) {
     selectedOption,
     lessonId,
     proceedToNextStep,
-    pending,
     correctAudio,
     incorrectAudio,
   } = useQuizContext();
@@ -58,16 +57,10 @@ export default function QuizFooter({ status }: QuizFooterProperties) {
           />
           <Button
             className="ml-auto capitalize"
-            disabled={pending || !selectedOption}
+            disabled={status === 'none' && !selectedOption} // Change this line
             size={isMobile ? 'sm' : 'lg'}
             variant={status === 'wrong' ? 'danger' : 'secondary'}
-            onClick={() => {
-              if (status === 'completed') {
-                router.push('/learn');
-                return;
-              }
-              proceedToNextStep();
-            }}
+            onClick={handleProceedToNextStep}
           >
             {status === 'none' && 'Check'}
             {status === 'correct' && 'Next'}
